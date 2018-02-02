@@ -1,0 +1,117 @@
+using System;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Host;
+using DFC.Integration.AVFeed.Data.Models;
+using System.Linq;
+using Newtonsoft.Json;
+using DFC.Integration.AVFeed.Data.Interfaces;
+using Autofac;
+using DFC.Integration.AVFeed.Function.Common;
+using DFC.Integration.AVFeed.Core;
+using System.Threading.Tasks;
+using DFC.Integration.AVFeed.Data.Models;
+
+namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
+{
+    public static class GetAVForSocMappingAzFunction
+    {
+        [FunctionName(nameof(GetAVForSocMappingAzFunction))]
+        public static async Task Run(
+            [QueueTrigger("socmapping")]
+            SocMapping myQueueItem, 
+            TraceWriter log,
+            [Queue("projectedavfeedforsocmapping")]
+            IAsyncCollector<ProjectedVacancySummary> projectedVacancySummary,
+            [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
+            IAsyncCollector<AuditRecord<object, object>> auditRecord)
+        {
+            try
+            {
+                var startTime = DateTime.UtcNow;
+
+                ConfigureLog.ConfigureNLogWithAppInsightsTarget();
+
+                var mappedResult = await GetAVForSoc.Startup.RunAsync(myQueueItem, RunMode.Azure, auditRecord, new AuditRecord<object, object>
+                {
+                    CorrelationId = myQueueItem.CorrelationId,
+                    StartedAt = startTime,
+                    EndedAt = DateTime.Now,
+                    Function = nameof(GetAVForSocMappingAzFunction),
+                    Input = "",
+                    Output = ""
+                });
+                await AuditMapping(myQueueItem, auditRecord, startTime, mappedResult);
+
+                var projectedResult = Function.ProjectVacanciesForSoc.Startup.Run(RunMode.Azure, mappedResult);
+                projectedResult.CorrelationId = myQueueItem.CorrelationId;
+                await projectedVacancySummary.AddAsync(projectedResult);
+                await AuditProjections(myQueueItem, auditRecord, startTime, mappedResult, projectedResult);
+            }
+            finally
+            {
+                log.Info($"C# Queue trigger function processed: {myQueueItem}");
+            }
+        }
+
+        private static async Task AuditProjections(SocMapping myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, MappedVacancyDetails mappedResult, ProjectedVacancySummary projectedResult)
+        {
+            myQueueItem.AccessToken = null;
+            await auditRecord.AddAsync(new AuditRecord<object, object>
+            {
+                CorrelationId = myQueueItem.CorrelationId,
+                StartedAt = startTime,
+                EndedAt = DateTime.Now,
+                Function = "ProjectVacanciesAzFunction",
+                Input = new
+                {
+                    CorrelationId = myQueueItem.CorrelationId,
+                    SocCode = mappedResult.SocCode,
+                    SocMappingId = mappedResult.SocMappingId,
+                    VacanciesCount = mappedResult.Vacancies.Count()
+                },
+                Output = projectedResult,
+            });
+        }
+
+        private static async Task AuditMapping(SocMapping myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, MappedVacancyDetails mappedResult)
+        {
+            myQueueItem.AccessToken = null;
+            await auditRecord.AddAsync(new AuditRecord<object, object>
+            {
+                CorrelationId = myQueueItem.CorrelationId,
+                StartedAt = startTime,
+                EndedAt = DateTime.Now,
+                Function = nameof(GetAVForSocMappingAzFunction),
+                Input = myQueueItem,
+                Output = new
+                {
+                    CorrelationId = myQueueItem.CorrelationId,
+                    SocCode = mappedResult.SocCode,
+                    SocMappingId = mappedResult.SocMappingId,
+                    VacanciesCount = mappedResult.Vacancies.Count()
+                },
+            });
+
+            int index = 1;
+            foreach (var item in mappedResult.Vacancies)
+            {
+                await auditRecord.AddAsync(new AuditRecord<object, object>
+                {
+                    CorrelationId = myQueueItem.CorrelationId,
+                    StartedAt = startTime,
+                    EndedAt = DateTime.Now,
+                    Function = nameof(GetAVForSocMappingAzFunction),
+                    Input = myQueueItem,
+                    Output = new
+                    {
+                        CorrelationId = myQueueItem.CorrelationId,
+                        SocCode = mappedResult.SocCode,
+                        SocMappingId = mappedResult.SocMappingId,
+                        Vacancy = item,
+                        Index = index++
+                    },
+                });
+            }
+        }
+    }
+}
