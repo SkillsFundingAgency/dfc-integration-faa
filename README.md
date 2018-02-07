@@ -30,7 +30,7 @@ The azure functions depends on other dependencies listed below. To configure the
 #### Azure CosmosDB
 
 Cosmos DB is a database service that is globally distributed. It allows you to manage your data even if you keep them in data centers that are scattered throughout the world.
-It provides the tools you need to scale both global distribution pattern and computational resources, and these tools are provided by Microsoft Azure. 
+The Apprenticeship Feed is inserted in the CosmosDB for Audit Trail and Soc Mapping.
 
 You can learn more about CosmosDB [How to use CosmosDB](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction). 
 
@@ -42,7 +42,7 @@ In your Visual Studio 2017 you can monitor CosmosDB repository .[Exploring Cosmo
 
 #### Azure Storage
 
-Azure Queue storage provides cloud messaging between application components. In designing applications for scale, application components are often decoupled, so that they can scale independently.
+Azure Queue storage provides cloud messaging between application components.  The functions is triggered by the Queue item.
 
 Queue storage also supports managing asynchronous tasks and building process work flows. You can learn more about Azure storage [How to use Azure Queue](https://docs.microsoft.com/en-us/azure/storage/queues/storage-dotnet-how-to-use-queues)
 
