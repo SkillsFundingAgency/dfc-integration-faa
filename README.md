@@ -23,11 +23,16 @@ The import process is built in c# and the .NET framework, and runs within the Az
 
 ### Azure Function
 |File|Setting|Example value|
+|-|-|-|
 ### Azure CosmosDB
 |File|Setting|Example value|
+|-|-|-|
 ### Azure Storage
 |File|Setting|Example value|
+|-|-|-|
 ### Find a Career API
 |File|Setting|Example value|
+|-|-|-|
 ### Find an Apprenticeship API
 |File|Setting|Example value|
+|-|-|-|
