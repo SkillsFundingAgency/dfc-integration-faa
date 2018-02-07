@@ -40,6 +40,36 @@ Please find more info on https://dzone.com/articles/documentdb-in-visual-studio-
 |-------------------------------------------------- |:----------------------|:-------
 |DFC.Integration.AVFeed.AzureFunctions				|	AVAuditCosmosDB	|	\_\_avAuditCosmosDB__ |
 
+#####  DFC.Integration.AVFeed.Function.GetAVForSoc.Console 
+
+This is an Console based app through which the AVFeed data can be fetched and be stored as Json. This
+application can be run locally and can be debugged. One can see the complete flow of Feed data coming and how
+the json is getting generated which eventualy will be stored in CosmosDB and can be pushed to the Sitefinity
+Repository for the Soc Mapping.
+
+
+|Config File	                                    | Key	                | Token	                    |
+|-------------------------------------------------- |:----------------------|:-------
+|DFC.Integration.AVFeed.AzureFunctions				|	AVAuditCosmosDB	|	\_\_avAuditCosmosDB__ |
+
+##### DFC.Integration.AVFeed.Function.GetMappings.Console 
+
+This application gets the mapping data for every Soc Code.
+
+|Config File	                                    | Key	                | Token	                    |
+|-------------------------------------------------- |:----------------------|:-------
+|DFC.Integration.AVFeed.AzureFunctions				|	AVAuditCosmosDB	|	\_\_avAuditCosmosDB__ |
+
+#####  DFC.Integration.AVFeed.Function.PublishVacancies.Console 
+
+This application push the data to the Sitefinity Repository for the Soc Code which is mapped , as the end result
+the Sitefinity displays the Mapped Apprenticeship Soc Data on the client (nationalcareersservice.gov.uk).
+
+|Config File	                                    | Key	                | Token	                    |
+|-------------------------------------------------- |:----------------------|:-------
+|DFC.Integration.AVFeed.AzureFunctions				|	AVAuditCosmosDB	|	\_\_avAuditCosmosDB__ |
+
+
 Create dependency instructions / overview
 
 Update the following configuration sections with the appropriate details
