@@ -103,7 +103,8 @@ Then a section for each dependency, stating what someone would need to do to sta
         
         *A .Net dynamic fake framework for creating all types of fake objects, mocks, stubs etc . Please find more info on [How to use FakeItEasy](https://fakeiteasy.github.io/)* 
     2.  **xUnit**
-     *xUnit.net is a free, open source, community-focused unit testing tool for the .NET Framework . Please find more info on [How to use xUnit](https://xunit.github.io/)
+     
+        *xUnit.net is a free, open source, community-focused unit testing tool for the .NET Framework . Please find more info on [How to use xUnit](https://xunit.github.io/)*
 
 * ### Inversion of Control Container
     1.  **Autofac**
