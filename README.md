@@ -1,7 +1,7 @@
 # Digital First Careers - Apprenticeship vacancy import
  
 ## Introduction
-The “Find a Career” digital product (https://github.com/SkillsFundingAgency/dfc-digital) showcases available apprenticeship vacancies for a given job profile (such as nurse).  The component in this repository implements the import process which loads apprenticeship vacancies against the appropriate job profile.  The import process has the following logical steps.
+The “Find a Career” digital product (https://github.com/SkillsFundingAgency/dfc-integration-faa) showcases available apprenticeship vacancies for a given job profile (such as nurse).  The component in this repository implements the import process which loads apprenticeship vacancies against the appropriate job profile.  The import process has the following logical steps.
 1.	Identify job profiles applicable for apprenticeships
 2.	Search for appropriate vacancies using the “Find an Apprenticeship” API.
 3.	Executes logic to determine which two vacancies to showcase against a job profile
