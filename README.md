@@ -16,7 +16,7 @@ The import process is built in c# and the .NET framework, and runs within the Az
 |Azure Function			| Modular functions for ETL process, one function trigger the other using storage queues.|
 |Azure CosmosDB			| Used for audit trail |
 |Azure Storage			| Used for messaging between functions |
-|Find a Career	| Used to map the job profile with available apprenticeships |
+|Find a Career	| Used for mapping the job profile with available apprenticeships and publishing the showcases to the “Find a Career” website |
 |Find an Apprenticeship | API to extract available apprenticeships |
 
 ## Running Locally
