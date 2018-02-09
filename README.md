@@ -2,13 +2,13 @@
 # Digital First Careers - Apprenticeship vacancy import
  
 ## Introduction
-The ìFind a Careerî digital product (https://github.com/SkillsFundingAgency/dfc-integration-faa) showcases available apprenticeship vacancies for a given job profile (such as nurse).  The component in this repository implements the import process which loads apprenticeship vacancies against the appropriate job profile.  The import process has the following logical steps.
+The ‚ÄúFind a Career‚Äù digital product (https://github.com/SkillsFundingAgency/dfc-integration-faa) showcases available apprenticeship vacancies for a given job profile (such as nurse).  The component in this repository implements the import process which loads apprenticeship vacancies against the appropriate job profile.  The import process has the following logical steps.
 1.	Identify job profiles applicable for apprenticeships
-2.	Search for appropriate vacancies using the ìFind an Apprenticeshipî API.
+2.	Search for appropriate vacancies using the ‚ÄúFind an Apprenticeship‚Äù API.
 3.	Executes logic to determine which two vacancies to showcase against a job profile
-4.	Pushes the showcased vacancies into the ìFind a Careerî digital product.
+4.	Pushes the showcased vacancies into the ‚ÄúFind a Career‚Äù digital product.
 
-The import process is built in c# and the .NET framework, and runs within the Azure Functions (Microsoftís Severless product offering).  Azure storage queues are used to message between functions within the processing pipeline.
+The import process is built in c# and the .NET framework, and runs within the Azure Functions (Microsoft‚Äôs Severless product offering).  Azure storage queues are used to message between functions within the processing pipeline.
 
 ## List of dependencies
 
@@ -17,7 +17,7 @@ The import process is built in c# and the .NET framework, and runs within the Az
 |Azure Function			| Modular functions for ETL process, one function trigger the other using storage queues.|
 |Azure CosmosDB			| Used for audit trail |
 |Azure Storage			| Used for messaging between functions |
-|Find a Career	| Used for mapping the job profile with available apprenticeships and publishing the showcases to the ìFind a Careerî website |
+|Find a Career	| Used for mapping the job profile with available apprenticeships and publishing the showcases to the ‚ÄúFind a Career‚Äù website |
 |Find an Apprenticeship | API to extract available apprenticeships |
 
 ## Running Locally
@@ -39,7 +39,7 @@ In your Visual Studio 2017 you can monitor CosmosDB repository .[Exploring Cosmo
 
 |File                                       |Setting                |Example value                   |
 |------------------------------------------:|----------------------:|-------------------------------:|
-|DFC.Integration.AVFeed.AzureFunctions      | AVAuditCosmosDB       |AccountEndpoint=< copy from Azure ComosDB Resource>;AccountKey=< copy SAS Token generated at Azure ComosDB resource>==;    |
+|DFC.Integration.AVFeed.AzureFunctions      | AVAuditCosmosDB       |AccountEndpoint=< copy from Azure ComosDB Resource>;AccountKey=< copy SAS Token generated at Azure ComosDB resource>   |
 
 #### Azure Storage
 
@@ -53,11 +53,11 @@ To monitor locally you need Azure storage Explorer which can be downloaded from 
 
 |File                                       |Setting                |Example value                  |
 |------------------------------------------:|----------------------:|------------------------------:|
-| DFC.Integration.AVFeed.AzureFunctions     | AzureWebJobsStorage   | DefaultEndpointsProtocol=https;AccountName=< your account name>;AccountKey=< get it from azure function SAS token>==;EndpointSuffix=core.windows.net                   |
+| DFC.Integration.AVFeed.AzureFunctions     | AzureWebJobsStorage   | DefaultEndpointsProtocol=https;AccountName=< your account name>;AccountKey=< get it from azure function SAS token>;EndpointSuffix=core.windows.net                   |
 
 #### Find a Career API
 
-The ìFind a careerî product provides the digital front end for citizens to self-serve information and advice on careers. The product enables users to explore options for career goals and make a confident and informed choice of one that suits them.
+The ‚ÄúFind a career‚Äù product provides the digital front end for citizens to self-serve information and advice on careers. The product enables users to explore options for career goals and make a confident and informed choice of one that suits them.
 
 The product uses the Sitefinity CMS solution at is core, and uses the add-on model to extend the core Sitefinity functionality to meet the needs of citizens.
 
@@ -77,13 +77,13 @@ The product uses the Sitefinity CMS solution at is core, and uses the add-on mod
 
 Its a goverment API which provides you the list of all Apprenticeship Available in UK . 
 
-|File                                       |Setting                    |Example value              |
-|-                                          :|-                         :|-                         |
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.Endpoint              | https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc|
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.ExternalSystemId      | xxxxxx-xxfb-xxxx-xxxe-1xxx|
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.MaxBufferSize         | 6553600                   |
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.MaxReceivedMessageSize| 6553600                   |
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.PublicKey              |xx-\_xxxxxx\_             |
+| File |Setting |Example value |
+|-|-|-|
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.Endpoint | https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc |
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.ExternalSystemId      | GUID - 00000000-0000-0000-0000-000000000000 |
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.MaxBufferSize         | 65536 |
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.MaxReceivedMessageSize| 65536 |
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.PublicKey              | Key123 |
 
 ## More Information
 
