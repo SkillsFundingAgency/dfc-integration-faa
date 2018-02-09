@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ffbe9ce8-6d45-4f2a-9d43-eefe81f382ba" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://pre-soapapi.findapprenticeship.service.gov.uk/Services/VacancyDetails/VacancyDetails51.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="VacancyDetails51.disco" MetadataType="Disco" ID="97544442-7ee2-476f-923e-cb868f90e098" SourceId="1" SourceUrl="https://pre-soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc?disco" />
+    <MetadataFile FileName="VacancyDetails51.xsd" MetadataType="Schema" ID="998c3939-4027-4d14-9a8d-e40c2a7699e0" SourceId="1" SourceUrl="https://pre-soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc?xsd=xsd0" />
+    <MetadataFile FileName="VacancyDetails511.xsd" MetadataType="Schema" ID="ca100fea-0dbb-41a8-a386-9dc7a7cc2720" SourceId="1" SourceUrl="https://pre-soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc?xsd=xsd2" />
+    <MetadataFile FileName="VacancyDetails512.xsd" MetadataType="Schema" ID="d1448290-232b-4ca5-aa96-8dfdb733fb3c" SourceId="1" SourceUrl="https://pre-soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc?xsd=xsd1" />
+    <MetadataFile FileName="VacancyDetailsService.wsdl" MetadataType="Wsdl" ID="cf47ce25-0350-4cc2-bc7a-e434641f8cdd" SourceId="1" SourceUrl="https://pre-soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc?wsdl" />
+    <MetadataFile FileName="VacancyDetails513.xsd" MetadataType="Schema" ID="467b37ed-bccc-4831-ad37-fecf5ea6f829" SourceId="1" SourceUrl="https://pre-soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

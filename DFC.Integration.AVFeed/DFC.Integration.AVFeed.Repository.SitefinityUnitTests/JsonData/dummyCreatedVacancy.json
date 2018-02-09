@@ -1,0 +1,18 @@
+﻿{
+  "@odata.context": "http://localhost/api/das-integration/$metadata#apprenticeshipvacancies/$entity",
+  "Id": "c02fbd4c-98f8-4257-87db-4dda9fd47c76",
+  "LastModified": "2017-10-16T09:38:12Z",
+  "PublicationDate": "2017-10-16T09:38:12Z",
+  "ExpirationDate": null,
+  "DateCreated": "2017-10-16T09:38:12Z",
+  "UrlName": "3a183bb5-8d7b-4ec2-87cf-82e661c87f13",
+  "HoursUnitAmount": null,
+  "URL": "https://www.findapprenticeship.service.gov.uk/apprenticeship/-187306",
+  "HoursUnitType": null,
+  "Location": "M46 0LE",
+  "WageUnitType": "Dummy Wage",
+  "WageUnitAmount": null,
+  "Title": "Dummy test Apprentice Pharmacy Assistant (A303)",
+  "WageAmount": "£166.80",
+  "VacancyId": "1314835"
+}
