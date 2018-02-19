@@ -60,7 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IGetServiceHealthStatus.cs" />
+    <Compile Include="Interfaces\IGetServiceHealthStatus.cs" />
     <Compile Include="Interfaces\IApprenticeshipVacancyRepository.cs" />
     <Compile Include="Interfaces\IHttpClientService.cs" />
     <Compile Include="Interfaces\IAuditService.cs" />
@@ -83,6 +83,7 @@
     <Compile Include="Models\MappedVacancySummary.cs" />
     <Compile Include="Models\PublishedAV.cs" />
     <Compile Include="Models\PublishedVacancySummary.cs" />
+    <Compile Include="Models\ServiceHealthCheckStatus.cs" />
     <Compile Include="Models\SocMaping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

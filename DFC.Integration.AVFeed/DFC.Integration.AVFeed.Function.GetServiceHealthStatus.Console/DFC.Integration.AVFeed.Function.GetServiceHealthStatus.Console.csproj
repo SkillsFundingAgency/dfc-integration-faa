@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8262BAA2-4419-43D0-855D-B1282622A170}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console</RootNamespace>
+    <AssemblyName>DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Core\DFC.Integration.AVFeed.Core.csproj">
+      <Project>{26267d67-b97f-4a6f-99c6-eb23de05bcbf}</Project>
+      <Name>DFC.Integration.AVFeed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Data\DFC.Integration.AVFeed.Data.csproj">
+      <Project>{fdecc75b-0821-4015-974a-5056b5a00344}</Project>
+      <Name>DFC.Integration.AVFeed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Function.GetServiceHealthStatus\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.csproj">
+      <Project>{5807d139-1fca-44b9-a387-a6b4fcc5163b}</Project>
+      <Name>DFC.Integration.AVFeed.Function.GetServiceHealthStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Function.TestHelper\DFC.Integration.AVFeed.Function.TestHelper.csproj">
+      <Project>{01b544aa-ae29-4247-8068-e31c9f9cf88e}</Project>
+      <Name>DFC.Integration.AVFeed.Function.TestHelper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
