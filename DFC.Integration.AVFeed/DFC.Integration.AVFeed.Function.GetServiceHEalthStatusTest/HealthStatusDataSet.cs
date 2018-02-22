@@ -17,7 +17,7 @@
                     ApplicationStatus = HttpStatusCode.OK,
                     IsApplicationRunning = true,
                     IsApplicationExternal = true,
-                    ApplicationStatusDescription = "Application endpoint at :{url} is in healthy state.",
+                    ApplicationStatusDescription = "Application endpoint at :http://local-beta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs is in healthy state.",
                     FailedAt = null
                 },
                 "http://local-beta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs"
@@ -26,14 +26,14 @@
             {
                 new ServiceHealthCheckStatus
                 {
-                    ApplicationName = "http://local-beta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs",
+                    ApplicationName = "http://localbeta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs",
                     ApplicationStatus = HttpStatusCode.Gone,
                     IsApplicationRunning = false,
                     IsApplicationExternal = true,
-                    ApplicationStatusDescription = "Application endpoint at :http://local-beta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs failed to respond.Check endpoint configuration.",
+                    ApplicationStatusDescription = "Application endpoint at :http://localbeta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs failed to respond.Check endpoint configuration.",
                     FailedAt = DateTime.UtcNow
                 },
-                "http://local-beta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs"
+                "http://localbeta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs"
             };
             yield return new object[]
             {
@@ -43,7 +43,7 @@
                     ApplicationStatus = HttpStatusCode.OK,
                     IsApplicationRunning = true,
                     IsApplicationExternal = true,
-                    ApplicationStatusDescription = "Application endpoint at :{url} is in healthy state.",
+                    ApplicationStatusDescription = "Application endpoint at :https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc is in healthy state.",
                     FailedAt = null
                 },
                 "https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc"
@@ -52,14 +52,14 @@
             {
                 new ServiceHealthCheckStatus
                 {
-                    ApplicationName = "https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc",
+                    ApplicationName = "https://soapapifindapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc",
                     ApplicationStatus = HttpStatusCode.Gone,
                     IsApplicationRunning = false,
                     IsApplicationExternal = true,
-                    ApplicationStatusDescription = "Application endpoint at :https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc failed to respond.Check endpoint configuration.",
+                    ApplicationStatusDescription = "Application endpoint at :https://soapapifindapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc failed to respond.Check endpoint configuration.",
                     FailedAt = DateTime.UtcNow
                 },
-                "https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc"
+                "https://soapapifindapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc"
             };
         }
     }

@@ -32,20 +32,15 @@
         public void GetServiceHealthStatus(ServiceHealthCheckStatus status,string uri)
         {
             //Arrange
-            var httpWReq = (HttpWebRequest)WebRequest.Create(uri);
-            var response = (HttpWebResponse)httpWReq.GetResponse();
-          
-            var externalFeedProxy = A.Fake<IHttpExternalFeedProxy>();
-            A.CallTo(() => externalFeedProxy.GetResponseFromUri(uri)).Returns(response);
+            var externalFeedProxy = new HttpExternalFeedProxy();
 
             var serviceHealthCheckStatus = new GetAvServiceHealthStatus(externalFeedProxy);
             var result = serviceHealthCheckStatus.GetExternalFeedStatusAsync(uri).Result;
-
+            status.FailedAt = result.FailedAt;
             //Assert
             result.Should().BeEquivalentTo(status);
             result.Should().NotBe(null);
 
-            A.CallTo(() => externalFeedProxy.GetResponseFromUri(A<string>._)).MustHaveHappened();
         }
     }
 }
