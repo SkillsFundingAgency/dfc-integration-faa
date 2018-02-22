@@ -3,7 +3,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using DFC.Integration.AVFeed.Data.Models;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace DFC.Integration.AVFeed.AzureFunctions
 {
