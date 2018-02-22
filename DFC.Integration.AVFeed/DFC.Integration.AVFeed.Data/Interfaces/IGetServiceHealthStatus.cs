@@ -6,8 +6,8 @@
 
     public interface IGetServiceHealthStatus
     {
-        Task<ServiceHealthCheckStatus> GetAvFeedHealthStatusInfoAsync();
-        Task<ServiceHealthCheckStatus> GetSitefinityHealthStatusInfoAsync();
+        Task<ServiceHealthCheckStatus> GetApprenticeshipFeedHealthStatusAsync();
+        Task<ServiceHealthCheckStatus> GetSitefinityHealthStatusAsync();
       
     }
 }

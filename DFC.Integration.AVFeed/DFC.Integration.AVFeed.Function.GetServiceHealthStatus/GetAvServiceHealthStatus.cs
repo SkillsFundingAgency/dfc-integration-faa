@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Net;
 using DFC.Integration.AVFeed.Core;
 using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
-using Microsoft.Azure.WebJobs.Host;
+
 namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
 {
     using Interfaces;
@@ -13,24 +12,23 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
     {
         private IHttpExternalFeedProxy HttpExternalFeedProxy { get; set; }
 
-        // Default constructor required for DI Autofac
         public GetAvServiceHealthStatus(IHttpExternalFeedProxy httpClientServiceProxy)
         {
-            this.HttpExternalFeedProxy = httpClientServiceProxy;
+            HttpExternalFeedProxy = httpClientServiceProxy;
         }
         #region Implementation of IGetServiceHealthStatus
        
-        public async Task<ServiceHealthCheckStatus> GetAvFeedHealthStatusInfoAsync()
+        public async Task<ServiceHealthCheckStatus> GetApprenticeshipFeedHealthStatusAsync()
         {
-            return await GetAvFeedExternalFeedStatusAsync(Constants.ApprenticeshipEndpoint);
+            return await GetExternalFeedStatusAsync(Constants.ApprenticeshipEndpoint);
         }
 
-        public async Task<ServiceHealthCheckStatus> GetSitefinityHealthStatusInfoAsync()
+        public async Task<ServiceHealthCheckStatus> GetSitefinityHealthStatusAsync()
         {
-           return await GetAvFeedExternalFeedStatusAsync(Constants.SiteFinityEndpoint);
+           return await GetExternalFeedStatusAsync(Constants.SiteFinityEndpoint);
         }
       
-        public  async Task<ServiceHealthCheckStatus> GetAvFeedExternalFeedStatusAsync(string url)
+        public  async Task<ServiceHealthCheckStatus> GetExternalFeedStatusAsync(string url)
         {
             var healthCheckStatus = new ServiceHealthCheckStatus {ApplicationName = url};
             try
@@ -40,13 +38,14 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
                     healthCheckStatus.ApplicationStatus = avWcfFeedResponse.StatusCode;
                     healthCheckStatus.IsApplicationExternal = true;
                     healthCheckStatus.IsApplicationRunning = true;
-                    healthCheckStatus.ApplicationStatusDescription = avWcfFeedResponse.StatusDescription;
+                    healthCheckStatus.ApplicationStatusDescription = $"Application endpoint at :{url} is in healthy state."; 
                 }
                   return healthCheckStatus;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                healthCheckStatus.ApplicationStatusDescription = ex.Message;
+                healthCheckStatus.FailedAt = DateTime.UtcNow;
+                healthCheckStatus.ApplicationStatusDescription = $"Application endpoint at :{url} failed to respond.Check endpoint configuration.";
                 return healthCheckStatus;
             }
         }

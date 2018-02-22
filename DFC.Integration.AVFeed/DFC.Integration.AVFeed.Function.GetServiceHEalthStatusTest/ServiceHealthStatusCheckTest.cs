@@ -1,15 +1,14 @@
 ﻿namespace DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest
 {
-    using System.Configuration;
     using System.Net;
-    using Data.Interfaces;
+    using Data.Models;
     using GetServiceHealthStatus.Interfaces;
     using FakeItEasy;
     using FluentAssertions;
     using GetServiceHealthStatus;
     using Xunit;
 
-    public class ServiceHealthStatusCheckTest
+    public class ServiceHealthStatusCheckTest : HelperHealthStatusDataSet
     {
         [Fact()]
         public void GetAvFeedHealthStatusInfo()
@@ -19,33 +18,34 @@
             var response = (HttpWebResponse)httpWReq.GetResponse();
 
             var externalFeedProxy = A.Fake<IHttpExternalFeedProxy>();
-            var serviceHealthStatus = A.Fake<IGetServiceHealthStatus>();
             A.CallTo(() => externalFeedProxy.GetResponseFromUri("https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc")).Returns(response);
 
             var serviceHealthCheckStatus=new GetAvServiceHealthStatus(externalFeedProxy);
-            var result= serviceHealthCheckStatus.GetAvFeedHealthStatusInfoAsync().Result;
+            var result= serviceHealthCheckStatus.GetApprenticeshipFeedHealthStatusAsync().Result;
+
             result.Should().NotBe(null);
-
             A.CallTo(() => externalFeedProxy.GetResponseFromUri(A<string>._)).MustHaveHappened();
-
         }
-        [Fact()]
-        public void GetSitefinityHealthStatusInfo()
+       
+        [Theory]
+        [MemberData(nameof(HealthStatus))]
+        public void GetServiceHealthStatus(ServiceHealthCheckStatus status,string uri)
         {
             //Arrange
-            var httpWReq = (HttpWebRequest)WebRequest.Create("http://local-beta.nationalcareersservice.org.uk");
+            var httpWReq = (HttpWebRequest)WebRequest.Create(uri);
             var response = (HttpWebResponse)httpWReq.GetResponse();
-            var endpoint = ConfigurationManager.AppSettings.Get("Sitefinity.SocApiEndPoint");
+          
             var externalFeedProxy = A.Fake<IHttpExternalFeedProxy>();
-            var serviceHealthStatus = A.Fake<IGetServiceHealthStatus>();
-            A.CallTo(() => externalFeedProxy.GetResponseFromUri("http://local-beta.nationalcareersservice.org.uk")).Returns(response);
+            A.CallTo(() => externalFeedProxy.GetResponseFromUri(uri)).Returns(response);
 
             var serviceHealthCheckStatus = new GetAvServiceHealthStatus(externalFeedProxy);
-            var result = serviceHealthCheckStatus.GetAvFeedHealthStatusInfoAsync().Result;
+            var result = serviceHealthCheckStatus.GetExternalFeedStatusAsync(uri).Result;
+
+            //Assert
+            result.Should().BeEquivalentTo(status);
             result.Should().NotBe(null);
 
             A.CallTo(() => externalFeedProxy.GetResponseFromUri(A<string>._)).MustHaveHappened();
-
         }
     }
 }
