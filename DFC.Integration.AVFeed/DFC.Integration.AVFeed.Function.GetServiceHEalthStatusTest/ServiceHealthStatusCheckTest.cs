@@ -40,7 +40,6 @@
             //Assert
             result.Should().BeEquivalentTo(status);
             result.Should().NotBe(null);
-
         }
     }
 }
