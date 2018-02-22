@@ -7,6 +7,7 @@
     public interface IGetServiceHealthStatus
     {
         Task<ServiceHealthCheckStatus> GetAvFeedHealthStatusInfoAsync();
-        Task<dynamic> GetAzureServelessHealthStatusInfoAsync();
+        Task<ServiceHealthCheckStatus> GetSitefinityHealthStatusInfoAsync();
+      
     }
 }

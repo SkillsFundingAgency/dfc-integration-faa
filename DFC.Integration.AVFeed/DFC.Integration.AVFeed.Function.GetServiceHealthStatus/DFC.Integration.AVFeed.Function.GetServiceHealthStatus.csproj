@@ -129,10 +129,10 @@
   <ItemGroup>
     <Compile Include="AutofacModule.cs" />
     <Compile Include="GetAvServiceHealthStatus.cs" />
-    <Compile Include="Interfaces\IAuthentication.cs" />
+    <Compile Include="HttpExternalFeedProxy.cs" />
+    <Compile Include="Interfaces\IHttpExternalFeedProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="TokenSharedMemorycs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFC.Integration.AVFeed.Core\DFC.Integration.AVFeed.Core.csproj">

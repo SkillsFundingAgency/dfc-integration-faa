@@ -1,113 +1,55 @@
-﻿using DFC.Integration.AVFeed.Data;
-using System;
+﻿using System;
 using System.Threading.Tasks;
-
+using System.Net;
+using DFC.Integration.AVFeed.Core;
+using DFC.Integration.AVFeed.Data.Interfaces;
+using DFC.Integration.AVFeed.Data.Models;
+using Microsoft.Azure.WebJobs.Host;
 namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
 {
-    using System.IO;
-    using System.Net;
-    using Data.Interfaces;
-    using Data.Models;
-    using Microsoft.Azure.WebJobs.Host;
+    using Interfaces;
 
     public class GetAvServiceHealthStatus:IGetServiceHealthStatus
     {
-        private TraceWriter Log;
+        private IHttpExternalFeedProxy HttpExternalFeedProxy { get; set; }
+
+        // Default constructor required for DI Autofac
+        public GetAvServiceHealthStatus(IHttpExternalFeedProxy httpClientServiceProxy)
+        {
+            this.HttpExternalFeedProxy = httpClientServiceProxy;
+        }
         #region Implementation of IGetServiceHealthStatus
-         public GetAvServiceHealthStatus(TraceWriter log)
-         {
-             Log = log;
-         }
+       
         public async Task<ServiceHealthCheckStatus> GetAvFeedHealthStatusInfoAsync()
         {
-            await GetAvFeedWcfStatusAsync(string.Empty);
-            return null;
+            return await GetAvFeedExternalFeedStatusAsync(Constants.ApprenticeshipEndpoint);
         }
 
-        private async Task<ServiceHealthCheckStatus> GetAvFeedWcfStatusAsync(string url)
+        public async Task<ServiceHealthCheckStatus> GetSitefinityHealthStatusInfoAsync()
         {
-            try
-            {
-                var avWcfFeedRequest = WebRequest.CreateHttp(new Uri(url));
-                avWcfFeedRequest.KeepAlive = true;
-                avWcfFeedRequest.Connection = "Open";
-                // Assign the response object of HttpWebRequest to a HttpWebResponse variable.
-                var avWcfFeedResponse =  (HttpWebResponse)(await avWcfFeedRequest.GetResponseAsync().ConfigureAwait(false));
-                Log.Info(avWcfFeedResponse.StatusCode == HttpStatusCode.OK
-                    ? "Service Running and Up"
-                    : $"\nIssue with the service :\n{avWcfFeedResponse.StatusCode}{avWcfFeedResponse.Server}");
-
-                Log.Info($"\nThe HTTP request Headers for the first request are: \n{avWcfFeedRequest.Headers}");
-
-                var avWcfFeedStreamResponse = avWcfFeedResponse.GetResponseStream();
-                
-                if (avWcfFeedStreamResponse != null)
-                    using (var streamRead = new StreamReader(avWcfFeedStreamResponse))
-                    {
-                        var readBuff = new char[256];
-                        var count = streamRead.Read(readBuff, 0, 256);
-                    }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex.Message);
-            }
-            return null;
+           return await GetAvFeedExternalFeedStatusAsync(Constants.SiteFinityEndpoint);
         }
-        private string doPUT(string URI, string body, String token)
+      
+        public  async Task<ServiceHealthCheckStatus> GetAvFeedExternalFeedStatusAsync(string url)
         {
-            Uri uri = new Uri(String.Format(URI));
-
-            // Create the request
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
-            httpWebRequest.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + token);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "PUT";
-
+            var healthCheckStatus = new ServiceHealthCheckStatus {ApplicationName = url};
             try
             {
-                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                using (var avWcfFeedResponse = await HttpExternalFeedProxy.GetResponseFromUri(url))
                 {
-                    streamWriter.Write(body);
-                    streamWriter.Flush();
-                    streamWriter.Close();
+                    healthCheckStatus.ApplicationStatus = avWcfFeedResponse.StatusCode;
+                    healthCheckStatus.IsApplicationExternal = true;
+                    healthCheckStatus.IsApplicationRunning = true;
+                    healthCheckStatus.ApplicationStatusDescription = avWcfFeedResponse.StatusDescription;
                 }
+                  return healthCheckStatus;
             }
             catch (Exception ex)
             {
-                Log.Error("Error setting up stream writer: " + ex.Message);
+                healthCheckStatus.ApplicationStatusDescription = ex.Message;
+                return healthCheckStatus;
             }
-
-            // Get the response
-            HttpWebResponse httpResponse = null;
-            try
-            {
-                httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Error from : HttpWebResponse exception " + uri + ": " + ex.Message);
-                return null;
-            }
-
-            string result = null;
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                result = streamReader.ReadToEnd();
-            }
-            return result;
         }
-        #endregion
-
-        #region Implementation of IGetServiceHealthStatus
-
-        
-
-        public async Task<dynamic> GetAzureServelessHealthStatusInfoAsync()
-        {
-            return null;
-        }
-
         #endregion
     }
 }

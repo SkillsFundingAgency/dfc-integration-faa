@@ -5,6 +5,8 @@ using Microsoft.Azure.WebJobs.Host;
 
 namespace DFC.Integration.AVFeed.AzureFunctions
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Core;
     using Data.Models;
@@ -13,12 +15,24 @@ namespace DFC.Integration.AVFeed.AzureFunctions
     {
         [FunctionName("GetHealthStatusInfo")]
         public static async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, TraceWriter log, [DocumentDB("AVFeedAudit", "ServiceHealthStatus", ConnectionStringSetting = "AVAuditCosmosDB")]
-           IAsyncCollector<ServiceHealthCheckStatus> healthServiceStatus)
+           IAsyncCollector<ICollection<ServiceHealthCheckStatus>> healthServiceStatus)
         {
-            log.Info($"C# Timer trigger function executed at: with the Timer Configuration : {DateTime.Now}-:-{myTimer}");
-
-            var healthStatus = await Startup.RunAsync(RunMode.Console, null);
-            await healthServiceStatus.AddAsync(healthStatus);
+            log.Info($"GetHealthStatusCheck function executed at: with :- {DateTime.Now}-:-{myTimer}");
+            try
+            {
+                var healthStatus = await Startup.RunAsync(RunMode.Azure);
+                await healthServiceStatus.AddAsync(healthStatus);
+                if (healthStatus.Any(fail => !fail.IsApplicationRunning))
+                {
+                    throw new Exception("External Feed not responding");
+                }
+            }
+            catch (Exception e)
+            {
+                log.Info($"GetHealthStatusCheck function throws exception at: :- {DateTime.Now}-:-{myTimer}-:-with Exception-:- {e.Message}");
+                throw;
+            }
+          
         }
     }
 }

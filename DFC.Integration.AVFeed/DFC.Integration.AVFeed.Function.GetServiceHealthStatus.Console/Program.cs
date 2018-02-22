@@ -15,8 +15,13 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console
 
             try
             {
-                var result = GetServiceHealthStatus.Startup.RunAsync(RunMode.Console,null).GetAwaiter().GetResult();
-              
+                var result = Startup.RunAsync(RunMode.Console).GetAwaiter().GetResult();
+                {
+                    foreach (var externalFeed in result)
+                    {
+                        TestUtility.PumpResult(externalFeed, nameof(IGetServiceHealthStatus));
+                    }
+                }
             }
             catch (Exception ex)
             {
