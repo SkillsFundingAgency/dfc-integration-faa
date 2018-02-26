@@ -289,3 +289,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+#Config file restrictions with .config and .json as extension
+*.config
+*.json
