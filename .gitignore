@@ -290,3 +290,7 @@ __pycache__/
 #Ignore the libs
 DFC.Digital/Lib
 **/*Feature.cs
+
+#Config file not to be checked in restrictions with .config and .json as extension
+*.config
+*.json
