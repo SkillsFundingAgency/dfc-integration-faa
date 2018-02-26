@@ -290,6 +290,7 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
-#Config file restrictions with .config and .json as extension
+#Config file not to be checked in restrictions with .config and .json as extension
 *.config
 *.json
+
