@@ -98,7 +98,7 @@
     <Compile Include="SitefinitySocMappingsUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.template" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

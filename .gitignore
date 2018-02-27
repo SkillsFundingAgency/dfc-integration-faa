@@ -292,4 +292,5 @@ DFC.Digital/Lib
 **/*Feature.cs
 
 #Ignore AVFeed Config and Azurefunction configuration file
-
+*.config
+*.json

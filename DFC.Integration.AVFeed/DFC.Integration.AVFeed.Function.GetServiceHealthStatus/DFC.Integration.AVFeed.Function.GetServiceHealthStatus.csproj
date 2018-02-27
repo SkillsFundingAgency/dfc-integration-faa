@@ -160,7 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
+    <None Include="app.template">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
