@@ -108,7 +108,7 @@
     <Compile Include="TokenService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.template">
+    <None Include="app.config.template">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config">

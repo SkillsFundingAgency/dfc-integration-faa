@@ -1,15 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.props')" />
-  <Import Project="..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A8F56BAC-1CA0-4183-8F5D-B445E5904613}</ProjectGuid>
+    <ProjectGuid>{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests</RootNamespace>
-    <AssemblyName>DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests</AssemblyName>
+    <RootNamespace>DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest</RootNamespace>
+    <AssemblyName>DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -18,9 +17,9 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,15 +39,34 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extras.FakeItEasy, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Extras.FakeItEasy.5.0.0\lib\net45\Autofac.Extras.FakeItEasy.dll</HintPath>
+    </Reference>
     <Reference Include="FakeItEasy, Version=4.0.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <HintPath>..\packages\FakeItEasy.4.5.0\lib\net45\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=5.1.2.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.5.1.2\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
@@ -74,12 +92,14 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="DataHelper.cs" />
+    <Compile Include="HealthStatusDataSet.cs" />
+    <Compile Include="HttpExternalFeedProxyTests.cs" />
+    <Compile Include="ServiceHealthStatusCheckTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublishSfVacancyFunctionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config">
@@ -91,9 +111,9 @@
       <Project>{FDECC75B-0821-4015-974A-5056B5A00344}</Project>
       <Name>DFC.Integration.AVFeed.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Integration.AVFeed.Function.PublishSfAV\DFC.Integration.AVFeed.Function.PublishSfVacancy.csproj">
-      <Project>{DED27C09-9BD2-4024-8C1A-6D95EBB852CB}</Project>
-      <Name>DFC.Integration.AVFeed.Function.PublishSfVacancy</Name>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Function.GetServiceHealthStatus\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.csproj">
+      <Project>{5807D139-1FCA-44B9-A387-A6B4FCC5163B}</Project>
+      <Name>DFC.Integration.AVFeed.Function.GetServiceHealthStatus</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -123,12 +143,11 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.3.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.3.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.3.1\build\xunit.core.targets'))" />
   </Target>
   <Import Project="..\packages\xunit.core.2.3.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.3.1\build\xunit.core.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

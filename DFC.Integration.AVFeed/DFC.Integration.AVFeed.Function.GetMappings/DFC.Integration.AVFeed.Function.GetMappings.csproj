@@ -96,7 +96,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.template" />
+    <None Include="app.config.template" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
