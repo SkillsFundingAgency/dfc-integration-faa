@@ -13,7 +13,6 @@ namespace DFC.Integration.AVFeed.Function.PublishVacanciesConsole
             Console.WriteLine("=================THE BEGINNING==============");
             try
             {
-
                 var input = TestUtility.ReadQueue<ProjectedVacancySummary>(nameof(IProjectVacanciesFunc));
                 while (input != null)
                 {
