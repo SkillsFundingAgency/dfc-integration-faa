@@ -291,5 +291,5 @@ __pycache__/
 *.xsd.cs
 
 #Ignore AVFeed Config and Azurefunction configuration file
-#*.config
+*.config
 *.json
