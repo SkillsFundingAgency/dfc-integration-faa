@@ -117,9 +117,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="JsonData\dummyCreatedVacancy.json" />
     <None Include="JsonData\dummyAppVacancies.json" />
     <None Include="packages.config">
