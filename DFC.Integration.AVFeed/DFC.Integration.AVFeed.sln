@@ -72,7 +72,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console", "DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console.csproj", "{8262BAA2-4419-43D0-855D-B1282622A170}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest", "DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest\DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest.csproj", "{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest", "DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest\DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest.csproj", "{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
