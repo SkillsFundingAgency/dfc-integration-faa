@@ -7,8 +7,8 @@
     <ProjectGuid>{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest</RootNamespace>
-    <AssemblyName>DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest</AssemblyName>
+    <RootNamespace>DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest</RootNamespace>
+    <AssemblyName>DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -98,7 +98,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config.template">
+    <None Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
