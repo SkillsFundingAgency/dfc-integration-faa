@@ -83,7 +83,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.template" />
+    <None Include="app.config.template" />
     <None Include="Connected Services\FAA\DFC.Integration.AVFeed.Service.AVSoapAPI.FAA.VacancyDetailResponseData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
