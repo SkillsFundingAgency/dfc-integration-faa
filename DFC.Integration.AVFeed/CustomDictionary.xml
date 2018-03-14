@@ -4,6 +4,7 @@
     <Unrecognized>
       <Word>Autofac</Word>
       <Word>SpellCheck</Word>
+      <Word>Soc</Word>
     </Unrecognized>
     <Recognized>
       <Word>Autofac</Word>
@@ -21,7 +22,7 @@
       <Word>Mins</Word>
       <Word>Synchronise</Word>
       <Word>jobprofile</Word>
-      <Word>Soc</Word>
+      <!--<Word>Soc</Word>-->
       <Word>Deciles</Word>
       <Word>TolerancePolicy</Word>
       <Word>Az</Word>
@@ -37,6 +38,7 @@
       <Term CompoundAlternate="TolerancePolicy">TolerancePolicy</Term>
       <Term CompoundAlternate="ToGo">ToGo</Term>
       <Term CompoundAlternate="Postcode">PostCode</Term>
+      <Term CompoundAlternate="Metadata">MetaData</Term>
     </Compound>
     </Words>
   <Acronyms>

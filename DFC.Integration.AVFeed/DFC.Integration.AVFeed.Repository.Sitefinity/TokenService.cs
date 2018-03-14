@@ -32,17 +32,17 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         {
             if (string.IsNullOrEmpty(_accessToken))
             {
-                using (var tokenClient = new TokenClient(tokenEndpoint, clientId, clientSecret, AuthenticationStyle.PostValues))
+                using (var tokenClient = new TokenClient(TokenEndpoint, ClientId, ClientSecret, AuthenticationStyle.PostValues))
                 {
-                    logger.Info($"Token client {tokenEndpoint} called with client {clientId}.");
+                    logger.Info($"Token client {TokenEndpoint} called with client {ClientId}.");
 
                     //This is call to the token endpoint with the parameters that are set
-                    var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(username, password, scopes, AdditionalParameters);
+                    var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync(Username, Password, Scopes, AdditionalParameters);
                     //var tokenResponse = await tokenClient.RequestClientCredentialsAsync("offline_access");
 
                     if (tokenResponse.IsError)
                     {
-                        logger.Info($"Token client {tokenEndpoint} called with client {clientId} failed with error {tokenResponse.Error}.");
+                        logger.Info($"Token client {TokenEndpoint} called with client {ClientId} failed with error {tokenResponse.Error}.");
                         throw new ApplicationException("Couldn't get access token. Error: " + tokenResponse.Error);
                     }
 
@@ -61,42 +61,42 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         /// <value>
         /// The client identifier.
         /// </value>
-        private string clientId => ConfigurationManager.AppSettings.Get("Sitefinity.ClientId");
+        private static string ClientId => ConfigurationManager.AppSettings.Get("Sitefinity.ClientId");
         /// <summary>
         /// Gets the client secret.
         /// </summary>
         /// <value>
         /// The client secret.
         /// </value>
-        public string clientSecret => ConfigurationManager.AppSettings.Get("Sitefinity.ClientSecret");
+        private static string ClientSecret => ConfigurationManager.AppSettings.Get("Sitefinity.ClientSecret");
         /// <summary>
         /// Gets the token endpoint.
         /// </summary>
         /// <value>
         /// The token endpoint.
         /// </value>
-        public string tokenEndpoint => ConfigurationManager.AppSettings.Get("Sitefinity.TokenEndpoint");
+        private static string TokenEndpoint => ConfigurationManager.AppSettings.Get("Sitefinity.TokenEndpoint");
         /// <summary>
         /// Gets the username.
         /// </summary>
         /// <value>
         /// The username.
         /// </value>
-        public string username => ConfigurationManager.AppSettings.Get("Sitefinity.Username");
+        private static string Username => ConfigurationManager.AppSettings.Get("Sitefinity.Username");
         /// <summary>
         /// Gets the password.
         /// </summary>
         /// <value>
         /// The password.
         /// </value>
-        public string password => ConfigurationManager.AppSettings.Get("Sitefinity.Password");
+        private static string Password => ConfigurationManager.AppSettings.Get("Sitefinity.Password");
         /// <summary>
         /// Gets the scopes.
         /// </summary>
         /// <value>
         /// The scopes.
         /// </value>
-        public string scopes => ConfigurationManager.AppSettings.Get("Sitefinity.Scopes");
+        private static string Scopes => ConfigurationManager.AppSettings.Get("Sitefinity.Scopes");
         /// <summary>
         /// The additional parameters
         /// </summary>
