@@ -3,13 +3,9 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using DFC.Integration.AVFeed.Data.Models;
 using System.Linq;
-using Newtonsoft.Json;
-using DFC.Integration.AVFeed.Data.Interfaces;
-using Autofac;
 using DFC.Integration.AVFeed.Function.Common;
 using DFC.Integration.AVFeed.Core;
 using System.Threading.Tasks;
-using DFC.Integration.AVFeed.Data.Models;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 {

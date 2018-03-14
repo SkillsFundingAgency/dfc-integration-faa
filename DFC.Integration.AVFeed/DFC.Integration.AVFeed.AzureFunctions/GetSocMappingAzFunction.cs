@@ -5,7 +5,6 @@ using DFC.Integration.AVFeed.Data.Models;
 using System.Collections.Generic;
 using DFC.Integration.AVFeed.Core;
 using System.Threading.Tasks;
-using DFC.Integration.AVFeed.Data.Models;
 
 namespace DFC.Integration.AVFeed.AzureFunctions
 {

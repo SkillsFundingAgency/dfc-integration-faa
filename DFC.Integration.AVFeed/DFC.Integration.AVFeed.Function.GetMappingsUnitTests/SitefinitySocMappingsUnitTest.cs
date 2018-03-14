@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
-using DFC.Integration.AVFeed.Data.Models;
 using DFC.Integration.AVFeed.Data.Interfaces;
-using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity;
 using FakeItEasy;
 using Xunit;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
 
 namespace DFC.Integration.AVFeed.Function.GetMappingsUnitTests

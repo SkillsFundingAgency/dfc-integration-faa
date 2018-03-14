@@ -52,6 +52,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E13C76A-2422-40CB-A8A9-0DAF2C008B56}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		CustomDictionary.xml = CustomDictionary.xml
+		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
+		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Repository.SitefinityUnitTests", "DFC.Integration.AVFeed.Repository.SitefinityUnitTests\DFC.Integration.AVFeed.Repository.SitefinityUnitTests.csproj", "{53B33B4E-9CC6-4981-BC44-3382599BC319}"

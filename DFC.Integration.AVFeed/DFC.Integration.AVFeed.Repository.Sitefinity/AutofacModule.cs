@@ -15,7 +15,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            var regContinuation = builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
    
             builder.RegisterType<TokenService>().As<ITokenClient>().SingleInstance().OwnedByLifetimeScope();
 

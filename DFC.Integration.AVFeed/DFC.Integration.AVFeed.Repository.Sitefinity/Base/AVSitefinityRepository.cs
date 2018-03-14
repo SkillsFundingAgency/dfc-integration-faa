@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
-using System.Configuration;
-using System.Net.Http;
 using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 
 namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base

@@ -5,8 +5,6 @@ using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
 using DFC.Integration.AVFeed.Function.Common;
 using Microsoft.Azure.WebJobs;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc
