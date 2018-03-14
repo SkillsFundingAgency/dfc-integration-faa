@@ -6,7 +6,7 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface IApprenticeshipVacancyRepository
     {
-        Task DeleteExistingAsync(Guid socCodeGuid);
+        Task DeleteExistingAsync(Guid socCodevalue);
 
         Task<string> PublishAsync(ApprenticeshipVacancySummary apprenticeshipVacancySummary, Guid socCodeId);
     }

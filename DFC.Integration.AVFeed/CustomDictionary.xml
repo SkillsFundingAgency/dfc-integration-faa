@@ -28,6 +28,7 @@
       <Word>ToGo</Word>
       <Word>id</Word>
       <Word>Mvc</Word>
+      <Word>Postcode</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
@@ -35,6 +36,7 @@
       <Term CompoundAlternate="JobProfile">jobprofile</Term>
       <Term CompoundAlternate="TolerancePolicy">TolerancePolicy</Term>
       <Term CompoundAlternate="ToGo">ToGo</Term>
+      <Term CompoundAlternate="Postcode">PostCode</Term>
     </Compound>
     </Words>
   <Acronyms>
