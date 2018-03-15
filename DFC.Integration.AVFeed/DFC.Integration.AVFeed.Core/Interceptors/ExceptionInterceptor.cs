@@ -19,18 +19,21 @@ namespace DFC.Integration.AVFeed.Core.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
-            var returnType = invocation.Method.ReturnType;
-            if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+            if (invocation != null)
             {
-                invocation.Proceed();
-            }
-            else if (returnType == typeof(Task))
-            {
-                invocation.ReturnValue = InterceptAsyncAction(invocation);
-            }
-            else
-            {
-                InterceptSync(invocation);
+                var returnType = invocation.Method.ReturnType;
+                if (returnType.IsGenericType && returnType.GetGenericTypeDefinition() == typeof(Task<>))
+                {
+                    invocation.Proceed();
+                }
+                else if (returnType == typeof(Task))
+                {
+                    invocation.ReturnValue = InterceptAsyncAction(invocation);
+                }
+                else
+                {
+                    InterceptSync(invocation);
+                }
             }
         }
 

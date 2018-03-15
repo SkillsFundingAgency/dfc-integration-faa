@@ -7,7 +7,7 @@ namespace DFC.Integration.AVFeed.Function.GetMappingsConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("=================THE BEGINNING==============");
 

@@ -4,7 +4,6 @@
     <Unrecognized>
       <Word>Autofac</Word>
       <Word>SpellCheck</Word>
-      <Word>Soc</Word>
       <Word>Sitefinity</Word>
     </Unrecognized>
     <Recognized>
@@ -23,7 +22,7 @@
       <Word>Mins</Word>
       <Word>Synchronise</Word>
       <Word>jobprofile</Word>
-      <!--<Word>Soc</Word>-->
+      <Word>Soc</Word>
       <Word>Deciles</Word>
       <Word>TolerancePolicy</Word>
       <Word>Az</Word>

@@ -19,7 +19,7 @@ namespace DFC.Integration.AVFeed.Core
             if (builder.RunningMode() == RunMode.Console)
             {
                 //Register Interceptors
-                builder.RegisterType<InstrumentationInterceptor>().AsSelf().Named<IInterceptor>(InstrumentationInterceptor.NAME);
+                builder.RegisterType<InstrumentationInterceptor>().AsSelf().Named<IInterceptor>(InstrumentationInterceptor.Name);
                 builder.RegisterType<ExceptionInterceptor>().AsSelf().Named<IInterceptor>(ExceptionInterceptor.NAME);
             }
         }

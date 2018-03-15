@@ -8,7 +8,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSocConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("=================THE BEGINNING==============");
             var startTime = new Stopwatch();

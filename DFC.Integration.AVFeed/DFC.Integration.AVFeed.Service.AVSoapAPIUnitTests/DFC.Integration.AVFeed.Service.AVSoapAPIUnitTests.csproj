@@ -99,11 +99,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AVSoapWebServiceTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AVFeedProjectVacanciesForSOCTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

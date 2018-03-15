@@ -28,28 +28,19 @@
 
         public static void PumpResult(object result, string function)
         {
-            StreamWriter sw = null;
-
             var dir = $"..\\..\\..\\DFC.Integration.AVFeed.Function.TestHelper\\Temp\\{function}\\queue\\";
             if (!Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
 
-            try
-            {
-                sw = File.CreateText($"{dir}{Guid.NewGuid()}.json");
+                var sw = File.CreateText($"{dir}{Guid.NewGuid()}.json");
                 using (JsonWriter jw = new JsonTextWriter(sw))
                 {
                     jw.Formatting = Formatting.Indented;
                     var serializer = new JsonSerializer();
                     serializer.Serialize(jw, result);
                 }
-            }
-            finally
-            {
-                sw?.Dispose();
-            }
         }
     }
 }

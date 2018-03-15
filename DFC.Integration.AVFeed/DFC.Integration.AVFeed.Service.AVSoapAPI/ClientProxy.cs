@@ -11,8 +11,6 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPI
         private Guid _externalSystemId = Guid.Parse(ConfigurationManager.AppSettings.Get("FAA.ExternalSystemId"));
         private string _publicKey = ConfigurationManager.AppSettings.Get("FAA.PublicKey");
         private string _endpoint = ConfigurationManager.AppSettings.Get("FAA.Endpoint");
-        private long _maxReceivedMessageSize = long.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxReceivedMessageSize"));
-        private int _maxBufferSize = int.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxBufferSize"));
 
         public async Task<VacancyDetailsResponse> GetAsync(VacancyDetailsRequest vacancyDetailsRequest)
         {
