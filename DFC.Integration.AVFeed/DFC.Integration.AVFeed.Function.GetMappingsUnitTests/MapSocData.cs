@@ -6,10 +6,8 @@ namespace DFC.Integration.AVFeed.Function.GetMappingsUnitTests
 {
     public static class MapSocData
     {
-        public static IMapper MapperData;
         public  static void Configure()
         {
-
              Mapper.Initialize(cfg =>
             {
 
@@ -21,8 +19,7 @@ namespace DFC.Integration.AVFeed.Function.GetMappingsUnitTests
                     .ForMember(s=>s.SocMappingId,m=>m.MapFrom(d=>d.Id))
                     .ReverseMap();
             });
-            
-            //config.AssertConfigurationIsValid();
+
         }
     }
 }

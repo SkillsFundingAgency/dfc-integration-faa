@@ -28,9 +28,11 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPI
 
         private VacancyDetailsClient GetClient()
         {
-            var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-            binding.MaxReceivedMessageSize = long.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxReceivedMessageSize"));
-            binding.MaxBufferSize = int.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxBufferSize"));
+            var binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport)
+            {
+                MaxReceivedMessageSize = long.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxReceivedMessageSize")),
+                MaxBufferSize = int.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxBufferSize"))
+            };
             return new VacancyDetailsClient(binding, new EndpointAddress(_endpoint));
         }
 

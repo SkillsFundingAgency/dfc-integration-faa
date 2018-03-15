@@ -44,20 +44,21 @@ namespace DFC.Integration.AVFeed.Core.Logging
             {
                 throw ex;
             }
+            if (string.IsNullOrEmpty(message))
+            {
+                message = ex.Message;
+            }
+            if (message.Contains("An exception of type 'DFC.Integration.AVFeed.Core.Logging.LoggedException'"))
+            {
+                //This is an application exception of known type.
+                //This exception has already been logged by the application, hence can be ignored from sitefinity logs.
+            }
             else
             {
-                if (message.Contains("An exception of type 'DFC.Integration.AVFeed.Core.Logging.LoggedException'"))
+                logService.Warn(ex, message);
+                if (ex != null)
                 {
-                    //This is an application exception of known type.
-                    //This exception has already been logged by the application, hence can be ignored from sitefinity logs.
-                }
-                else
-                {
-                    logService.Warn(ex, message);
-                    if (ex != null)
-                    {
-                        throw new LoggedException($"Logged exception with message: {message}", ex);
-                    }
+                    throw new LoggedException($"Logged exception with message: {message}", ex);
                 }
             }
         }
