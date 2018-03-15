@@ -16,7 +16,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         {
             base.Load(builder);
             builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
-   
+
             builder.RegisterType<TokenService>().As<ITokenClient>().SingleInstance().OwnedByLifetimeScope();
 
             builder.RegisterType<SitefinityRepository<SitefinitySocMapping>>().As<IRepository<SitefinitySocMapping>>();

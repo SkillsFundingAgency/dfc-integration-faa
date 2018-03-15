@@ -13,6 +13,13 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
     /// <seealso cref="ITokenClient" />
     public class TokenService : ITokenClient
     {
+        /// <summary>
+        /// The additional parameters
+        /// </summary>
+        private static readonly Dictionary<string, string> AdditionalParameters = new Dictionary<string, string>()
+        {
+            { "membershipProvider", "Default" }
+        };
         private string _accessToken;
         private readonly IApplicationLogger logger;
         private readonly IAuditService service;
@@ -22,6 +29,49 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
             this.logger = logger;
             this.service = service;
         }
+
+        /// <summary>
+        /// Gets the client identifier.
+        /// </summary>
+        /// <value>
+        /// The client identifier.
+        /// </value>
+        private static string ClientId => ConfigurationManager.AppSettings.Get("Sitefinity.ClientId");
+        /// <summary>
+        /// Gets the client secret.
+        /// </summary>
+        /// <value>
+        /// The client secret.
+        /// </value>
+        private static string ClientSecret => ConfigurationManager.AppSettings.Get("Sitefinity.ClientSecret");
+        /// <summary>
+        /// Gets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
+        private static string Password => ConfigurationManager.AppSettings.Get("Sitefinity.Password");
+        /// <summary>
+        /// Gets the scopes.
+        /// </summary>
+        /// <value>
+        /// The scopes.
+        /// </value>
+        private static string Scopes => ConfigurationManager.AppSettings.Get("Sitefinity.Scopes");
+        /// <summary>
+        /// Gets the token endpoint.
+        /// </summary>
+        /// <value>
+        /// The token endpoint.
+        /// </value>
+        private static string TokenEndpoint => ConfigurationManager.AppSettings.Get("Sitefinity.TokenEndpoint");
+        /// <summary>
+        /// Gets the username.
+        /// </summary>
+        /// <value>
+        /// The username.
+        /// </value>
+        private static string Username => ConfigurationManager.AppSettings.Get("Sitefinity.Username");
 
         /// <summary>
         /// Gets the access token.
@@ -54,55 +104,5 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         }
 
         public void SetAccessToken(string accessToken) => _accessToken = accessToken;
-
-        /// <summary>
-        /// Gets the client identifier.
-        /// </summary>
-        /// <value>
-        /// The client identifier.
-        /// </value>
-        private static string ClientId => ConfigurationManager.AppSettings.Get("Sitefinity.ClientId");
-        /// <summary>
-        /// Gets the client secret.
-        /// </summary>
-        /// <value>
-        /// The client secret.
-        /// </value>
-        private static string ClientSecret => ConfigurationManager.AppSettings.Get("Sitefinity.ClientSecret");
-        /// <summary>
-        /// Gets the token endpoint.
-        /// </summary>
-        /// <value>
-        /// The token endpoint.
-        /// </value>
-        private static string TokenEndpoint => ConfigurationManager.AppSettings.Get("Sitefinity.TokenEndpoint");
-        /// <summary>
-        /// Gets the username.
-        /// </summary>
-        /// <value>
-        /// The username.
-        /// </value>
-        private static string Username => ConfigurationManager.AppSettings.Get("Sitefinity.Username");
-        /// <summary>
-        /// Gets the password.
-        /// </summary>
-        /// <value>
-        /// The password.
-        /// </value>
-        private static string Password => ConfigurationManager.AppSettings.Get("Sitefinity.Password");
-        /// <summary>
-        /// Gets the scopes.
-        /// </summary>
-        /// <value>
-        /// The scopes.
-        /// </value>
-        private static string Scopes => ConfigurationManager.AppSettings.Get("Sitefinity.Scopes");
-        /// <summary>
-        /// The additional parameters
-        /// </summary>
-        public static readonly Dictionary<string, string> AdditionalParameters = new Dictionary<string, string>()
-        {
-            { "membershipProvider", "Default" }
-        };
     }
 }
