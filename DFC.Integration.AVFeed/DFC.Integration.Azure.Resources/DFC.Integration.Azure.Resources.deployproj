@@ -28,14 +28,14 @@
     <None Include="App Service Plan\parameters.json" />
     <None Include="App Service Plan\template.json" />
     <None Include="Cosmo DB\config.azcli" />
-    <None Include="Cosmo DB\parameters.json" />
+    <None Include="Cosmo DB\parameters.json.template" />
     <None Include="Cosmo DB\template.json" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
-    <None Include="Function App\parameters.json" />
+    <None Include="Function App\parameters.json.template" />
     <None Include="Function App\template.json" />
-    <None Include="Storage\parameters.json" />
+    <None Include="Storage\parameters.json.template" />
     <None Include="Storage\template.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
