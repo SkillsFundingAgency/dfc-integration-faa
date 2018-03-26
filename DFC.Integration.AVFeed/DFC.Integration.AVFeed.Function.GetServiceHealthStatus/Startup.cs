@@ -7,6 +7,7 @@
     using Core;
     using Data.Interfaces;
     using Data.Models;
+    using DFC.Integration.AVFeed.Repository.Sitefinity;
 
     public static class Startup
     {
@@ -14,21 +15,15 @@
         {
             var container = ConfigureContainer(mode);
             var getAvFunc = container.Resolve<IGetServiceHealthStatus>();
-            var healthCheckStatuses = new FeedsServiceHealthCheck
-            {
-                FeedsServiceHealth = new List<ServiceHealthCheckStatus>
-                {
-                    await getAvFunc.GetApprenticeshipFeedHealthStatusAsync(),
-                    await getAvFunc.GetSitefinityHealthStatusAsync()
-                }
-            };
-            return await Task.FromResult(healthCheckStatuses).ConfigureAwait(false);
+            return await getAvFunc.GetServiceHealthStateAsync().ConfigureAwait(false);
         }
 
         public static ILifetimeScope ConfigureContainer(RunMode mode)
         {
             var builder = ConfigureDI.ConfigureContainerWithCommonModules(mode);
             builder.RegisterModule<AutofacModule>();
+            builder.RegisterModule<Repository.Sitefinity.AutofacModule>();
+            builder.RegisterModule<Service.AVSoapAPI.AutofacModule>();
             return builder.Build().BeginLifetimeScope();
         }
     }

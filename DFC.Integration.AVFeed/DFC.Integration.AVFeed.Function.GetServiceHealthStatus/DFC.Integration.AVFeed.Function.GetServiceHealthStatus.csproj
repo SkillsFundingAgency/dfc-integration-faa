@@ -140,8 +140,6 @@
   <ItemGroup>
     <Compile Include="AutofacModule.cs" />
     <Compile Include="GetAvServiceHealthStatus.cs" />
-    <Compile Include="HttpExternalFeedProxy.cs" />
-    <Compile Include="Interfaces\IHttpExternalFeedProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -157,6 +155,14 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.Common\DFC.Integration.AVFeed.Function.Common.csproj">
       <Project>{DCC9ECE1-41F0-4844-B7AC-7537E55982C9}</Project>
       <Name>DFC.Integration.AVFeed.Function.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Repository.Sitefinity\DFC.Integration.AVFeed.Repository.Sitefinity.csproj">
+      <Project>{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}</Project>
+      <Name>DFC.Integration.AVFeed.Repository.Sitefinity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVSoapAPI\DFC.Integration.AVFeed.Service.AVSoapAPI.csproj">
+      <Project>{018e2ffc-eacc-4e4a-978b-d915963cea59}</Project>
+      <Name>DFC.Integration.AVFeed.Service.AVSoapAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

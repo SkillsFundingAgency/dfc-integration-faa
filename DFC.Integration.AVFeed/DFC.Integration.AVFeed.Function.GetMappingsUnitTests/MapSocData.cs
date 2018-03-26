@@ -9,8 +9,10 @@ namespace DFC.Integration.AVFeed.Function.GetMappingsUnitTests
         public static IMapper MapperData;
         public  static void Configure()
         {
+            //Reset the mapper between tests
+            AutoMapper.Mapper.Reset();
 
-             Mapper.Initialize(cfg =>
+            Mapper.Initialize(cfg =>
             {
 
                 cfg.CreateMap<NavigateToApprenticeshipStandard, string>().ConvertUsing(r => r.UrlName.ToString());

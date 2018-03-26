@@ -93,7 +93,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="HealthStatusDataSet.cs" />
-    <Compile Include="HttpExternalFeedProxyTests.cs" />
     <Compile Include="ServiceHealthStatusCheckTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

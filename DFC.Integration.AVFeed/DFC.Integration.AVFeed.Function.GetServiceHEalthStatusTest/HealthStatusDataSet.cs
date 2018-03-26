@@ -7,8 +7,10 @@
 
     public class HelperHealthStatusDataSet
     {
+        /*
         public static IEnumerable<object[]> HealthStatus()
         {
+          
             yield return new object[]
             {
                 new ServiceHealthCheckStatus
@@ -18,7 +20,7 @@
                     IsApplicationRunning = true,
                     IsApplicationExternal = true,
                     ApplicationStatusDescription = "Application endpoint at :http://local-beta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs is in healthy state.",
-                    FailedAt = null
+                    CheckDateTime = null
                 },
                 "http://local-beta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs"
             };
@@ -31,7 +33,7 @@
                     IsApplicationRunning = false,
                     IsApplicationExternal = true,
                     ApplicationStatusDescription = "Application endpoint at :http://localbeta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs failed to respond.Check endpoint configuration.",
-                    FailedAt = DateTime.UtcNow
+                    CheckDateTime = DateTime.UtcNow
                 },
                 "http://localbeta.nationalcareersservice.org.uk/api/das-integration/jobprofilesocs"
             };
@@ -44,7 +46,7 @@
                     IsApplicationRunning = true,
                     IsApplicationExternal = true,
                     ApplicationStatusDescription = "Application endpoint at :https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc is in healthy state.",
-                    FailedAt = null
+                    CheckDateTime = null
                 },
                 "https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc"
             };
@@ -57,10 +59,12 @@
                     IsApplicationRunning = false,
                     IsApplicationExternal = true,
                     ApplicationStatusDescription = "Application endpoint at :https://soapapifindapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc failed to respond.Check endpoint configuration.",
-                    FailedAt = DateTime.UtcNow
+                    CheckDateTime = DateTime.UtcNow
                 },
                 "https://soapapifindapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc"
             };
         }
+    */
     }
+   
 }

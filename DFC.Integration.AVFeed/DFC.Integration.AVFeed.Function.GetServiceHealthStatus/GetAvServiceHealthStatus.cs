@@ -6,48 +6,80 @@ using DFC.Integration.AVFeed.Data.Models;
 
 namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
 {
-    using Interfaces;
+    using DFC.Integration.AVFeed.Repository.Sitefinity;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Net;
 
     public class GetAvServiceHealthStatus:IGetServiceHealthStatus
     {
-        private IHttpExternalFeedProxy HttpExternalFeedProxy { get; set; }
+        private ISocSitefinityOdataRepository SitefinityOdataRepository;
+        private IAVService AvService;
+        private IApplicationLogger Logger;
 
-        public GetAvServiceHealthStatus(IHttpExternalFeedProxy httpClientServiceProxy)
+        public GetAvServiceHealthStatus(ISocSitefinityOdataRepository sitefinityOdataRepository, IAVService avService, IApplicationLogger logger)
         {
-            HttpExternalFeedProxy = httpClientServiceProxy;
+            SitefinityOdataRepository = sitefinityOdataRepository;
+            AvService = avService;
+            Logger = logger;
         }
         #region Implementation of IGetServiceHealthStatus
-       
-        public async Task<ServiceHealthCheckStatus> GetApprenticeshipFeedHealthStatusAsync()
+
+
+        public async Task<FeedsServiceHealthCheck> GetServiceHealthStateAsync()
         {
-            return await GetExternalFeedStatusAsync(Constants.ApprenticeshipEndpoint);
+            var feedsServiceHealthCheck = new FeedsServiceHealthCheck() { FeedsServiceHealth = new Collection<ServiceStatus>() };
+
+            feedsServiceHealthCheck.FeedsServiceHealth.Add(await GetApprenticeshipFeedHealthStatusAsync());
+            feedsServiceHealthCheck.FeedsServiceHealth.Add(await GetSitefinityHealthStatusAsync());
+
+            //if we have any state thats is not green
+            if (feedsServiceHealthCheck.FeedsServiceHealth.Any(s => s.Status != ServiceState.Green))
+            {
+                feedsServiceHealthCheck.ApplicationStatus = HttpStatusCode.BadGateway;
+            }
+
+            return feedsServiceHealthCheck;
         }
 
-        public async Task<ServiceHealthCheckStatus> GetSitefinityHealthStatusAsync()
+        public async Task<ServiceStatus> GetApprenticeshipFeedHealthStatusAsync()
         {
-           return await GetExternalFeedStatusAsync(Constants.SiteFinityEndpoint);
-        }
-      
-        public  async Task<ServiceHealthCheckStatus> GetExternalFeedStatusAsync(string url)
-        {
-            var healthCheckStatus = new ServiceHealthCheckStatus {ApplicationName = url};
+            var checkFrameWork = "Plumbing and Heating";
+            var serviceStatus = new ServiceStatus { ApplicationName = "Apprenticeship Feed", Status = ServiceState.Red, Notes = string.Empty };
+            var checkSocMapping = new SocMapping() { SocCode = "5314", Frameworks = new string[] { checkFrameWork }, Standards = new string[] { } };
+            serviceStatus.CheckParametersUsed = $"SocCode = {checkSocMapping.SocCode} - FrameWork = {checkFrameWork}";
             try
             {
-                using (var avWcfFeedResponse = await HttpExternalFeedProxy.GetResponseFromUri(url))
-                {
-                    healthCheckStatus.ApplicationStatus = avWcfFeedResponse.StatusCode;
-                    healthCheckStatus.IsApplicationExternal = true;
-                    healthCheckStatus.IsApplicationRunning = true;
-                    healthCheckStatus.ApplicationStatusDescription = $"Application endpoint at :{url} is in healthy state."; 
-                }
-                  return healthCheckStatus;
+                var result = await AvService.GetApprenticeshipVacancyDetails(checkSocMapping);
+                serviceStatus.Status = ServiceState.Green;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                healthCheckStatus.FailedAt = DateTime.UtcNow;
-                healthCheckStatus.ApplicationStatusDescription = $"Application endpoint at :{url} failed to respond.Check endpoint configuration.";
-                return healthCheckStatus;
+                LogFailedMessage(serviceStatus, ex.Message);
             }
+            return serviceStatus;
+        }
+
+        public async Task<ServiceStatus> GetSitefinityHealthStatusAsync()
+        {
+            var serviceStatus = new ServiceStatus { ApplicationName = "Sitefinity OdataRepository", Status = ServiceState.Red, Notes = string.Empty };
+            try
+            {
+                var result = await SitefinityOdataRepository.GetAllAsync();
+                serviceStatus.Status = ServiceState.Green;
+            }
+            catch (Exception ex)
+            {
+                LogFailedMessage(serviceStatus, ex.Message);
+            }
+            return serviceStatus;
+        }
+
+        private void LogFailedMessage(ServiceStatus serviceStatus, string traceMessage)
+        {
+            var activityId = Guid.NewGuid().ToString();
+            serviceStatus.Notes = $"Service status check failed, check logs with activity id {activityId}";
+            Logger.Info($"Service status check failed activityId = {activityId} - {traceMessage}");
         }
         #endregion
     }
