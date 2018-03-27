@@ -1,49 +1,68 @@
 ﻿namespace DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest
 {
+    using System;
     using System.Net;
     using Data.Models;
+    using DFC.Integration.AVFeed.Data.Interfaces;
+    using DFC.Integration.AVFeed.Repository.Sitefinity;
     using FakeItEasy;
     using FluentAssertions;
     using GetServiceHealthStatus;
     using Xunit;
 
-    public class ServiceHealthStatusCheckTest : HelperHealthStatusDataSet
+    public class ServiceHealthStatusCheckTest 
     {
         [Fact()]
-        public void GetAvFeedHealthStatusInfo()
+        public async System.Threading.Tasks.Task GetSitefinityHealthStatusAsync()
         {
-            /*
-            //Arrange
-            var httpWReq =(HttpWebRequest)WebRequest.Create("https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc");
-            var response = (HttpWebResponse)httpWReq.GetResponse();
+            var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
+            var fakeAVService = A.Fake<IAVService>();
+            var fakeApplicationLogger = A.Fake<IApplicationLogger>();
 
-            var externalFeedProxy = A.Fake<IHttpExternalFeedProxy>();
-            A.CallTo(() => externalFeedProxy.GetResponseFromUri("https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc")).Returns(response);
+            var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
 
-            var serviceHealthCheckStatus=new GetAvServiceHealthStatus(externalFeedProxy);
-            var result= serviceHealthCheckStatus.GetApprenticeshipFeedHealthStatusAsync().Result;
+            var result = await  getAvServiceHealthStatus.GetSitefinityHealthStatusAsync();
+            result.Status.Should().Be(ServiceState.Green);
 
-            result.Should().NotBe(null);
-            A.CallTo(() => externalFeedProxy.GetResponseFromUri(A<string>._)).MustHaveHappened();
-            */
+            A.CallTo(() => fakeSocSitefinityOdataRepository.GetAllAsync()).ThrowsAsync(new Exception("Fake Exception"));
+            result = await getAvServiceHealthStatus.GetSitefinityHealthStatusAsync();
+            result.Status.Should().Be(ServiceState.Red);
         }
-       
-        /*
-        [Theory]
-        [MemberData(nameof(HealthStatus))]
-        public void GetServiceHealthStatus(ServiceHealthCheckStatus status,string uri)
+
+        [Fact()]
+        public async System.Threading.Tasks.Task GetAVFeedHealthStatusAsync()
         {
-            //Arrange
-            var externalFeedProxy = new HttpExternalFeedProxy();
+            var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
+            var fakeAVService = A.Fake<IAVService>();
+            var fakeApplicationLogger = A.Fake<IApplicationLogger>();
 
-            var serviceHealthCheckStatus = new GetAvServiceHealthStatus(externalFeedProxy);
-            var result = serviceHealthCheckStatus.GetExternalFeedStatusAsync(uri).Result;
-            status.CheckDateTime = result.CheckDateTime;
-            //Assert
-            result.Should().BeEquivalentTo(status);
-            result.Should().NotBe(null);
+            var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
+
+            var result = await getAvServiceHealthStatus.GetApprenticeshipFeedHealthStatusAsync();
+            result.Status.Should().Be(ServiceState.Green);
+            
+            A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetails(A<SocMapping>._)).ThrowsAsync(new Exception("Fake Exception"));
+            result = await getAvServiceHealthStatus.GetApprenticeshipFeedHealthStatusAsync();
+            result.Status.Should().Be(ServiceState.Red);
         }
-        */
+
+
+        [Fact()]
+        public async System.Threading.Tasks.Task GetServiceHealthStateAsync()
+        {
+            var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
+            var fakeAVService = A.Fake<IAVService>();
+            var fakeApplicationLogger = A.Fake<IApplicationLogger>();
+
+            var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
+
+            var result = await getAvServiceHealthStatus.GetServiceHealthStateAsync();
+            result.ApplicationStatus.Should().Be(HttpStatusCode.OK);
+
+            A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetails(A<SocMapping>._)).ThrowsAsync(new Exception("Fake Exception"));
+            result = await getAvServiceHealthStatus.GetServiceHealthStateAsync();
+            result.ApplicationStatus.Should().Be(HttpStatusCode.BadGateway);
+        }
     }
 }
 

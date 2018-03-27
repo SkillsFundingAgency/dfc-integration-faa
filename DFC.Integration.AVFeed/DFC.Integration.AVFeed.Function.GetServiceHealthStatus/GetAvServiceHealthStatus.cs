@@ -28,7 +28,7 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
 
         public async Task<FeedsServiceHealthCheck> GetServiceHealthStateAsync()
         {
-            var feedsServiceHealthCheck = new FeedsServiceHealthCheck() { FeedsServiceHealth = new Collection<ServiceStatus>() };
+            var feedsServiceHealthCheck = new FeedsServiceHealthCheck() { FeedsServiceHealth = new Collection<ServiceStatus>() , ApplicationStatus = HttpStatusCode.OK};
 
             feedsServiceHealthCheck.FeedsServiceHealth.Add(await GetApprenticeshipFeedHealthStatusAsync());
             feedsServiceHealthCheck.FeedsServiceHealth.Add(await GetSitefinityHealthStatusAsync());
