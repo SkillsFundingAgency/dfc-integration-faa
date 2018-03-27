@@ -92,7 +92,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="HealthStatusDataSet.cs" />
     <Compile Include="ServiceHealthStatusCheckTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -109,6 +108,10 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.GetServiceHealthStatus\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.csproj">
       <Project>{5807D139-1FCA-44B9-A387-A6B4FCC5163B}</Project>
       <Name>DFC.Integration.AVFeed.Function.GetServiceHealthStatus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Repository.Sitefinity\DFC.Integration.AVFeed.Repository.Sitefinity.csproj">
+      <Project>{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}</Project>
+      <Name>DFC.Integration.AVFeed.Repository.Sitefinity</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
