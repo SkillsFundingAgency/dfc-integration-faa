@@ -16,48 +16,26 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
     public static class GetAvHealthStatusInfo
     {
-//        [FunctionName("GetHealthStatusInfo")]
-//        public static async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, TraceWriter log, [DocumentDB("AVFeedAudit", "ServiceHealthStatus", ConnectionStringSetting = "AVAuditCosmosDB")]
-//           IAsyncCollector<FeedsServiceHealthCheck> healthServiceStatus)
- //       {
-//            log.Info($"GetHealthStatusInfo function executed at: with :- {DateTime.Now}-:-{myTimer}");
-//            try
-//            {
-//                var healthStatus = await Startup.RunAsync(RunMode.Azure);
-//                await healthServiceStatus.AddAsync(healthStatus);
-//            }
-//            catch (Exception e)
- //           {
- //               log.Info($"GetHealthStatusInfo function throws exception at: :- {DateTime.Now}-:-{myTimer}-:-with Exception-:- {e.Message}");
- //               throw;
- //           }
- //       }
-        
-
-
-        [FunctionName("GetHealthStatusWebHook")]
-        public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log, [DocumentDB("AVFeedAudit", "ServiceHealthStatus", ConnectionStringSetting = "AVAuditCosmosDB")]
+        [FunctionName("GetHealthStatusInfo")]
+        public static async Task Run([TimerTrigger("0 0 * * * *")]TimerInfo myTimer, TraceWriter log, [DocumentDB("AVFeedAudit", "ServiceHealthStatus", ConnectionStringSetting = "AVAuditCosmosDB")]
            IAsyncCollector<FeedsServiceHealthCheck> healthServiceStatus)
         {
-            log.Info($"GetHealthStatusInfo function executed at: with :- {DateTime.Now}");
-
+            log.Info($"GetHealthStatusInfo function executed at: with :- {DateTime.Now}-:-{myTimer}");
             try
             {
                 var healthStatus = await Startup.RunAsync(RunMode.Azure);
                 await healthServiceStatus.AddAsync(healthStatus);
-
-
-                return new HttpResponseMessage(healthStatus.ApplicationStatus)
-                { Content = new StringContent(JsonConvert.SerializeObject(healthStatus), Encoding.UTF8, "application/json") };
-
+                if (healthStatus.FeedsServiceHealth.Any(service => service.Status != ServiceState.Green ))
+                {
+                    throw new Exception($"External Feed {healthStatus?.FeedsServiceHealth?.FirstOrDefault(service => service.Status != ServiceState.Green)?.ApplicationName}. not responding. Please check the documents in the ComosDB");
+                }
             }
             catch (Exception e)
-            {
-                log.Info($"GetHealthStatusInfo function throws exception at: :- {DateTime.Now}-:-with Exception-:- {e.Message}");
-                throw;
-            }
-
+           {
+               log.Info($"GetHealthStatusInfo function throws exception at: :- {DateTime.Now}-:-{myTimer}-:-with Exception-:- {e.Message}");
+               throw;
+           }
         }
-     
+      
     }
 }
