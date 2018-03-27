@@ -23,7 +23,18 @@ The import process is built in c# and the .NET framework, and runs within the Az
 ## Running Locally
 To run the application locally, you need to have Azure SDK, Azure Function, DocumentDB Explorer(Can be used to see the CosmosDB data) all of them can be downloaded from Microsoft website. And for "Find my career", download and setup the product from (https://github.com/SkillsFundingAgency/dfc-digital).
 
-Below are the configuration required to run it locally.
+Once you have cloned the public repo you need to remove the .template part from the configuration file names listed below.
+
+
+| Location | Repo Filename | Rename to |
+|-------|-------|-------|
+| DFC.Integration.AVFeed.Function.GetAVForSoc.Console| app.config.template | app.config |
+| DFC.Integration.AVFeed.Function.GetMappings.Console | app.config.template | app.config |
+| DFC.Integration.AVFeed.Function.PublishVacancies.Console | app.config.template | app.config |
+| DFC.Integration.AVFeed.Service.AVSoapAPI | app.config.template | app.config |
+
+These files contain keys and other configuration that is particular to your local instance of the application.
+You will need to set these as detailed in the configuration  sections below.
 
 #### Azure Function
 The azure functions depends on other dependencies listed below. To configure the development machine to run azure function locally use [How to use Azure Function](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local)
