@@ -4,8 +4,17 @@
         <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.2" />
     </startup>
   <appSettings>
+    <add key="Sitefinity.ClientId" value="__sitefinityClientId__" />
+    <add key="Sitefinity.ClientSecret" value="__sitefinityClientSecret__" />
+    <add key="Sitefinity.TokenEndpoint" value="__sitefinityTokenEndpoint__" />
+    <add key="Sitefinity.Username" value="__sitefinityUsername__" />
+    <add key="Sitefinity.Password" value="__sitefinityPassword__" />
+    <add key="Sitefinity.Scopes" value="__sitefinityScopes__" />
+    <add key="FAA.ExternalSystemId" value="__faaExternalSystemId__" />
+    <add key="FAA.PublicKey" value="__faaPublicKey__" />
+    <add key="FAA.MaxReceivedMessageSize" value="__faaMaxReceivedMessageSize__" />
+    <add key="FAA.MaxBufferSize" value="__faaMaxBufferSize__" />
     <add key="FAA.Endpoint" value="__faaEndPoint__" />
-    <add key="Sitefinity.SocMappingEndpoint" value="__sitefinitySocMappingEndpoint__" />
   </appSettings>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
