@@ -27,10 +27,10 @@ namespace DFC.Integration.AVFeed.AzureFunctions
                 await healthServiceStatus.AddAsync(healthStatus);
                 if (healthStatus.FeedsServiceHealth.Any(service => service.Status != ServiceState.Green ))
                 {
-                    throw new Exception($"External Feed {healthStatus?.FeedsServiceHealth?.FirstOrDefault(service => service.Status != ServiceState.Green)?.ApplicationName}. not responding. Please check the documents in the ComosDB");
+                    throw new Exception($"External Feed(s) not responding. Please check the logs in the ComosDB. Check response details : {JsonConvert.SerializeObject(healthStatus)}");
                 }
             }
-            catch (Exception e)
+           catch (Exception e)
            {
                log.Info($"GetHealthStatusInfo function throws exception at: :- {DateTime.Now}-:-{myTimer}-:-with Exception-:- {e.Message}");
                throw;
