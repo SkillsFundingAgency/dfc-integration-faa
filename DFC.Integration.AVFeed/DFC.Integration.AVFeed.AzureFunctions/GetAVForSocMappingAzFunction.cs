@@ -3,13 +3,9 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using DFC.Integration.AVFeed.Data.Models;
 using System.Linq;
-using Newtonsoft.Json;
-using DFC.Integration.AVFeed.Data.Interfaces;
-using Autofac;
 using DFC.Integration.AVFeed.Function.Common;
 using DFC.Integration.AVFeed.Core;
 using System.Threading.Tasks;
-using DFC.Integration.AVFeed.Data.Models;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 {
@@ -31,7 +27,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 
                 ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
-                var mappedResult = await GetAVForSoc.Startup.RunAsync(myQueueItem, RunMode.Azure, auditRecord, new AuditRecord<object, object>
+                var mappedResult = await Startup.RunAsync(myQueueItem, RunMode.Azure, auditRecord, new AuditRecord<object, object>
                 {
                     CorrelationId = myQueueItem.CorrelationId,
                     StartedAt = startTime,
@@ -39,12 +35,12 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                     Function = nameof(GetAVForSocMappingAzFunction),
                     Input = "",
                     Output = ""
-                });
+                }).ConfigureAwait(false);
                 await AuditMapping(myQueueItem, auditRecord, startTime, mappedResult);
 
                 var projectedResult = Function.ProjectVacanciesForSoc.Startup.Run(RunMode.Azure, mappedResult);
                 projectedResult.CorrelationId = myQueueItem.CorrelationId;
-                await projectedVacancySummary.AddAsync(projectedResult);
+                await projectedVacancySummary.AddAsync(projectedResult).ConfigureAwait(false);
                 await AuditProjections(myQueueItem, auditRecord, startTime, mappedResult, projectedResult);
             }
             finally
