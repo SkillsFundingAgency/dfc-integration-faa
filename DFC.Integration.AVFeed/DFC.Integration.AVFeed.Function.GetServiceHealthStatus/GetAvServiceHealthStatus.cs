@@ -45,9 +45,10 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
         public async Task<ServiceStatus> GetApprenticeshipFeedHealthStatusAsync()
         {
             var checkFrameWork = "Plumbing and Heating";
+            var checkStandard = "Plumbing and Domestic Heating Technician(Level 3)";
             var serviceStatus = new ServiceStatus { ApplicationName = "Apprenticeship Feed", Status = ServiceState.Red, Notes = string.Empty };
-            var checkSocMapping = new SocMapping() { SocCode = "5314", Frameworks = new string[] { checkFrameWork }, Standards = new string[] { } };
-            serviceStatus.CheckParametersUsed = $"SocCode = {checkSocMapping.SocCode} - FrameWork = {checkFrameWork}";
+            var checkSocMapping = new SocMapping() { SocCode = "5314", Frameworks = new string[] {checkFrameWork}, Standards = new string[] {checkStandard} };
+            serviceStatus.CheckParametersUsed = $"SocCode = {checkSocMapping.SocCode} - FrameWork = {checkFrameWork} - Standard = {checkStandard}";
             try
             {
                 var result = await AvService.GetApprenticeshipVacancyDetails(checkSocMapping);
