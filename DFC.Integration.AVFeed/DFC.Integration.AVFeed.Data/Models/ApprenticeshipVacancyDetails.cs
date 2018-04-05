@@ -46,7 +46,7 @@ namespace DFC.Integration.AVFeed.Data.Models
         public string VacancyTitle { get; set; }
         public string VacancyType { get; set; }
         public string VacancyUrl { get; set; }
-        public string County { get; internal set; }
+        public string County { get; set; }
         #endregion
 
         public Guid MessageId { get; set; }

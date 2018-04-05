@@ -1,12 +1,7 @@
 ﻿using Microsoft.ApplicationInsights.NLogTarget;
 using NLog;
 using NLog.Config;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Function.Common
 {

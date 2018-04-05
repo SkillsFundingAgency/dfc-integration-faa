@@ -40,12 +40,16 @@ namespace DFC.Integration.AVFeed.Core.Logging
 
         public void Warn(string message, Exception ex)
         {
-            if (ex is LoggedException)
+            if (ex != null)
             {
-                throw ex;
-            }
-            else
-            {
+                if (ex is LoggedException)
+                {
+                    throw ex;
+                }
+                if (string.IsNullOrEmpty(message))
+                {
+                    message = ex.Message;
+                }
                 if (message.Contains("An exception of type 'DFC.Integration.AVFeed.Core.Logging.LoggedException'"))
                 {
                     //This is an application exception of known type.
@@ -54,10 +58,7 @@ namespace DFC.Integration.AVFeed.Core.Logging
                 else
                 {
                     logService.Warn(ex, message);
-                    if (ex != null)
-                    {
                         throw new LoggedException($"Logged exception with message: {message}", ex);
-                    }
                 }
             }
         }

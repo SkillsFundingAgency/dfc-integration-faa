@@ -20,35 +20,39 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
 
         public void Execute(MappedVacancyDetails allVacanciesForSOC)
         {
-            projectedVacanciesForSOC = new ProjectedVacancySummary
+            if (allVacanciesForSOC != null)
             {
-                SocCode = allVacanciesForSOC.SocCode,
-                SocMappingId = allVacanciesForSOC.SocMappingId,
-                AccessToken = allVacanciesForSOC.AccessToken,
-            };
+                projectedVacanciesForSOC = new ProjectedVacancySummary
+                {
+                    SocCode = allVacanciesForSOC.SocCode,
+                    SocMappingId = allVacanciesForSOC.SocMappingId,
+                    AccessToken = allVacanciesForSOC.AccessToken,
+                };
 
-            //if none were found for SOC
-            if (allVacanciesForSOC.Vacancies == null)
-                return;
+                //if none were found for SOC
+                if (allVacanciesForSOC.Vacancies == null)
+                    return;
 
-            var numberProvoidersFound = allVacanciesForSOC.Vacancies.Select(v => v.LearningProviderName).Distinct().Count();
-            var projection = Enumerable.Empty<ApprenticeshipVacancyDetails>();
-            if (numberProvoidersFound > 1)
-            {
-                //have multipe providers
-                projection = allVacanciesForSOC.Vacancies
-                    .OrderBy(v => v.PossibleStartDate)
-                    .GroupBy(v => v.LearningProviderName)
-                    .Select(g => g.First())
-                    .Take(2);
+                var numberProvoidersFound = allVacanciesForSOC.Vacancies.Select(v => v.LearningProviderName).Distinct().Count();
+
+                var projection = Enumerable.Empty<ApprenticeshipVacancyDetails>();
+                if (numberProvoidersFound > 1)
+                {
+                    //have multipe providers
+                    projection = allVacanciesForSOC.Vacancies
+                        .OrderBy(v => v.PossibleStartDate)
+                        .GroupBy(v => v.LearningProviderName)
+                        .Select(g => g.First())
+                        .Take(2);
+                }
+                else
+                {
+                    //just have a single or no provider 
+                    projection = allVacanciesForSOC.Vacancies.OrderBy(v => v.PossibleStartDate).Take(2);
+                }
+
+                projectedVacanciesForSOC.Vacancies = mapper.Map<IEnumerable<ApprenticeshipVacancySummary>>(projection);
             }
-            else
-            {
-                //just have a single or no provider 
-                projection = allVacanciesForSOC.Vacancies.OrderBy(v => v.PossibleStartDate).Take(2);
-            }
-
-            projectedVacanciesForSOC.Vacancies = mapper.Map<IEnumerable<ApprenticeshipVacancySummary>>(projection);
         }
 
         public ProjectedVacancySummary GetOutput()

@@ -68,16 +68,16 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 
         public static PagedOdataResult<SfApprenticeshipVacancy> GetDummyOdataResultAppVacancies()
         {
-            PagedOdataResult<SfApprenticeshipVacancy> mappingData = new PagedOdataResult<SfApprenticeshipVacancy>()
+            var mappingData = new PagedOdataResult<SfApprenticeshipVacancy>()
             {
                   Value =  GetDummySfApprenticeshipVacancies(1)
             };
             return mappingData;
         }
 
-        public static List<SitefinitySocMapping> GetListOfSiteFinitySocMapping()
+        public static ICollection<SitefinitySocMapping> GetListOfSiteFinitySocMapping()
         {
-            List<SitefinitySocMapping> value = new List<SitefinitySocMapping>()
+            var value = new List<SitefinitySocMapping>()
             {
                 new SitefinitySocMapping()
                 {

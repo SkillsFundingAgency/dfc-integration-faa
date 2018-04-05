@@ -7,7 +7,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            var regContinuation = builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();            
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
         }
     }
 }

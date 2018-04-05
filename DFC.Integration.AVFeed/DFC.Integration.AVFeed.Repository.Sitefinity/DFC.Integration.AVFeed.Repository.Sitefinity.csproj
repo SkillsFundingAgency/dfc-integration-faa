@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -92,6 +93,7 @@
     <Compile Include="Base\SitefinityRepository.cs" />
     <Compile Include="Base\SocRepositoryEndpointConfig.cs" />
     <Compile Include="Base\SocSitefinityRepository.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HttpClientService.cs" />
     <Compile Include="Mapper\SitefinityDataMapper.cs" />
     <Compile Include="Models\CustomContractResolver.cs" />
@@ -126,6 +128,10 @@
       <Name>DFC.Integration.AVFeed.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

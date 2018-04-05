@@ -10,7 +10,7 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPI
         {
             base.Load(builder);
 
-            var regContinuation = builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
 
             builder.Register(ctx => new MapperConfiguration(cfg =>
             {
