@@ -33,5 +33,4 @@ namespace DFC.Integration.AVFeed.Function.PublishVacanciesConsole
             }
         }
     }
-    
 }

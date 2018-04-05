@@ -27,7 +27,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 
                 ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
-                var mappedResult = await GetAVForSoc.Startup.RunAsync(myQueueItem, RunMode.Azure, auditRecord, new AuditRecord<object, object>
+                var mappedResult = await Startup.RunAsync(myQueueItem, RunMode.Azure, auditRecord, new AuditRecord<object, object>
                 {
                     CorrelationId = myQueueItem.CorrelationId,
                     StartedAt = startTime,
@@ -35,12 +35,12 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                     Function = nameof(GetAVForSocMappingAzFunction),
                     Input = "",
                     Output = ""
-                });
+                }).ConfigureAwait(false);
                 await AuditMapping(myQueueItem, auditRecord, startTime, mappedResult);
 
                 var projectedResult = Function.ProjectVacanciesForSoc.Startup.Run(RunMode.Azure, mappedResult);
                 projectedResult.CorrelationId = myQueueItem.CorrelationId;
-                await projectedVacancySummary.AddAsync(projectedResult);
+                await projectedVacancySummary.AddAsync(projectedResult).ConfigureAwait(false);
                 await AuditProjections(myQueueItem, auditRecord, startTime, mappedResult, projectedResult);
             }
             finally
