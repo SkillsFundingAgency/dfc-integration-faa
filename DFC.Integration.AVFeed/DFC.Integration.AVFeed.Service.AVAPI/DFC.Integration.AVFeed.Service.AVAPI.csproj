@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FDECC75B-0821-4015-974A-5056B5A00344}</ProjectGuid>
+    <ProjectGuid>{9753DC21-D0CF-4AEF-A265-6CF80B21507E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Integration.AVFeed.Data</RootNamespace>
-    <AssemblyName>DFC.Integration.AVFeed.Data</AssemblyName>
+    <RootNamespace>DFC.Integration.AVFeed.Service.AVSoapAPI</RootNamespace>
+    <AssemblyName>DFC.Integration.AVFeed.Service.AVSoapAPI</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,6 +48,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,33 +58,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IApprenticeshipVacancyRepository.cs" />
-    <Compile Include="Interfaces\IHttpClientService.cs" />
-    <Compile Include="Interfaces\IAuditService.cs" />
-    <Compile Include="Interfaces\IPublishAVFunc.cs" />
-    <Compile Include="Interfaces\ITokenClient.cs" />
-    <Compile Include="Models\ApprenticeshipVacancySummaryNew.cs" />
-    <Compile Include="Models\BaseIntegrationModel.cs" />
-    <Compile Include="Models\FunctionResult.cs" />
-    <Compile Include="Models\GenericAuditRecord.cs" />
-    <Compile Include="Models\ProjectedVacancySummary.cs" />
-    <Compile Include="Interfaces\IGetSocMappingFunc.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\ISocMappingRepository.cs" />
-    <Compile Include="Interfaces\IProjectVacanciesFunc.cs" />
-    <Compile Include="Interfaces\IApplicationLogger.cs" />
-    <Compile Include="Interfaces\IAVService.cs" />
-    <Compile Include="Interfaces\IGetAvForSocFunc.cs" />
-    <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
-    <Compile Include="Models\ApprenticeshipVacancyDetails.cs" />
-    <Compile Include="Models\AuditRecord.cs" />
-    <Compile Include="Models\MappedVacancySummary.cs" />
-    <Compile Include="Models\PublishedAV.cs" />
-    <Compile Include="Models\PublishedVacancySummary.cs" />
-    <Compile Include="Models\SocMaping.cs" />
+    <Compile Include="AutofacModule.cs" />
+    <Compile Include="AVSoapWebService.cs" />
+    <Compile Include="ClientProxy.cs" />
+    <Compile Include="IApprenticeshipVacancyApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Core\DFC.Integration.AVFeed.Core.csproj">
+      <Project>{26267D67-B97F-4A6F-99C6-EB23DE05BCBF}</Project>
+      <Name>DFC.Integration.AVFeed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Data\DFC.Integration.AVFeed.Data.csproj">
+      <Project>{FDECC75B-0821-4015-974A-5056B5A00344}</Project>
+      <Name>DFC.Integration.AVFeed.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
