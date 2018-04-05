@@ -8,6 +8,5 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
     {
         IEnumerable<SocMapping>GetOutput();
         Task Execute();
-        Task CreateAuditRecordAsync();
     }
 }

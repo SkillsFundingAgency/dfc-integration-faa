@@ -62,7 +62,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
             publishFunc.ExecuteAsync(queueItem).GetAwaiter().GetResult();
 
             //Assert
-            publishFunc.GetOutput().Vacancies.FirstOrDefault().UrlName.ShouldBeEquivalentTo(testUrl);
+            publishFunc.GetOutput().Vacancies.FirstOrDefault()?.UrlName.Should().BeEquivalentTo(testUrl);
         }
     }
 }

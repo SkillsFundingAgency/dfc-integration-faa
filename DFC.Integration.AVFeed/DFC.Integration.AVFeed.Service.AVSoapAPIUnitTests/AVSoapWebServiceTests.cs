@@ -10,7 +10,7 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPI.Tests
     {
 
         //Cannot get this to work as we cannot fake the SOAP client
-        public void GetApprenticeshipVacancyDetailsTest()
+        public async System.Threading.Tasks.Task GetApprenticeshipVacancyDetailsTestAsync()
         {
             var mapping = new SocMapping
             {
@@ -20,25 +20,24 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPI.Tests
                 Frameworks = new string[] { "F1", "F2" }
             };
 
-            var dummyVacancyDetailsResponse = A.Dummy<VacancyDetailsResponse>();
+            A.Dummy<VacancyDetailsResponse>();
 
             var fakeSoapApi = A.Fake<IVacancyDetailsSoapApi>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-           
+
             var avService = new AVSoapWebService(fakeSoapApi, null, fakeLogger);
-            var result = avService.GetApprenticeshipVacancyDetails(mapping);
+            await avService.GetApprenticeshipVacancyDetails(mapping);
 
             A.CallTo(() => fakeSoapApi.GetAsync(A<VacancyDetailsRequest>._)).MustHaveHappened(Repeated.Exactly.Times(7));
         }
 
 
 
-        private VacancyDetailsResponse GetFakeVacancies ()
+        private static VacancyDetailsResponse GetFakeVacancies ()
         {
-            var retResponse = new VacancyDetailsResponse();
-            retResponse.SearchResults.TotalPages = 1;
+            var retResponse = new VacancyDetailsResponse {SearchResults = {TotalPages = 1}};
 
-            var retVacancies = new VacancyFullData[]
+            var retVacancies = new[]
             {
                 new VacancyFullData()
             };

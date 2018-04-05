@@ -9,26 +9,26 @@ using Xunit;
 namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
 {
 
-    public enum Scenarios
+    public enum Scenario
     {
-        onlySingleProviderMoreThanTwo,
-        multipeProvidersMoreThanTwo,
-        multipeProvidersMoreThanTwoStartDatesMatch,
-        onlyOneAvailable,
-        noneAvailable
+        OnlySingleProviderMoreThanTwo,
+        MultipeProvidersMoreThanTwo,
+        MultipeProvidersMoreThanTwoStartDatesMatch,
+        OnlyOneAvailable,
+        NoneAvailable
     }
     public class AVFeedProjectVacanciesForSOCTests
     {
         [Theory]
-        [InlineData(Scenarios.onlySingleProviderMoreThanTwo, 2)]
-        [InlineData(Scenarios.multipeProvidersMoreThanTwo, 2)]
-        [InlineData(Scenarios.multipeProvidersMoreThanTwoStartDatesMatch, 2)]
-        [InlineData(Scenarios.onlyOneAvailable, 1)]
-        [InlineData(Scenarios.noneAvailable, 0)]
-        public void GetProjectedVacanciesTestAsync(Scenarios scenario, int expectedNumberDisplayed)
+        [InlineData(Scenario.OnlySingleProviderMoreThanTwo, 2)]
+        [InlineData(Scenario.MultipeProvidersMoreThanTwo, 2)]
+        [InlineData(Scenario.MultipeProvidersMoreThanTwoStartDatesMatch, 2)]
+        [InlineData(Scenario.OnlyOneAvailable, 1)]
+        [InlineData(Scenario.NoneAvailable, 0)]
+        public void GetProjectedVacanciesTestAsync(Scenario scenario, int expectedNumberDisplayed)
         {
 
-            var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ApprenticeshipVacancyDetails, ApprenticeshipVacancySummary>()); 
+            var mapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<ApprenticeshipVacancyDetails, ApprenticeshipVacancySummary>());
             var projectVacanciesFunction = new ProjectVacanciesFunction(mapperConfig.CreateMapper());
 
             //run the execute method
@@ -39,6 +39,44 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
             var projectedVacancies = projectVacanciesFunction.GetOutput();
             CheckResultIsAsExpected(testVacancies.SocCode, projectedVacancies, expectedNumberDisplayed);
 
+        }
+
+        private static IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesMultipeProvidersMoreThanTwo()
+        {
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(20), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(5), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(2), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(10), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider C", PossibleStartDate = DateTime.Now.AddDays(15), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider D", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Not Displayed" };
+        }
+
+        private static IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesMultipeProvidersMoreThanTwoStartDatesMatch()
+        {
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(20), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(5), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(10), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider C", PossibleStartDate = DateTime.Now.AddDays(15), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider D", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Not Displayed" };
+        }
+
+        private static IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesOnlyOneAvailable()
+        {
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
+        }
+
+        private static IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesSingleProviderMoreThanTwo()
+        {
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(10), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(20), VacancyTitle = "Not Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(2), VacancyTitle = "Displayed" };
+            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Not Displayed" };
         }
 
         private void CheckResultIsAsExpected(string SocCode, ProjectedVacancySummary projectedVacancies, int expectedCount)
@@ -57,75 +95,37 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
             numberOfProjectedVacanices.Should().Be(expectedCount);
         }
 
-        private MappedVacancyDetails GetTestMappedVacancySummary(Scenarios scenario)
+        private MappedVacancyDetails GetTestMappedVacancySummary(Scenario scenario)
         {
             var v = new MappedVacancyDetails() { SocCode = "T01" };
 
             switch (scenario)
             {
-                case Scenarios.onlySingleProviderMoreThanTwo:
+                case Scenario.OnlySingleProviderMoreThanTwo:
                     v.Vacancies = GetTestVacanciesSingleProviderMoreThanTwo();
                     break;
 
-                case Scenarios.multipeProvidersMoreThanTwo:
+                case Scenario.MultipeProvidersMoreThanTwo:
                     v.Vacancies = GetTestVacanciesMultipeProvidersMoreThanTwo();
                     break;
 
-                case Scenarios.multipeProvidersMoreThanTwoStartDatesMatch:
+                case Scenario.MultipeProvidersMoreThanTwoStartDatesMatch:
                     v.Vacancies = GetTestVacanciesMultipeProvidersMoreThanTwoStartDatesMatch();
                     break;
 
-                case Scenarios.onlyOneAvailable:
+                case Scenario.OnlyOneAvailable:
                     v.Vacancies = GetTestVacanciesOnlyOneAvailable();
                     break;
 
-                case Scenarios.noneAvailable:
+                case Scenario.NoneAvailable:
                     ;
                     break;
 
                 default:
                     throw new Exception("Test Scenarios not supported");
-    
+
             }
             return v;
-        }
-
-        private IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesSingleProviderMoreThanTwo()
-        {
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(10), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(20), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(2), VacancyTitle = "Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Not Displayed" };
-        }
-
-        private IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesMultipeProvidersMoreThanTwo()
-        {
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(20), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(5), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(2), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(10), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider C", PossibleStartDate = DateTime.Now.AddDays(15), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider D", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Not Displayed" };
-        }
-
-        private IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesMultipeProvidersMoreThanTwoStartDatesMatch()
-        {
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(20), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(5), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider B", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(10), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider C", PossibleStartDate = DateTime.Now.AddDays(15), VacancyTitle = "Not Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider D", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(3), VacancyTitle = "Not Displayed" };
-        }
-
-        private IEnumerable<ApprenticeshipVacancyDetails> GetTestVacanciesOnlyOneAvailable()
-        {
-            yield return new ApprenticeshipVacancyDetails() { LearningProviderName = "Provider A", PossibleStartDate = DateTime.Now.AddDays(1), VacancyTitle = "Displayed" };
         }
 
     }

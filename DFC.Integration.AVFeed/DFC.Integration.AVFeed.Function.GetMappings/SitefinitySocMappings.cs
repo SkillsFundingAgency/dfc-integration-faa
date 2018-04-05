@@ -24,10 +24,5 @@ namespace DFC.Integration.AVFeed.Function.GetMappings
         {
             socMappingoutput = await socMappingRepository.GetSocMappingAsync();
         }
-
-        public async Task CreateAuditRecordAsync()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

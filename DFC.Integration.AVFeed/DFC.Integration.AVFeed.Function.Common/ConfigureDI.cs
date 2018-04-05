@@ -2,8 +2,6 @@
 using DFC.Integration.AVFeed.AuditService;
 using DFC.Integration.AVFeed.Core;
 using DFC.Integration.AVFeed.Data.Interfaces;
-using Microsoft.Azure.WebJobs.Host;
-using NLog.Config;
 
 namespace DFC.Integration.AVFeed.Function.Common
 {

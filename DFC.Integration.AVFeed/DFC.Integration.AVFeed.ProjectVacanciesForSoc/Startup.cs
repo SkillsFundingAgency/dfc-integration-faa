@@ -19,7 +19,7 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
         {
             var container = ConfigureContainer(mode);
             var getAvFunc = container.Resolve<IProjectVacanciesFunc>();
-            var auditService = container.Resolve<IAuditService>();
+            container.Resolve<IAuditService>();
             getAvFunc.Execute(input);
             return getAvFunc.GetOutput();
         }

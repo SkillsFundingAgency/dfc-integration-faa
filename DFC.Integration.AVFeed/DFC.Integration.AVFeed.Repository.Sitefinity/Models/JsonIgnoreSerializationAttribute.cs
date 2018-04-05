@@ -2,5 +2,6 @@
 
 namespace DFC.Integration.AVFeed.Repository.Sitefinity.Models
 {
-    public class JsonIgnoreSerializationAttribute : Attribute { }
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
+    public sealed class JsonIgnoreSerializationAttribute : Attribute { }
 }

@@ -42,6 +42,5 @@ namespace DFC.Integration.AVFeed.Function.Common
 
             AppDomain.CurrentDomain.AssemblyResolve += handler;
         }
-
     }
 }

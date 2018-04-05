@@ -289,3 +289,7 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+#Ignore AVFeed Config and Azurefunction configuration file
+*.config
+*.json

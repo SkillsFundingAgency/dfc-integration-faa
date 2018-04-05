@@ -8,7 +8,7 @@ namespace DFC.Integration.AVFeed.Function.PublishVacanciesConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("=================THE BEGINNING==============");
             try
@@ -33,5 +33,4 @@ namespace DFC.Integration.AVFeed.Function.PublishVacanciesConsole
             }
         }
     }
-    
 }

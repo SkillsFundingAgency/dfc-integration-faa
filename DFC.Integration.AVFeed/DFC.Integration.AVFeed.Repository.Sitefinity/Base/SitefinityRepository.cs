@@ -1,12 +1,9 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
 {
