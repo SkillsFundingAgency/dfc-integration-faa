@@ -39,40 +39,8 @@ namespace DFC.Integration.AVFeed.Service.AVAPI
         private async Task<IEnumerable<ApprenticeshipVacancyDetails>> GetAVDetailsForFramework(string standardOrframework, int page)
         {
             logger.Trace($"Extracting AV for standardOrframework:'{standardOrframework}', page:'{page}'");
+            throw new System.NotImplementedException();
 
-            var result = await apprenticeshipVacancyApi.GetAsync(new VacancyDetailsRequest
-            {
-                VacancySearchCriteria = new VacancySearchData
-                {
-                    FrameworkCode = standardOrframework,
-                    VacancyLocationType = locationType,
-                    PageIndex = page,
-                }
-            });
-
-            var details = mapper.Map<IEnumerable<FAA.VacancyFullData>, IEnumerable<ApprenticeshipVacancyDetails>>(result.SearchResults.SearchResults,
-                opt => opt.AfterMap(
-                    (src, dst) =>
-                    {
-                        foreach (var item in dst)
-                        {
-                            item.MessageId = result.MessageId;
-                            item.VacancyLocationType = locationType.ToString();
-                            item.FrameworkCode = standardOrframework;
-                            item.ResultPage = page;
-
-                        }
-                    }));
-
-            logger.Trace($"Extracted page:'{page}' of totalPages:'{result.SearchResults.TotalPages}' for standardOrframework:'{standardOrframework}', locationType: {locationType}");
-            if (result.SearchResults.TotalPages >= page)
-            {
-                return Enumerable.Concat(details, await GetAVDetailsForFramework(standardOrframework, ++page, locationType));
-            }
-            else
-            {
-                return details;
-            }
         }
     }
 }
