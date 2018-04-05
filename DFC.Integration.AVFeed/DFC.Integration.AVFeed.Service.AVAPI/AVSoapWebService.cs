@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Service.AVSoapAPI.FAA;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,13 +9,13 @@ namespace DFC.Integration.AVFeed.Service.AVAPI
 {
     public class AVSoapWebService : IAVService
     {
-        private IVacancyDetailsSoapApi soapApi;
+        private IApprenticeshipVacancyApi apprenticeshipVacancyApi;
         private IMapper mapper;
         private IApplicationLogger logger;
 
-        public AVSoapWebService(IVacancyDetailsSoapApi soapApi, IMapper mapper, IApplicationLogger logger)
+        public AVSoapWebService(IApprenticeshipVacancyApi apprenticeshipVacancyApi, IMapper mapper, IApplicationLogger logger)
         {
-            this.soapApi = soapApi;
+            this.apprenticeshipVacancyApi = apprenticeshipVacancyApi;
             this.mapper = mapper;
             this.logger = logger;
         }
@@ -26,8 +25,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPI
             var frameworksAndStandards = mapping.Frameworks.Concat(mapping.Standards);
             foreach (var standardOrframework in frameworksAndStandards)
             {
-                avDetails.AddRange(await GetAVDetailsForFramework(standardOrframework, 1, VacancyDetailsSearchLocationType.National));
-                avDetails.AddRange(await GetAVDetailsForFramework(standardOrframework, 1, VacancyDetailsSearchLocationType.NonNational));
+                avDetails.AddRange(await GetAVDetailsForFramework(standardOrframework, 1));
             }
 
             return avDetails.AsEnumerable();
@@ -38,11 +36,11 @@ namespace DFC.Integration.AVFeed.Service.AVAPI
             throw new System.NotImplementedException();
         }
 
-        private async Task<IEnumerable<ApprenticeshipVacancyDetails>> GetAVDetailsForFramework(string standardOrframework, int page, VacancyDetailsSearchLocationType locationType)
+        private async Task<IEnumerable<ApprenticeshipVacancyDetails>> GetAVDetailsForFramework(string standardOrframework, int page)
         {
-            logger.Trace($"Extracting AV for standardOrframework:'{standardOrframework}', page:'{page}', locationType: {locationType}");
+            logger.Trace($"Extracting AV for standardOrframework:'{standardOrframework}', page:'{page}'");
 
-            var result = await soapApi.GetAsync(new VacancyDetailsRequest
+            var result = await apprenticeshipVacancyApi.GetAsync(new VacancyDetailsRequest
             {
                 VacancySearchCriteria = new VacancySearchData
                 {

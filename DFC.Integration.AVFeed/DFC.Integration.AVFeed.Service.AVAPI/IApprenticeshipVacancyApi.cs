@@ -4,6 +4,6 @@ namespace DFC.Integration.AVFeed.Service.AVAPI
 {
     public interface IApprenticeshipVacancyApi
     {
-        Task<JsonResult> GetAsync(VacancyDetailsRequest vacancyDetailsRequest);
+        Task<string> GetAsync(string requestQueryString);
     }
 }

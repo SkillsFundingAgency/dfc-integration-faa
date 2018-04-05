@@ -2,6 +2,7 @@
 using DFC.Integration.AVFeed.Service.AVSoapAPI.FAA;
 using System;
 using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.ServiceModel;
 using System.Threading.Tasks;
@@ -22,15 +23,17 @@ namespace DFC.Integration.AVFeed.Service.AVAPI
             using (var clientProxy = new HttpClient())
             {
                 var fullRequest = $"{_endpoint}/Search?{requestQueryString}";
+
                 var response = await clientProxy.GetAsync(fullRequest);
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadAsStringAsync();
+                    logger.Trace($"Error status {response.StatusCode},  Getting API data for request :'{fullRequest}', ");
+
+                    //this will throw an exception as is not a success code
+                    response.EnsureSuccessStatusCode();
                 }
-                else
-                {
-                    logger.Trace($"Error status {response.StatusCode},  Getting API data for request :'{fullRequest}'");
-                }
+
+                return await response.Content.ReadAsStringAsync();
             }
         }
 

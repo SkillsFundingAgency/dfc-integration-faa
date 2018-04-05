@@ -11,6 +11,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSocConsole
         static void Main(string[] args)
         {
             Console.WriteLine("=================THE BEGINNING==============");
+
             var startTime = new Stopwatch();
             startTime.Start();
             try
