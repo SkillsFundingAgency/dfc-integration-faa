@@ -84,7 +84,6 @@
     <Compile Include="RunMode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>
     </CodeAnalysisDictionary>
