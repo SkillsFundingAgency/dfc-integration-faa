@@ -1,0 +1,31 @@
+﻿using DFC.Integration.AVFeed.Data.Interfaces;
+using DFC.Integration.AVFeed.Data.Models;
+using DFC.Integration.AVFeed.Service;
+using FakeItEasy;
+using System;
+using Xunit;
+
+namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
+{
+    public class AVAPIServiceUnitTests
+    {
+        [Fact]
+        public async System.Threading.Tasks.Task GetAVSumaryPageTestAsync()
+        {
+            var fakeLogger = A.Fake<IApplicationLogger>();
+
+            var client = new ClientProxy(fakeLogger);
+            var aVAPIService = new AVAPIService(client, fakeLogger);
+
+            var mapping = new SocMapping
+            {
+                SocCode = "1234",
+                SocMappingId = Guid.NewGuid(),
+                Standards = new string[] { "225" },
+                Frameworks = new string[] { "512" }
+            };
+
+            var pageSumary = await aVAPIService.GetAVSumaryPageAsync(mapping, 1);
+        }
+    }
+}

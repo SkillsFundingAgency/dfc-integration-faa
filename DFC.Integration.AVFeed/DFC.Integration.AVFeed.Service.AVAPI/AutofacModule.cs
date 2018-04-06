@@ -1,8 +1,7 @@
 ﻿using Autofac;
-using AutoMapper;
 using DFC.Integration.AVFeed.Data.Models;
 
-namespace DFC.Integration.AVFeed.Service.AVAPI
+namespace DFC.Integration.AVFeed.Service
 {
     public class AutofacModule : Module
     {

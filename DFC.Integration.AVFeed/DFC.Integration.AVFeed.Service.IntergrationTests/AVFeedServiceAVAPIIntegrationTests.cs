@@ -1,17 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DFC.Integration.AVFeed.Service.AVAPI;
+﻿using DFC.Integration.AVFeed.Service;
 using FakeItEasy;
 using System.Web;
 using FluentAssertions;
 using Xunit;
 using DFC.Integration.AVFeed.Data.Interfaces;
+using DFC.Integration.AVFeed.Data.Models;
 
 namespace DFC.Integration.AVFeed.Service.IntergrationTests
 {
-    [TestClass]
+   
     public class AVFeedServiceAVAPIIntegrationTests
     {
-        [TestMethod]
+        [Fact]
         public async System.Threading.Tasks.Task SearchApprenticeshipVacanciesAPITestAsync()
         {
             var fakeLogger = A.Fake<IApplicationLogger>();
@@ -19,15 +19,18 @@ namespace DFC.Integration.AVFeed.Service.IntergrationTests
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-            queryString["standardLarsCodes"] = "94,95";
-            queryString["frameworkLarsCodes"] = "";
-            queryString["pageSize"] = "100";
-            queryString["pageNumber"] = "0";
+            //Standard "Construction > Plumbing and Domestic Heating Technician"
+            queryString["standardLarsCodes"] = "225";
+
+            //Frameworl Plumbing and Domestic Heating Technician
+            queryString["frameworkLarsCodes"] = "512";
+
+            queryString["pageSize"] = "5";
+            queryString["pageNumber"] = "1";
             queryString["sortBy"] = "Age";
 
-            var responseResult = await client.GetAsync(queryString.ToString());
+            var responseResult = await client.GetAsync(queryString.ToString(), RequestType.search);
 
-           
             responseResult.Should().NotBeNull();
 
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Service.AVSoapAPI
 {
-    public class AVSoapWebService : IAVService
+    public class AVSoapWebService : IAVService_ToDelete
     {
         private IVacancyDetailsSoapApi soapApi;
         private IMapper mapper;

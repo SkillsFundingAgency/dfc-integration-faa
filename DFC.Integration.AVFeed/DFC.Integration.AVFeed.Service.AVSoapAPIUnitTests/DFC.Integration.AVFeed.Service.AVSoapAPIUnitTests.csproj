@@ -102,6 +102,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AVFeedProjectVacanciesForSOCTests.cs" />
+    <Compile Include="AVAPIServiceUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -115,6 +116,10 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.ProjectVacanciesForSoc\DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc.csproj">
       <Project>{8AE7ACA4-1CAE-42BE-84AE-4C9158F553C5}</Project>
       <Name>DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVAPI\DFC.Integration.AVFeed.Service.AVAPI.csproj">
+      <Project>{9753dc21-d0cf-4aef-a265-6cf80b21507e}</Project>
+      <Name>DFC.Integration.AVFeed.Service.AVAPI</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVSoapAPI\DFC.Integration.AVFeed.Service.AVSoapAPI.csproj">
       <Project>{018E2FFC-EACC-4E4A-978B-D915963CEA59}</Project>

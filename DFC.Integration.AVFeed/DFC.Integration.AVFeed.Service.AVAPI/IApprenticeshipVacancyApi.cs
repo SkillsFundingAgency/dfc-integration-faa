@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Service.AVAPI
+namespace DFC.Integration.AVFeed.Service
 {
     public interface IApprenticeshipVacancyApi
     {

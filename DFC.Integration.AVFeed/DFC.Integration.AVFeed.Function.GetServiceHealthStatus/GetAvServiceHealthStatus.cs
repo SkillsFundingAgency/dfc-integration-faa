@@ -14,10 +14,10 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
     public class GetAvServiceHealthStatus:IGetServiceHealthStatus
     {
         private ISocSitefinityOdataRepository SitefinityOdataRepository;
-        private IAVService AvService;
+        private IAVService_ToDelete AvService;
         private IApplicationLogger Logger;
 
-        public GetAvServiceHealthStatus(ISocSitefinityOdataRepository sitefinityOdataRepository, IAVService avService, IApplicationLogger logger)
+        public GetAvServiceHealthStatus(ISocSitefinityOdataRepository sitefinityOdataRepository, IAVService_ToDelete avService, IApplicationLogger logger)
         {
             SitefinityOdataRepository = sitefinityOdataRepository;
             AvService = avService;
