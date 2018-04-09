@@ -36,7 +36,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
                 {
                     UrlName = urlName,
                     VacancyReference = vacancy.VacancyReference,
-                    VacancyTitle = vacancy.VacancyTitle,
+                    Title = vacancy.Title,
                     VacancyUrl = vacancy.VacancyUrl
                 });
             }

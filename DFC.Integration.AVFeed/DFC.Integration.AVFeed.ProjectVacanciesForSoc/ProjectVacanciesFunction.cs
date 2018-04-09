@@ -10,12 +10,13 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
     public class ProjectVacanciesFunction : IProjectVacanciesFunc
     {
 
-        private ProjectedVacancySummary projectedVacanciesForSOC;
-        private IMapper mapper;
 
-        public ProjectVacanciesFunction(IMapper mapper)
+        private ProjectedVacancySummary projectedVacanciesForSOC;
+        
+
+        public ProjectVacanciesFunction()
         {
-            this.mapper = mapper;
+           
         }
 
         public void Execute(MappedVacancyDetails allVacanciesForSOC)
@@ -33,25 +34,24 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
                 if (allVacanciesForSOC.Vacancies == null)
                     return;
 
-                var numberProvoidersFound = allVacanciesForSOC.Vacancies.Select(v => v.LearningProviderName).Distinct().Count();
+                var numberProvoidersFound = allVacanciesForSOC.Vacancies.Select(v => v.TrainingProviderName).Distinct().Count();
 
-                var projection = Enumerable.Empty<ApprenticeshipVacancyDetails>();
+                var projection = Enumerable.Empty<ApprenticeshipVacancySummary>();
                 if (numberProvoidersFound > 1)
                 {
                     //have multipe providers
                     projection = allVacanciesForSOC.Vacancies
-                        .OrderBy(v => v.PossibleStartDate)
-                        .GroupBy(v => v.LearningProviderName)
+                        .GroupBy(v => v.TrainingProviderName)
                         .Select(g => g.First())
                         .Take(2);
                 }
                 else
                 {
                     //just have a single or no provider 
-                    projection = allVacanciesForSOC.Vacancies.OrderBy(v => v.PossibleStartDate).Take(2);
+                    projection = allVacanciesForSOC.Vacancies.Take(2);
                 }
 
-                projectedVacanciesForSOC.Vacancies = mapper.Map<IEnumerable<ApprenticeshipVacancySummary>>(projection);
+                projectedVacanciesForSOC.Vacancies = projection;
             }
         }
 
@@ -65,7 +65,7 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
         {
             if (projectedVacanciesForSOC == null)
             {
-                throw new InvalidOperationException($"{nameof(Execute)} must be called before creating an audit record.");
+                throw new InvalidOperationException($"{nameof(Execute)} must be called before projecting vacancies.");
             }
         }
     }

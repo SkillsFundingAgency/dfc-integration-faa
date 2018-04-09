@@ -111,10 +111,6 @@
       <Project>{8ae7aca4-1cae-42be-84ae-4c9158f553c5}</Project>
       <Name>DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVSoapAPI\DFC.Integration.AVFeed.Service.AVSoapAPI.csproj">
-      <Project>{018e2ffc-eacc-4e4a-978b-d915963cea59}</Project>
-      <Name>DFC.Integration.AVFeed.Service.AVSoapAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">

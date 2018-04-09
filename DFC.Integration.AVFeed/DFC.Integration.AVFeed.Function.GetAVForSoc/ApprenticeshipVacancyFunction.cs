@@ -11,10 +11,10 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
     {
         private SocMapping socMapping;
         private IMapper mapper;
-        private IAVService_ToDelete avService;
-        private IEnumerable<ApprenticeshipVacancyDetails> details;
+        private IAVService avService;
+        private IEnumerable<ApprenticeshipVacancySummary> vacancySummaries;
 
-        public ApprenticeshipVacancyFunction(IMapper mapper, IAVService_ToDelete avService)
+        public ApprenticeshipVacancyFunction(IMapper mapper, IAVService avService)
         {
             this.mapper = mapper;
             this.avService = avService;
@@ -23,7 +23,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
         public async Task Execute(SocMapping mapping)
         {
             socMapping = mapping ?? throw new ArgumentNullException(nameof(mapping));
-            details = await avService.GetApprenticeshipVacancyDetails(socMapping);
+            vacancySummaries = await avService.GetAVsForMultipleProvidersAsync(socMapping);
         }
 
         public MappedVacancyDetails GetOutput()
@@ -31,7 +31,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
             Validate();
             return new MappedVacancyDetails
             {
-                Vacancies = mapper.Map<IEnumerable<ApprenticeshipVacancyDetails>>(details),
+                Vacancies = vacancySummaries,
                 SocCode = socMapping.SocCode,
                 SocMappingId = socMapping.SocMappingId,
                 AccessToken = socMapping.AccessToken
@@ -40,7 +40,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
 
         private void Validate()
         {
-            if (details == null)
+            if (vacancySummaries == null)
             {
                 throw new InvalidOperationException($"{nameof(Execute)} must be called before creating an audit record.");
             }

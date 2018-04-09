@@ -14,10 +14,10 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
     public class GetAvServiceHealthStatus:IGetServiceHealthStatus
     {
         private ISocSitefinityOdataRepository SitefinityOdataRepository;
-        private IAVService_ToDelete AvService;
+        private IAVService AvService;
         private IApplicationLogger Logger;
 
-        public GetAvServiceHealthStatus(ISocSitefinityOdataRepository sitefinityOdataRepository, IAVService_ToDelete avService, IApplicationLogger logger)
+        public GetAvServiceHealthStatus(ISocSitefinityOdataRepository sitefinityOdataRepository, IAVService avService, IApplicationLogger logger)
         {
             SitefinityOdataRepository = sitefinityOdataRepository;
             AvService = avService;
@@ -44,14 +44,14 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
 
         public async Task<ServiceStatus> GetApprenticeshipFeedHealthStatusAsync()
         {
-            var checkFrameWork = "Plumbing and Heating";
-            var checkStandard = "Plumbing and Domestic Heating Technician(Level 3)";
+            var checkFrameWork = "512"; //Plumbing and Heating
+            var checkStandard = "225";  //Plumbing and Domestic Heating Technician(Level 3)
             var serviceStatus = new ServiceStatus { ApplicationName = "Apprenticeship Feed", Status = ServiceState.Red, Notes = string.Empty };
             var checkSocMapping = new SocMapping() { SocCode = "5314", Frameworks = new string[] {checkFrameWork}, Standards = new string[] {checkStandard} };
             serviceStatus.CheckParametersUsed = $"SocCode = {checkSocMapping.SocCode} - FrameWork = {checkFrameWork} - Standard = {checkStandard}";
             try
             {
-                var result = await AvService.GetApprenticeshipVacancyDetails(checkSocMapping);
+                var result = await AvService.GetAVSumaryPageAsync(checkSocMapping, 1);
                 serviceStatus.Status = ServiceState.Green;
             }
             catch (Exception ex)

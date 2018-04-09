@@ -31,15 +31,15 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
         }
 
-        public async Task<string> PublishAsync(ApprenticeshipVacancySummary apprenticeshipVacancySummary, Guid socCodeId)
+        public async Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails, Guid socCodeId)
         {
             //Add vacancy
             var addedVacancyId = await repository.AddAsync(new SfApprenticeshipVacancy
             {
                 PublicationDate = DateTime.UtcNow,
                 UrlName = Guid.NewGuid().ToString(),
-                URL = apprenticeshipVacancySummary.VacancyUrl,
-                Location = $"{apprenticeshipVacancySummary.AddressDataTown} {apprenticeshipVacancySummary.AddressDataPostCode}",
+                URL = apprenticeshipVacancyDetails.VacancyUrl,
+                Location = $"{apprenticeshipVacancyDetails.Location.Town} {apprenticeshipVacancyDetails.Location.PostCode}",
                 WageUnitType = "Wage",
                 WageAmount = apprenticeshipVacancySummary.WageText,
                 Title = apprenticeshipVacancySummary.VacancyTitle,

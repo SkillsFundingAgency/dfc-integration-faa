@@ -93,10 +93,6 @@
       <Project>{DCC9ECE1-41F0-4844-B7AC-7537E55982C9}</Project>
       <Name>DFC.Integration.AVFeed.Function.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVSoapAPI\DFC.Integration.AVFeed.Service.AVSoapAPI.csproj">
-      <Project>{018e2ffc-eacc-4e4a-978b-d915963cea59}</Project>
-      <Name>DFC.Integration.AVFeed.Service.AVSoapAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -3,6 +3,7 @@ using DFC.Integration.AVFeed.Data.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -20,29 +21,54 @@ namespace DFC.Integration.AVFeed.Service
             this.logger = logger;
         }
 
-        public Task<IEnumerable<ApprenticeshipVacancyDetails>> GetApprenticeshipVacancyDetails(string vacancyRef)
+       
+        public async Task<ApprenticeshipVacancyDetails> GetApprenticeshipVacancyDetailsAsync(string vacancyRef)
         {
-            throw new System.NotImplementedException();
+            if (vacancyRef == null)
+            {
+                throw new ArgumentNullException(nameof(vacancyRef));
+            }
+
+            var responseResult = await apprenticeshipVacancyApi.GetAsync($"/{vacancyRef}", RequestType.apprenticeships);
+            logger.Trace($"Got details for vacancy ref : {vacancyRef}");
+            return JsonConvert.DeserializeObject<ApprenticeshipVacancyDetails>(responseResult);
         }
 
-       
+
         /// <summary>
         /// Get Apprenticeship Vacancy Summaries untill we have at leat two providers or all of them for the mapping
         /// </summary>
         /// <param name="mapping"></param>
         /// <returns></returns>
         /// 
-        public async Task<IEnumerable<ApprenticeshipVacancySummaryNew>> GetAVsForMultipleProvidersAsync(SocMapping mapping)
+        public async Task<IEnumerable<ApprenticeshipVacancySummary>> GetAVsForMultipleProvidersAsync(SocMapping mapping)
         {
             if (mapping == null)
             {
                 throw new ArgumentNullException(nameof(SocMapping));
             }
 
-            List<ApprenticeshipVacancySummaryNew> avSummary = new List<ApprenticeshipVacancySummaryNew>();
+            List<ApprenticeshipVacancySummary> avSummary = new List<ApprenticeshipVacancySummary>();
 
-            var pageOfVacancies = await GetAVSumaryPageAsync(mapping, 1);
+            var pageNumber = 0;
+            var maxPagesToTry =  int.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxPagesToTryPerMapping"));
 
+            logger.Trace($"Getting vacancies for mapping {JsonConvert.SerializeObject(mapping)}");
+
+            //Allways break after a given number off loops
+            while (maxPagesToTry > pageNumber)
+            {
+                var apprenticeshipVacancySummaryResponse = await GetAVSumaryPageAsync(mapping, ++pageNumber);
+
+                logger.Trace($"Got {apprenticeshipVacancySummaryResponse.TotalReturned} vacancies of {apprenticeshipVacancySummaryResponse.TotalMatched} on page: {pageNumber} of {apprenticeshipVacancySummaryResponse.TotalPages}");
+
+                avSummary.AddRange(apprenticeshipVacancySummaryResponse.Results);
+
+                //stop when there are no more pages or we have more then multiple supplier
+                if (apprenticeshipVacancySummaryResponse.TotalPages < pageNumber ||
+                     avSummary.Select(v => v.TrainingProviderName).Distinct().Count() > 1)
+                    break;
+            }
 
             return avSummary;
         }
@@ -54,22 +80,19 @@ namespace DFC.Integration.AVFeed.Service
                 throw new ArgumentNullException(nameof(SocMapping));
             }
 
-            logger.Trace($"Extracting AV summaries for standardOrframework SOC {mapping.SocCode}");
-
+            logger.Trace($"Extracting AV summaries for SOC {mapping.SocCode} page : {pageNumber}");
            
             var queryString = HttpUtility.ParseQueryString(string.Empty);
 
             queryString["standardLarsCodes"] = string.Join(",", mapping.Standards);
             queryString["frameworkLarsCodes"] = string.Join(",", mapping.Frameworks);
-            queryString["pageSize"] = "20";
+            queryString["pageSize"] = ConfigurationManager.AppSettings.Get("FAA.PageSize");;
             queryString["pageNumber"] = pageNumber.ToString();
             queryString["sortBy"] = "Age";
 
             var responseResult = await apprenticeshipVacancyApi.GetAsync(queryString.ToString(), RequestType.search);
 
-
             return JsonConvert.DeserializeObject<ApprenticeshipVacancySummaryResponse>(responseResult);
-
         }
 
     }

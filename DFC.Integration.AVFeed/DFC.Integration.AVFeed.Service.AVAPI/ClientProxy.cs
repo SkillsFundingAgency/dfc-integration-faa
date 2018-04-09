@@ -24,7 +24,9 @@ namespace DFC.Integration.AVFeed.Service
                 clientProxy.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _subscriptionKey);
                 clientProxy.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
 
-                var fullRequest = $"{_endpoint}/{requestType.ToString()}?{requestQueryString}";
+                var requestRoute = requestType == RequestType.search ? $"{requestType.ToString()}?" : "";
+
+                var fullRequest = $"{_endpoint}/{requestRoute}{requestQueryString}";
 
 
                 var response = await clientProxy.GetAsync(fullRequest);

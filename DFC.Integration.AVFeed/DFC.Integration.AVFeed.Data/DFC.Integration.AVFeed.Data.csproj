@@ -68,10 +68,12 @@
     <Compile Include="Interfaces\IAuditService.cs" />
     <Compile Include="Interfaces\IPublishAVFunc.cs" />
     <Compile Include="Interfaces\ITokenClient.cs" />
-    <Compile Include="Models\ApprenticeshipVacancySummaryNew.cs" />
+    <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
     <Compile Include="Models\BaseIntegrationModel.cs" />
     <Compile Include="Models\FunctionResult.cs" />
     <Compile Include="Models\GenericAuditRecord.cs" />
+    <Compile Include="Models\GeoPoint.cs" />
+    <Compile Include="Models\AddressLocation.cs" />
     <Compile Include="Models\ProjectedVacancySummary.cs" />
     <Compile Include="Interfaces\IGetSocMappingFunc.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -80,7 +82,6 @@
     <Compile Include="Interfaces\IApplicationLogger.cs" />
     <Compile Include="Interfaces\IAVService.cs" />
     <Compile Include="Interfaces\IGetAvForSocFunc.cs" />
-    <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
     <Compile Include="Models\ApprenticeshipVacancyDetails.cs" />
     <Compile Include="Models\AuditRecord.cs" />
     <Compile Include="Models\MappedVacancySummary.cs" />

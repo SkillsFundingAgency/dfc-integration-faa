@@ -98,13 +98,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="AVSoapWebServiceTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AVFeedProjectVacanciesForSOCTests.cs" />
     <Compile Include="AVAPIServiceUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -119,10 +119,6 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVAPI\DFC.Integration.AVFeed.Service.AVAPI.csproj">
       <Project>{9753dc21-d0cf-4aef-a265-6cf80b21507e}</Project>
       <Name>DFC.Integration.AVFeed.Service.AVAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVSoapAPI\DFC.Integration.AVFeed.Service.AVSoapAPI.csproj">
-      <Project>{018E2FFC-EACC-4E4A-978B-D915963CEA59}</Project>
-      <Name>DFC.Integration.AVFeed.Service.AVSoapAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

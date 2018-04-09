@@ -5,7 +5,7 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
     public interface IProjectVacanciesFunc
     {
         ProjectedVacancySummary GetOutput();
-        void Execute(MappedVacancyDetails allVacanciesForSOC);
+        void Execute(MappedVacancyDetails vacancySumariesForSOC);
     }
 }
 
