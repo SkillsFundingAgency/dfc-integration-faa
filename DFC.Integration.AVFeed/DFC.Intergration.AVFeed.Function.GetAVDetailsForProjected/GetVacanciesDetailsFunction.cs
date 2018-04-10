@@ -1,6 +1,7 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected
@@ -15,26 +16,36 @@ namespace DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected
         {
             this.avService = avService;
         }
-        public Task Execute(ProjectedVacancySummary projectedVacancies)
+        public async Task Execute(ProjectedVacancySummary projectedVacancySummary)
         {
-            if (projectedVacancies == null)
+            if (projectedVacancySummary == null)
             {
-                throw new ApplicationException(nameof(projectedVacancies));
+                throw new ApplicationException(nameof(projectedVacancySummary));
             }
 
-            projectedVacancyDetails = new ProjectedVacancyDetails() {SocCode = projectedVacancies.SocCode, AccessToken =  projectedVacancies.AccessToken, SocMappingId = projectedVacancies.SocMappingId}
+            projectedVacancyDetails = new ProjectedVacancyDetails() { SocCode = projectedVacancySummary.SocCode, AccessToken = projectedVacancySummary.AccessToken, SocMappingId = projectedVacancySummary.SocMappingId };
 
-            projectedVacancyDetails.Vacancies = new List<ApprenticeshipVacancyDetails>()
-;
+            var vacancyDetailsList  = new List<ApprenticeshipVacancyDetails>();
 
-
-
-
+            foreach (var v in projectedVacancySummary.Vacancies)
+            {
+                vacancyDetailsList.Add(await avService.GetApprenticeshipVacancyDetailsAsync(v.VacancyReference.ToString()));
+            }
+            projectedVacancyDetails.Vacancies = vacancyDetailsList;
         }
 
         public ProjectedVacancyDetails GetOutput()
         {
-            throw new NotImplementedException();
+            Validate();
+            return projectedVacancyDetails;
+        }
+
+        private void Validate()
+        {
+            if (projectedVacancyDetails == null)
+            {
+                throw new InvalidOperationException($"{nameof(Execute)} must be called before geting output");
+            }
         }
     }
 }
