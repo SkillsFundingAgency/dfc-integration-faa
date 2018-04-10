@@ -5,7 +5,7 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface IGetAvForSocFunc
     {
-        MappedVacancyDetails GetOutput();
+        MappedVacancySummary GetOutput();
         Task Execute(SocMapping mapping);
     }
 }

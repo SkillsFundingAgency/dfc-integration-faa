@@ -8,6 +8,6 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
     {
         Task DeleteExistingAsync(Guid socCodevalue);
 
-        Task<string> PublishAsync(ApprenticeshipVacancySummary apprenticeshipVacancySummary, Guid socCodeId);
+        Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails, Guid socCodeId);
     }
 }

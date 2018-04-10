@@ -5,7 +5,7 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public  interface IPublishAVFunc
     {
-        Task ExecuteAsync(ProjectedVacancySummary myQueueItem);
+        Task ExecuteAsync(ProjectedVacancyDetails myQueueItem);
         PublishedVacancySummary GetOutput();
     }
 }

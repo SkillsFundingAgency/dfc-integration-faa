@@ -160,6 +160,10 @@
       <Project>{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}</Project>
       <Name>DFC.Integration.AVFeed.Repository.Sitefinity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVAPI\DFC.Integration.AVFeed.Service.AVAPI.csproj">
+      <Project>{9753dc21-d0cf-4aef-a265-6cf80b21507e}</Project>
+      <Name>DFC.Integration.AVFeed.Service.AVAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

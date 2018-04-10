@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FDECC75B-0821-4015-974A-5056B5A00344}</ProjectGuid>
+    <ProjectGuid>{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DFC.Integration.AVFeed.Data</RootNamespace>
-    <AssemblyName>DFC.Integration.AVFeed.Data</AssemblyName>
+    <RootNamespace>DFC.Integration.AVFeed.Function.GetAVDetailsForProjected</RootNamespace>
+    <AssemblyName>DFC.Integration.AVFeed.Function.GetAVDetailsForProjected</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -29,7 +29,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -44,12 +43,22 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.WebJobs, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.WebJobs.Core.2.2.0\lib\net45\Microsoft.Azure.WebJobs.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.TraceSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.TraceSource.4.3.0\lib\net46\System.Diagnostics.TraceSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
@@ -62,42 +71,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IGetAvDetailsByIdsFunc.cs" />
-    <Compile Include="Interfaces\IGetServiceHealthStatus.cs" />
-    <Compile Include="Interfaces\IApprenticeshipVacancyRepository.cs" />
-    <Compile Include="Interfaces\IHttpClientService.cs" />
-    <Compile Include="Interfaces\IAuditService.cs" />
-    <Compile Include="Interfaces\IPublishAVFunc.cs" />
-    <Compile Include="Interfaces\ITokenClient.cs" />
-    <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
-    <Compile Include="Models\BaseIntegrationModel.cs" />
-    <Compile Include="Models\FunctionResult.cs" />
-    <Compile Include="Models\GenericAuditRecord.cs" />
-    <Compile Include="Models\GeoPoint.cs" />
-    <Compile Include="Models\AddressLocation.cs" />
-    <Compile Include="Models\ProjectedVacancyDetails.cs" />
-    <Compile Include="Models\ProjectedVacancySummary.cs" />
-    <Compile Include="Interfaces\IGetSocMappingFunc.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\ISocMappingRepository.cs" />
-    <Compile Include="Interfaces\IProjectVacanciesFunc.cs" />
-    <Compile Include="Interfaces\IApplicationLogger.cs" />
-    <Compile Include="Interfaces\IAVService.cs" />
-    <Compile Include="Interfaces\IGetAvForSocFunc.cs" />
-    <Compile Include="Models\ApprenticeshipVacancyDetails.cs" />
-    <Compile Include="Models\AuditRecord.cs" />
-    <Compile Include="Models\MappedVacancySummary.cs" />
-    <Compile Include="Models\PublishedAV.cs" />
-    <Compile Include="Models\PublishedVacancySummary.cs" />
-    <Compile Include="Models\ServiceHealthCheckStatus.cs" />
-    <Compile Include="Models\SocMaping.cs" />
+    <Compile Include="AutofacModule.cs" />
+    <Compile Include="GetVacanciesDetailsFunction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.AuditService\DFC.Integration.AVFeed.AuditService.csproj">
+      <Project>{63CAA0FD-CD21-4CD3-92B3-F04E3D76FC33}</Project>
+      <Name>DFC.Integration.AVFeed.AuditService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Core\DFC.Integration.AVFeed.Core.csproj">
+      <Project>{26267D67-B97F-4A6F-99C6-EB23DE05BCBF}</Project>
+      <Name>DFC.Integration.AVFeed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Data\DFC.Integration.AVFeed.Data.csproj">
+      <Project>{FDECC75B-0821-4015-974A-5056B5A00344}</Project>
+      <Name>DFC.Integration.AVFeed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Function.Common\DFC.Integration.AVFeed.Function.Common.csproj">
+      <Project>{DCC9ECE1-41F0-4844-B7AC-7537E55982C9}</Project>
+      <Name>DFC.Integration.AVFeed.Function.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVAPI\DFC.Integration.AVFeed.Service.AVAPI.csproj">
+      <Project>{9753dc21-d0cf-4aef-a265-6cf80b21507e}</Project>
+      <Name>DFC.Integration.AVFeed.Service.AVAPI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">

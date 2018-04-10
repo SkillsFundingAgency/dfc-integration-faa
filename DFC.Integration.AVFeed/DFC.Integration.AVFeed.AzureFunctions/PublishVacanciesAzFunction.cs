@@ -11,10 +11,10 @@ namespace DFC.Integration.AVFeed.AzureFunctions
         [FunctionName(nameof(PublishVacanciesAzFunction))]
         public static async Task Run(
             [QueueTrigger("projectedavfeedforsocmapping", Connection = "")]
-            ProjectedVacancySummary myQueueItem,
+            ProjectedVacancyDetails myQueueItem,
             TraceWriter log,
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
-            IAsyncCollector<AuditRecord<ProjectedVacancySummary, PublishedVacancySummary>> auditRecord)
+            IAsyncCollector<AuditRecord<ProjectedVacancyDetails, PublishedVacancySummary>> auditRecord)
         {
             Guid correlationId = Guid.NewGuid();
             DateTime startTime = DateTime.UtcNow;
@@ -23,7 +23,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
             var result = await Function.PublishSfVacancy.Startup.RunAsync(myQueueItem, Core.RunMode.Azure);
 
-            await auditRecord.AddAsync(new AuditRecord<ProjectedVacancySummary, PublishedVacancySummary>
+            await auditRecord.AddAsync(new AuditRecord<ProjectedVacancyDetails, PublishedVacancySummary>
             {
                 CorrelationId = correlationId,
                 StartedAt = startTime,

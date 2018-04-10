@@ -30,11 +30,11 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
         {
             //Arrange
             const string testUrl = "testURL";
-            var queueItem = DataHelper.GetDummyProjectedVacancySummary();
+            var queueItem = DataHelper.GetDummyProjectedVacancyDetails();
             var fakeRepo = A.Fake<IApprenticeshipVacancyRepository>();
             var fakeTokenClient = A.Fake<ITokenClient>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            A.CallTo(() => fakeRepo.PublishAsync(A<ApprenticeshipVacancySummary>._,A<Guid>._)).Returns(testUrl);
+            A.CallTo(() => fakeRepo.PublishAsync(A<ApprenticeshipVacancyDetails>._,A<Guid>._)).Returns(testUrl);
             var publishFunc = new PublishSfVacancyFunction(fakeRepo, fakeTokenClient, fakeLogger);
 
             //Act
@@ -42,7 +42,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
 
             //Assert
             A.CallTo(() => fakeRepo.DeleteExistingAsync(A<Guid>._)).MustHaveHappened();
-            A.CallTo(() => fakeRepo.PublishAsync(A<ApprenticeshipVacancySummary>._,A<Guid>._)).MustHaveHappened(Repeated.Exactly.Times(queueItem.Vacancies.Count()));
+            A.CallTo(() => fakeRepo.PublishAsync(A<ApprenticeshipVacancyDetails>._,A<Guid>._)).MustHaveHappened(Repeated.Exactly.Times(queueItem.Vacancies.Count()));
             A.CallTo(() => fakeTokenClient.SetAccessToken(A<string>._)).MustHaveHappened();
         }
 
@@ -51,10 +51,10 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
         {
             //Assert
             const string testUrl = "testURL";
-            var queueItem = DataHelper.GetDummyProjectedVacancySummary();
+            var queueItem = DataHelper.GetDummyProjectedVacancyDetails();
             var fakeRepo = A.Fake<IApprenticeshipVacancyRepository>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            A.CallTo(() => fakeRepo.PublishAsync(A<ApprenticeshipVacancySummary>._, A<Guid>._)).Returns(testUrl);
+            A.CallTo(() => fakeRepo.PublishAsync(A<ApprenticeshipVacancyDetails>._, A<Guid>._)).Returns(testUrl);
             var fakeTokenClient = A.Fake<ITokenClient>();
             var publishFunc = new PublishSfVacancyFunction(fakeRepo, fakeTokenClient, fakeLogger);
 

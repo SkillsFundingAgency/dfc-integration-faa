@@ -6,10 +6,10 @@ using DFC.Integration.AVFeed.Data.Models;
 using DFC.Integration.AVFeed.Function.Common;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
+namespace DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected
 {
     /// <summary>
-    /// Publish SF Vacancy
+    /// Get details for projected vacancies
     /// </summary>
     public static class Startup
     {
@@ -39,8 +39,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         {
             var builder = ConfigureDI.ConfigureContainerWithCommonModules(mode);
             builder.RegisterType<InMemoryAuditService>().As<IAuditService>().SingleInstance();
-            builder.RegisterModule<AutofacModule>();
-            builder.RegisterModule<Repository.Sitefinity.AutofacModule>();
+            builder.RegisterModule<Integration.AVFeed.Core.AutofacModule>();
             return builder.Build().BeginLifetimeScope();
         }
     }

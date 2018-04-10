@@ -26,10 +26,10 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
             vacancySummaries = await avService.GetAVsForMultipleProvidersAsync(socMapping);
         }
 
-        public MappedVacancyDetails GetOutput()
+        public MappedVacancySummary GetOutput()
         {
             Validate();
-            return new MappedVacancyDetails
+            return new MappedVacancySummary
             {
                 Vacancies = vacancySummaries,
                 SocCode = socMapping.SocCode,

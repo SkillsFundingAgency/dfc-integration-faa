@@ -94,9 +94,9 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
             numberOfProjectedVacanices.Should().Be(expectedCount);
         }
 
-        private MappedVacancyDetails GetTestMappedVacancySummary(Scenario scenario)
+        private MappedVacancySummary GetTestMappedVacancySummary(Scenario scenario)
         {
-            var v = new MappedVacancyDetails() { SocCode = "T01" };
+            var v = new MappedVacancySummary() { SocCode = "T01" };
 
             switch (scenario)
             {

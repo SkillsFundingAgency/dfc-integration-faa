@@ -13,41 +13,33 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
         /// Gets the dummy projected vacancy summary.
         /// </summary>
         /// <returns></returns>
-        public static ProjectedVacancySummary GetDummyProjectedVacancySummary()
+        public static ProjectedVacancyDetails GetDummyProjectedVacancyDetails()
         {
-            return new ProjectedVacancySummary
+            return new ProjectedVacancyDetails
             {
-                  SocCode = nameof(ProjectedVacancySummary.SocCode),
+                  SocCode = nameof(ProjectedVacancyDetails.SocCode),
                   SocMappingId = new Guid(),
                   CorrelationId = new Guid(),
-                  Vacancies = new List<ApprenticeshipVacancySummary>
+                  Vacancies = new List<ApprenticeshipVacancyDetails>
                   {
-                      new ApprenticeshipVacancySummary
+                      new ApprenticeshipVacancyDetails
                       {
-                          AddressDataPostCode = nameof(ApprenticeshipVacancySummary.AddressDataPostCode),
-                          AddressDataTown =  nameof(ApprenticeshipVacancySummary.AddressDataTown),
-                          PossibleStartDate = DateTime.Now,
-                          CreatedDateTime = DateTime.Now,
-                          FrameworkCode =  nameof(ApprenticeshipVacancySummary.FrameworkCode),
-                          LearningProviderName =  nameof(ApprenticeshipVacancySummary.LearningProviderName),
+                          ExpectedStartDate = DateTime.Now.ToString(),
+                          PostedDate = DateTime.Now.ToString(),
+                          TrainingProviderName =  nameof(ApprenticeshipVacancySummary.TrainingProviderName),
                           VacancyReference = 1,
-                          VacancyTitle =  nameof(ApprenticeshipVacancySummary.VacancyTitle),
+                          Title =  nameof(ApprenticeshipVacancySummary.Title),
                           VacancyUrl =  nameof(ApprenticeshipVacancySummary.VacancyUrl),
-                          WageText =  nameof(ApprenticeshipVacancySummary.WageText)
                       },
-                      new ApprenticeshipVacancySummary
+                      new ApprenticeshipVacancyDetails
                       {
-                          AddressDataPostCode = nameof(ApprenticeshipVacancySummary.AddressDataPostCode),
-                          AddressDataTown =  nameof(ApprenticeshipVacancySummary.AddressDataTown),
-                          PossibleStartDate = DateTime.Now,
-                          CreatedDateTime = DateTime.Now,
-                          FrameworkCode =  nameof(ApprenticeshipVacancySummary.FrameworkCode),
-                          LearningProviderName =  nameof(ApprenticeshipVacancySummary.LearningProviderName),
+                          ExpectedStartDate = DateTime.Now.ToString(),
+                          PostedDate = DateTime.Now.ToString(),
+                          TrainingProviderName =  nameof(ApprenticeshipVacancySummary.TrainingProviderName),
                           VacancyReference = 2,
-                          VacancyTitle =  nameof(ApprenticeshipVacancySummary.VacancyTitle),
+                          Title =  nameof(ApprenticeshipVacancySummary.Title),
                           VacancyUrl =  nameof(ApprenticeshipVacancySummary.VacancyUrl),
-                          WageText =  nameof(ApprenticeshipVacancySummary.WageText)
-                      }
+                      },
                   }
             };
              

@@ -21,7 +21,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
             this.logger = logger;
         }
 
-        public async Task ExecuteAsync(ProjectedVacancySummary myQueueItem)
+        public async Task ExecuteAsync(ProjectedVacancyDetails myQueueItem)
         {
             List<PublishedAV> publishedVacancies = new List<PublishedAV>();
 

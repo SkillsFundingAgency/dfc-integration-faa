@@ -10,16 +10,14 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
     public class ProjectVacanciesFunction : IProjectVacanciesFunc
     {
 
-
         private ProjectedVacancySummary projectedVacanciesForSOC;
-        
 
         public ProjectVacanciesFunction()
         {
            
         }
 
-        public void Execute(MappedVacancyDetails allVacanciesForSOC)
+        public void Execute(MappedVacancySummary allVacanciesForSOC)
         {
             if (allVacanciesForSOC != null)
             {
