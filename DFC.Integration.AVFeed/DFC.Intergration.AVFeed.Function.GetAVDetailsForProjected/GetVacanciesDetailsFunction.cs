@@ -7,9 +7,29 @@ namespace DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected
 {
     public class GetVacanciesDetailsFunction : IGetAvDetailsByIdsFunc
     {
+        private ProjectedVacancyDetails projectedVacancyDetails;
+
+        private IAVService avService;
+
+        public GetVacanciesDetailsFunction(IAVService avService)
+        {
+            this.avService = avService;
+        }
         public Task Execute(ProjectedVacancySummary projectedVacancies)
         {
-            throw new NotImplementedException();
+            if (projectedVacancies == null)
+            {
+                throw new ApplicationException(nameof(projectedVacancies));
+            }
+
+            projectedVacancyDetails = new ProjectedVacancyDetails() {SocCode = projectedVacancies.SocCode, AccessToken =  projectedVacancies.AccessToken, SocMappingId = projectedVacancies.SocMappingId}
+
+            projectedVacancyDetails.Vacancies = new List<ApprenticeshipVacancyDetails>()
+;
+
+
+
+
         }
 
         public ProjectedVacancyDetails GetOutput()
