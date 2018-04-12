@@ -10,13 +10,11 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
     public class ApprenticeshipVacancyFunction : IGetAvForSocFunc
     {
         private SocMapping socMapping;
-        private IMapper mapper;
         private IAVService avService;
         private IEnumerable<ApprenticeshipVacancySummary> vacancySummaries;
 
-        public ApprenticeshipVacancyFunction(IMapper mapper, IAVService avService)
+        public ApprenticeshipVacancyFunction(IAVService avService)
         {
-            this.mapper = mapper;
             this.avService = avService;
         }
 

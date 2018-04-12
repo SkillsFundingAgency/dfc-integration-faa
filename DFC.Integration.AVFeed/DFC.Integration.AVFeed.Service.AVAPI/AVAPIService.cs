@@ -15,6 +15,9 @@ namespace DFC.Integration.AVFeed.Service
         private IApprenticeshipVacancyApi apprenticeshipVacancyApi;
         private IApplicationLogger logger;
 
+        private const string ResponseErrorFrameworkCodeNotRecognised = "30107";
+        private const string ResponseErrorStandardCodeNotRecognised = "30108";
+
         public AVAPIService(IApprenticeshipVacancyApi apprenticeshipVacancyApi, IApplicationLogger logger)
         {
             this.apprenticeshipVacancyApi = apprenticeshipVacancyApi;
@@ -29,7 +32,7 @@ namespace DFC.Integration.AVFeed.Service
                 throw new ArgumentNullException(nameof(vacancyRef));
             }
 
-            var responseResult = await apprenticeshipVacancyApi.GetAsync($"/{vacancyRef}", RequestType.apprenticeships);
+            var responseResult = await apprenticeshipVacancyApi.GetAsync($"{vacancyRef}", RequestType.apprenticeships);
             logger.Trace($"Got details for vacancy ref : {vacancyRef}");
             return JsonConvert.DeserializeObject<ApprenticeshipVacancyDetails>(responseResult);
         }

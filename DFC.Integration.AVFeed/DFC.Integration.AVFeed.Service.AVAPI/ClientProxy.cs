@@ -1,4 +1,5 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
+using System;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -28,19 +29,23 @@ namespace DFC.Integration.AVFeed.Service
 
                 var fullRequest = $"{_endpoint}/{requestRoute}{requestQueryString}";
 
+                logger.Trace($"Getting API data for request :'{fullRequest}'");
 
                 var response = await clientProxy.GetAsync(fullRequest);
+
+                string responseContent = string.Empty;
+               
+                responseContent =  await response.Content?.ReadAsStringAsync();
+              
                 if (!response.IsSuccessStatusCode)
                 {
-                    logger.Trace($"Error status {response.StatusCode},  Getting API data for request :'{fullRequest}' \nResponse : {response.Content.ReadAsStringAsync()}");
+                    logger.Error($"Error status {response.StatusCode},  Getting API data for request :'{fullRequest}' \nResponse : {responseContent}", null );
 
                     //this will throw an exception as is not a success code
                     response.EnsureSuccessStatusCode();
                 }
-
-                return await response.Content.ReadAsStringAsync();
+                return responseContent;
             }
         }
-
     }
 }

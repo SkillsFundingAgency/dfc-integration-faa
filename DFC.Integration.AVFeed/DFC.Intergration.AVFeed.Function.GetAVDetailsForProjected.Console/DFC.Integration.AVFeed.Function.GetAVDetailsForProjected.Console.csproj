@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7B4BE878-329F-4C88-8017-FE68DB086917}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected.Console</RootNamespace>
+    <AssemblyName>DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected.Console</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Core\DFC.Integration.AVFeed.Core.csproj">
+      <Project>{26267D67-B97F-4A6F-99C6-EB23DE05BCBF}</Project>
+      <Name>DFC.Integration.AVFeed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Data\DFC.Integration.AVFeed.Data.csproj">
+      <Project>{fdecc75b-0821-4015-974a-5056b5a00344}</Project>
+      <Name>DFC.Integration.AVFeed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Function.TestHelper\DFC.Integration.AVFeed.Function.TestHelper.csproj">
+      <Project>{01b544aa-ae29-4247-8068-e31c9f9cf88e}</Project>
+      <Name>DFC.Integration.AVFeed.Function.TestHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected\DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.csproj">
+      <Project>{50adff15-9d6f-42e2-ba2b-64ca3cee6009}</Project>
+      <Name>DFC.Integration.AVFeed.Function.GetAVDetailsForProjected</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

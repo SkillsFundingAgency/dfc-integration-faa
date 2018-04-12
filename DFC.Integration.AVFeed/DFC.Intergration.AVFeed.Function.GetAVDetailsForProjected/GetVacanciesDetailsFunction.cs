@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected
+namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected
 {
     public class GetVacanciesDetailsFunction : IGetAvDetailsByIdsFunc
     {
@@ -16,7 +16,7 @@ namespace DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected
         {
             this.avService = avService;
         }
-        public async Task Execute(ProjectedVacancySummary projectedVacancySummary)
+        public async Task ExecuteAsync(ProjectedVacancySummary projectedVacancySummary)
         {
             if (projectedVacancySummary == null)
             {
@@ -44,7 +44,7 @@ namespace DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected
         {
             if (projectedVacancyDetails == null)
             {
-                throw new InvalidOperationException($"{nameof(Execute)} must be called before geting output");
+                throw new InvalidOperationException($"{nameof(ExecuteAsync)} must be called before geting output");
             }
         }
     }

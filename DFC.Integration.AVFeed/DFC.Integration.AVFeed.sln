@@ -75,7 +75,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Service.AVAPI", "DFC.Integration.AVFeed.Service.AVAPI\DFC.Integration.AVFeed.Service.AVAPI.csproj", "{9753DC21-D0CF-4AEF-A265-6CF80B21507E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected", "DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected\DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected.csproj", "{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetAVDetailsForProjected", "DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected\DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.csproj", "{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.Console", "DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected.Console\DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.Console.csproj", "{7B4BE878-329F-4C88-8017-FE68DB086917}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -179,6 +181,10 @@ Global
 		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,6 +216,7 @@ Global
 		{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5} = {C46D76C3-1361-498A-A771-4746EB222F56}
 		{9753DC21-D0CF-4AEF-A265-6CF80B21507E} = {94C66C4D-97C8-43CC-AB9E-38B2101646E7}
 		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009} = {6DEC99B1-8B5C-4EC7-BEF4-6CC8541B1ACE}
+		{7B4BE878-329F-4C88-8017-FE68DB086917} = {AB965242-DE31-480A-8951-BD1F33F12974}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0D17034-364D-415F-8261-8ED9ED37CE86}

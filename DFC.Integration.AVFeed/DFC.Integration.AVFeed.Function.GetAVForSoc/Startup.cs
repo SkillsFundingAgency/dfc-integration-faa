@@ -35,7 +35,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
 
             builder.RegisterModule<Service.AutofacModule>();
             builder.RegisterModule<GetAVForSoc.AutofacModule>();
-
+          
             return builder.Build().BeginLifetimeScope();
         }
     }
