@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.PublishVacancies.Console", "DFC.Integration.AVFeed.Function.PublishVacancies.Console\DFC.Integration.AVFeed.Function.PublishVacancies.Console.csproj", "{0C9BD918-AC18-442C-B57F-AA69659FA449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests", "DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests\DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests.csproj", "{0A41E7F5-7023-4FCA-8FE1-8522D082BBE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Service.AVAPIUnitTests", "DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests\DFC.Integration.AVFeed.Service.AVAPIUnitTests.csproj", "{0A41E7F5-7023-4FCA-8FE1-8522D082BBE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureFuncs", "AzureFuncs", "{AAC3B763-0C74-44A9-A323-E2E4360ACFE1}"
 EndProject

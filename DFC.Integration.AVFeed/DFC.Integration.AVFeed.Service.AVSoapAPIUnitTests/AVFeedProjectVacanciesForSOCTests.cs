@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
+namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 {
 
     public enum Scenario
@@ -22,7 +22,6 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
         [Theory]
         [InlineData(Scenario.OnlySingleProviderMoreThanTwo, 2)]
         [InlineData(Scenario.MultipeProvidersMoreThanTwo, 2)]
-        [InlineData(Scenario.MultipeProvidersMoreThanTwoStartDatesMatch, 2)]
         [InlineData(Scenario.OnlyOneAvailable, 1)]
         [InlineData(Scenario.NoneAvailable, 0)]
         public void GetProjectedVacanciesTestAsync(Scenario scenario, int expectedNumberDisplayed)
@@ -42,40 +41,21 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
 
         private static IEnumerable<ApprenticeshipVacancySummary> GetTestVacanciesMultipeProvidersMoreThanTwo()
         {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(20), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", PostedDate = DateTime.Now.AddDays(1), Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", PostedDate = DateTime.Now.AddDays(5), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", PostedDate = DateTime.Now.AddDays(2), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(10), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider C", PostedDate = DateTime.Now.AddDays(15), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider D", PostedDate = DateTime.Now.AddDays(3), Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(3), Title = "Not Displayed" };
-        }
-
-        private static IEnumerable<ApprenticeshipVacancySummary> GetTestVacanciesMultipeProvidersMoreThanTwoStartDatesMatch()
-        {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(20), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", PostedDate = DateTime.Now.AddDays(1), Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", PostedDate = DateTime.Now.AddDays(5), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", PostedDate = DateTime.Now.AddDays(1), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(10), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider C", PostedDate = DateTime.Now.AddDays(15), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider D", PostedDate = DateTime.Now.AddDays(1), Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(3), Title = "Not Displayed" };
+            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Not Displayed" };
+            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", Title = "Displayed" };
         }
 
         private static IEnumerable<ApprenticeshipVacancySummary> GetTestVacanciesOnlyOneAvailable()
         {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(1), Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
         }
 
         private static IEnumerable<ApprenticeshipVacancySummary> GetTestVacanciesSingleProviderMoreThanTwo()
         {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(1), Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(10), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(20), Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(2), Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", PostedDate = DateTime.Now.AddDays(3), Title = "Not Displayed" };
+            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Not Displayed" };
         }
 
         private void CheckResultIsAsExpected(string SocCode, ProjectedVacancySummary projectedVacancies, int expectedCount)
@@ -107,11 +87,7 @@ namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
                 case Scenario.MultipeProvidersMoreThanTwo:
                     v.Vacancies = GetTestVacanciesMultipeProvidersMoreThanTwo();
                     break;
-
-                case Scenario.MultipeProvidersMoreThanTwoStartDatesMatch:
-                    v.Vacancies = GetTestVacanciesMultipeProvidersMoreThanTwoStartDatesMatch();
-                    break;
-
+  
                 case Scenario.OnlyOneAvailable:
                     v.Vacancies = GetTestVacanciesOnlyOneAvailable();
                     break;

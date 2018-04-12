@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using Xunit;
 
-namespace DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests
+namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 {
     public class AVAPIServiceUnitTests
     {
