@@ -21,6 +21,7 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.GetServiceHealthStatus\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.csproj" />
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.PublishSfAV\DFC.Integration.AVFeed.Function.PublishSfVacancy.csproj" />
     <ProjectReference Include="..\DFC.Integration.AVFeed.ProjectVacanciesForSoc\DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc.csproj" />
+    <ProjectReference Include="..\DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected\DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
