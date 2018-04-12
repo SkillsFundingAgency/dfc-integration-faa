@@ -14,7 +14,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected
     /// </summary>
     public static class Startup
     {
-        public static async Task<FunctionResult<ProjectedVacancyDetails>> RunAsync(ProjectedVacancySummary myQueueItem, RunMode mode)
+        public static async Task<ProjectedVacancyDetails> RunAsync(ProjectedVacancySummary myQueueItem, RunMode mode)
         {
             return await RunAsync(myQueueItem, mode, null, null);
         }
@@ -24,16 +24,13 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected
         /// </summary>
         /// <param name="myQueueItem">My queue item.</param>
         /// <param name="mode">The mode.</param>
-        public static async Task<FunctionResult<ProjectedVacancyDetails>> RunAsync(ProjectedVacancySummary myQueueItem, RunMode mode, IAsyncCollector<AuditRecord<object, object>> asyncCollector, AuditRecord<object, object> masterRecord)
+        public static async Task<ProjectedVacancyDetails> RunAsync(ProjectedVacancySummary myQueueItem, RunMode mode, IAsyncCollector<AuditRecord<object, object>> asyncCollector, AuditRecord<object, object> masterRecord)
         {
             var container = ConfigureContainer(mode, asyncCollector, masterRecord);
-            var publishFunc = container.Resolve<IGetAvDetailsByIdsFunc>();
+            var getDetailsFunc = container.Resolve<IGetAvDetailsByIdsFunc>();
             var auditService = container.Resolve<IAuditService>();
-            await publishFunc.ExecuteAsync(myQueueItem);
-            return new FunctionResult<ProjectedVacancyDetails> {
-                Output = publishFunc.GetOutput(),
-                AuditMessages = auditService.GetAuditRecords(),
-            };
+            await getDetailsFunc.ExecuteAsync(myQueueItem);
+            return getDetailsFunc.GetOutput();
         }
 
         /// <summary>
