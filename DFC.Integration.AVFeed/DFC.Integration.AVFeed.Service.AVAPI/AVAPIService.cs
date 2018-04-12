@@ -15,9 +15,6 @@ namespace DFC.Integration.AVFeed.Service
         private IApprenticeshipVacancyApi apprenticeshipVacancyApi;
         private IApplicationLogger logger;
 
-        private const string ResponseErrorFrameworkCodeNotRecognised = "30107";
-        private const string ResponseErrorStandardCodeNotRecognised = "30108";
-
         public AVAPIService(IApprenticeshipVacancyApi apprenticeshipVacancyApi, IApplicationLogger logger)
         {
             this.apprenticeshipVacancyApi = apprenticeshipVacancyApi;

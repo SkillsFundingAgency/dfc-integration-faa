@@ -52,5 +52,18 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 
             numberProviders.Should().BeGreaterThan(1);
         }
+
+        private ApprenticeshipVacancySummaryResponse GetDummyApprenticeshipVacancySummaryResponse(int currentPage, int totalMatches, int pageSize)
+        {
+
+            var r = new ApprenticeshipVacancySummaryResponse();
+            r.CurrentPage = currentPage;
+            r.TotalMatched = totalMatches;
+            r.TotalPages = (totalMatches / pageSize);
+            r.TotalReturned = pageSize;
+
+            return r;
+
+        }
     }
 }
