@@ -63,7 +63,6 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             r.TotalReturned = pageSize;
 
             return r;
-
         }
     }
 }
