@@ -98,6 +98,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AVFeedGetAVDetailsForProjectedTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AVFeedProjectVacanciesForSOCTests.cs" />
@@ -119,6 +120,10 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.Service.AVAPI\DFC.Integration.AVFeed.Service.AVAPI.csproj">
       <Project>{9753dc21-d0cf-4aef-a265-6cf80b21507e}</Project>
       <Name>DFC.Integration.AVFeed.Service.AVAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected\DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.csproj">
+      <Project>{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}</Project>
+      <Name>DFC.Integration.AVFeed.Function.GetAVDetailsForProjected</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
