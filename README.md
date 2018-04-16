@@ -33,6 +33,7 @@ Once you have cloned the public repo you need to remove the .template part from 
 | DFC.Integration.AVFeed.Function.PublishVacancies.Console | app.config.template | app.config |
 | DFC.Integration.AVFeed.Service.AVSoapAPI | app.config.template | app.config |
 | DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console | app.config.template | app.config |
+| DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.Console | app.config.template | app.config |
 
 These files contain keys and other configuration that is particular to your local instance of the application.
 You will need to set these as detailed in the configuration  sections below.
@@ -87,15 +88,16 @@ The product uses the Sitefinity CMS solution at is core, and uses the add-on mod
 
 #### Find an Apprenticeship API
 
-Its a goverment API which provides you the list of all Apprenticeship Available in UK . 
+Its a goverment API which provides you the list of all Apprenticeship Available in UK. 
+https://das-prd-raa-apim.portal.azure-api.net/
+
 
 | File |Setting |Example value |
 |-|-|-|
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.Endpoint | https://soapapi.findapprenticeship.service.gov.uk/services/VacancyDetails/VacancyDetails51.svc |
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.ExternalSystemId      | GUID - 00000000-0000-0000-0000-000000000000 |
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.MaxBufferSize         | 65536 |
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.MaxReceivedMessageSize| 65536 |
-| DFC.Integration.AVFeed.AzureFunctions     | FAA.PublicKey              | Key123 |
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.URL | https://das-prd-raa-apim.azure-api.net/vacancies/api/v1/apprenticeships|
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.SubscriptionKey      | d0b6b658469e425ca133168370960a1a |
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.PageSize       | 10 |
+| DFC.Integration.AVFeed.AzureFunctions     | FAA.MaxPagesToTryPerMapping | 100 |
 
 ## More Information
 
