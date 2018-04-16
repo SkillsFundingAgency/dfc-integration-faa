@@ -69,7 +69,9 @@
     <Compile Include="Interfaces\IAuditService.cs" />
     <Compile Include="Interfaces\IPublishAVFunc.cs" />
     <Compile Include="Interfaces\ITokenClient.cs" />
+    <Compile Include="Models\ApprenticeshipLocation.cs" />
     <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
+    <Compile Include="Models\ApprenticeshipVacancySummaryResponse.cs" />
     <Compile Include="Models\AVAPIRequestErrors.cs" />
     <Compile Include="Models\BaseIntegrationModel.cs" />
     <Compile Include="Models\FunctionResult.cs" />

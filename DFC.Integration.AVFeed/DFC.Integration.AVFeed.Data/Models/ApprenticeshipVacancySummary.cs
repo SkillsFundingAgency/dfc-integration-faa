@@ -1,18 +1,5 @@
 ﻿namespace DFC.Integration.AVFeed.Data.Models
 {
-    public class ApprenticeshipVacancySummaryResponse
-    {
-        public int TotalMatched { get; set; }
-        public int TotalReturned { get; set; }
-        public int CurrentPage { get; set; }
-        public double TotalPages { get; set; }
-
-        public string SortBy { get; set; }
-
-        public ApprenticeshipVacancySummary [] Results { get; set; }
-
-
-    }
     public class ApprenticeshipVacancySummary
     {
         public int VacancyReference { get; set; }
@@ -28,18 +15,11 @@
         public string EmployerName { get; set; }
         public string TrainingProviderName { get; set; }
         public bool IsNationwide { get; set; }
-        public Location Location { get; set; }
+        public ApprenticeshipLocation Location { get; set; }
         public string ApprenticeshipLevel { get; set; }
         public string VacancyUrl { get; set; }
         public string ApiDetailUrl { get; set; }
         public bool IsEmployerDisabilityConfident { get; set; }
         public double DistanceInMiles { get; set; }
     }
-
-    public class Location
-    {
-        public double Longitude { get; set; }
-        public double Latitude { get; set; }
-    }
-
 }

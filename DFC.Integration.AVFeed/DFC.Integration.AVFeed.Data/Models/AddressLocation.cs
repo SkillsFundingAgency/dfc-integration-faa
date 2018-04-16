@@ -1,7 +1,6 @@
 ﻿
 namespace DFC.Integration.AVFeed.Data.Models
 {
-   
     public class AddressLocation
     {
         public string AddressLine1 { get; set; }
