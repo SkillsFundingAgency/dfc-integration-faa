@@ -38,7 +38,10 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
             {
                 feedsServiceHealthCheck.ApplicationStatus = HttpStatusCode.BadGateway;
             }
-
+            else
+            {
+                Logger.Trace("ServiceHealth status all - OK");
+            }
             return feedsServiceHealthCheck;
         }
 
@@ -51,12 +54,18 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
             serviceStatus.CheckParametersUsed = $"SocCode = {checkSocMapping.SocCode} - FrameWork = {checkFrameWork} - Standard = {checkStandard}";
             try
             {
-                var result = await AvService.GetAVSumaryPageAsync(checkSocMapping, 1);
-                serviceStatus.Status = ServiceState.Green;
+                var apprenticeshipVacancySummaryResponse = await AvService.GetAVSumaryPageAsync(checkSocMapping, 1);
+                serviceStatus.Status = ServiceState.Amber;
+
+                if (apprenticeshipVacancySummaryResponse.TotalReturned > 0)
+                {
+                    var apprenticeshipVacancyDetailsResponse = await AvService.GetApprenticeshipVacancyDetailsAsync(apprenticeshipVacancySummaryResponse.Results[0].VacancyReference.ToString());
+                    serviceStatus.Status = ServiceState.Green;
+                }
             }
             catch (Exception ex)
             {
-                LogFailedMessage(serviceStatus, ex.Message);
+                LogFailedMessage(serviceStatus, ex);
             }
             return serviceStatus;
         }
@@ -71,16 +80,15 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
             }
             catch (Exception ex)
             {
-                LogFailedMessage(serviceStatus, ex.Message);
+                LogFailedMessage(serviceStatus, ex);
             }
             return serviceStatus;
         }
 
-        private void LogFailedMessage(ServiceStatus serviceStatus, string traceMessage)
+        private void LogFailedMessage(ServiceStatus serviceStatus, Exception ex)
         {
-            var activityId = Guid.NewGuid().ToString();
-            serviceStatus.Notes = $"Service status check failed, check logs with activity id {activityId}";
-            Logger.Info($"Service status check failed activityId = {activityId} - {traceMessage}");
+            serviceStatus.Notes = $"Service status check failed : {ex.Message}";
+            Logger.Error($"Service status check failed", ex);
         }
         #endregion
     }
