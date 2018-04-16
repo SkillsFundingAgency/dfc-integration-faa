@@ -1,12 +1,18 @@
-﻿using Microsoft.ApplicationInsights.NLogTarget;
-using NLog;
-using NLog.Config;
-using System.Configuration;
-
-namespace DFC.Integration.AVFeed.Function.Common
+﻿namespace DFC.Integration.AVFeed.Function.Common
 {
+    using System.Configuration;
+    using Microsoft.ApplicationInsights.NLogTarget;
+    using NLog;
+    using NLog.Config;
+
+    /// <summary>
+    /// Configure loging for the application
+    /// </summary>
     public static class ConfigureLog
     {
+        /// <summary>
+        /// Configure Nlog and set Applications Insights as the target.
+        /// </summary>
         public static void ConfigureNLogWithAppInsightsTarget()
         {
             var appInsightsKey = ConfigurationManager.AppSettings.Get("APPINSIGHTS_INSTRUMENTATIONKEY");
