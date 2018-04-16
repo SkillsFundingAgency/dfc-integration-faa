@@ -15,7 +15,7 @@ namespace DFC.Integration.AVFeed.Data.Models
 
         public string SortBy { get; set; }
 
-        public ApprenticeshipVacancySummary[] Results { get; set; }
+        public IEnumerable<ApprenticeshipVacancySummary> Results { get; set; }
 
     }
 }

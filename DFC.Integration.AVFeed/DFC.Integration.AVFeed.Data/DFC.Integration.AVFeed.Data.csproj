@@ -21,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\IGetAvDetailsByIdsFunc.cs" />
     <Compile Include="Interfaces\IGetServiceHealthStatus.cs" />
     <Compile Include="Interfaces\IApprenticeshipVacancyRepository.cs" />
@@ -72,7 +74,6 @@
     <Compile Include="Models\ApprenticeshipLocation.cs" />
     <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
     <Compile Include="Models\ApprenticeshipVacancySummaryResponse.cs" />
-    <Compile Include="Models\AVAPIRequestErrors.cs" />
     <Compile Include="Models\BaseIntegrationModel.cs" />
     <Compile Include="Models\FunctionResult.cs" />
     <Compile Include="Models\GenericAuditRecord.cs" />

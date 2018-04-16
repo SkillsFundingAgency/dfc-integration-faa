@@ -17,8 +17,8 @@
         public bool IsNationwide { get; set; }
         public ApprenticeshipLocation Location { get; set; }
         public string ApprenticeshipLevel { get; set; }
-        public string VacancyUrl { get; set; }
-        public string ApiDetailUrl { get; set; }
+        public System.Uri VacancyUrl { get; set; }
+        public System.Uri ApiDetailUrl { get; set; }
         public bool IsEmployerDisabilityConfident { get; set; }
         public double DistanceInMiles { get; set; }
     }

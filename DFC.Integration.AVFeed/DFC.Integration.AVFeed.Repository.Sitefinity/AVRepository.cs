@@ -38,7 +38,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             {
                 PublicationDate = DateTime.UtcNow,
                 UrlName = Guid.NewGuid().ToString(),
-                URL = apprenticeshipVacancyDetails.VacancyUrl,
+                URL = apprenticeshipVacancyDetails.VacancyUrl.ToString(),
                 Location = $"{apprenticeshipVacancyDetails.Location.Town} {apprenticeshipVacancyDetails.Location.PostCode}",
                 WageUnitType = "Wage",
                 WageAmount = apprenticeshipVacancyDetails.WageText,
