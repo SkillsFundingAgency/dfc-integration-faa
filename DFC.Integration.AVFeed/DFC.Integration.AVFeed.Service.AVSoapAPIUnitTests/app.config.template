@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
   <appSettings>
-    <add key="FAA.URL" value="https://das-prd-raa-apim.azure-api.net/vacancies/api/v1/apprenticeships" />
-    <add key="FAA.SubscriptionKey" value="faaSubscriptionKey" />
+    <add key="FAA.URL" value="__faaurl__" />
+    <add key="FAA.SubscriptionKey" value="__faasubscriptionkey__" />
+    <add key="FAA.PageSize" value="10" />
+    <add key="FAA.MaxPagesToTryPerMapping" value="100" />
   </appSettings>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
