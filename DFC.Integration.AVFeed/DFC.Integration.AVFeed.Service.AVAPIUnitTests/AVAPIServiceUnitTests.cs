@@ -23,7 +23,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             var pageSize = 5;
             var returnDiffrentProvidersOnPage = 1;
 
-            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(GetDummyApprenticeshipVacancySummaryResponse(pageNumber, 50, pageSize, pageSize, returnDiffrentProvidersOnPage));
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse(pageNumber, 50, pageSize, pageSize, returnDiffrentProvidersOnPage));
 
             var client = new ClientProxy(fakeLogger);
 
@@ -57,8 +57,8 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             var pageSize = 5;
             var returnDiffrentProvidersOnPage = 2;
 
-            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(GetDummyApprenticeshipVacancySummaryResponse(pageNumber, 50, pageSize, pageSize, returnDiffrentProvidersOnPage)).Once().
-                Then.Returns(GetDummyApprenticeshipVacancySummaryResponse((pageNumber + 1), 50, pageSize, pageSize, returnDiffrentProvidersOnPage));
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse(pageNumber, 50, pageSize, pageSize, returnDiffrentProvidersOnPage)).Once().
+                Then.Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse((pageNumber + 1), 50, pageSize, pageSize, returnDiffrentProvidersOnPage));
 
             var client = new ClientProxy(fakeLogger);
 
@@ -92,7 +92,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeAPIService = A.Fake<IApprenticeshipVacancyApi>();
 
-            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.apprenticeships)).Returns(GetDummyApprenticeshipVacancyDetailsResponse());
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.apprenticeships)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancyDetailsResponse());
 
             var client = new ClientProxy(fakeLogger);
 
@@ -106,44 +106,6 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetApprenticeshipVacancyDetailsAsync(null); };
             f.Should().Throw<ArgumentNullException>();
-
-        }
-
-        private string GetDummyApprenticeshipVacancySummaryResponse(int currentPage, int totalMatches, int nunmberToReturn, int pageSize, int diffrentProvidersPage)
-        {
-
-            var r = new ApprenticeshipVacancySummaryResponse();
-            r.CurrentPage = currentPage;
-            r.TotalMatched = totalMatches;
-            r.TotalPages = (totalMatches / pageSize);
-            r.TotalReturned = nunmberToReturn;
-
-            var recordsToReturn = new List<ApprenticeshipVacancySummary>();
-
-            for (int ii = 0; ii < nunmberToReturn; ii++)
-            {
-                recordsToReturn.Add(new ApprenticeshipVacancySummary()
-                {
-                    VacancyReference = ii,
-                    Title = $"Title {ii}",
-                    TrainingProviderName = $"TrainingProviderName {((currentPage == diffrentProvidersPage) ? ii : currentPage)}"
-                });
-            }
-
-            r.Results = recordsToReturn.ToArray();
-
-            return JsonConvert.SerializeObject(r);
-        }
-
-        private string GetDummyApprenticeshipVacancyDetailsResponse()
-        {
-
-            var r = new ApprenticeshipVacancyDetails()
-            {
-                VacancyReference = 123
-            };
-
-            return JsonConvert.SerializeObject(r);
         }
     }
 }

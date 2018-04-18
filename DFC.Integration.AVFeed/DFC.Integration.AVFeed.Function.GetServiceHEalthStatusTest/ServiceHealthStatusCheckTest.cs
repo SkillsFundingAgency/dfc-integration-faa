@@ -1,16 +1,15 @@
-﻿namespace DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest
+﻿using System;
+using System.Net;
+using DFC.Integration.AVFeed.Data.Interfaces;
+using DFC.Integration.AVFeed.Data.Models;
+using DFC.Integration.AVFeed.Function.GetServiceHealthStatus;
+using DFC.Integration.AVFeed.Repository.Sitefinity;
+using FakeItEasy;
+using FluentAssertions;
+using Xunit;
+
+namespace DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest
 {
-    using System;
-    using System.Net;
-    using Data.Models;
-    using DFC.Integration.AVFeed.Data.Interfaces;
-    using DFC.Integration.AVFeed.Repository.Sitefinity;
-    using FakeItEasy;
-    using FluentAssertions;
-    using GetServiceHealthStatus;
-    using Xunit;
-
-
     public class ServiceHealthStatusCheckTest 
     {
         [Fact]
@@ -55,6 +54,7 @@
             var fakeAVService = A.Fake<IAVService>();
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
 
+       
             var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
 
             var result = await getAvServiceHealthStatus.GetServiceHealthStateAsync();
