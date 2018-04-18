@@ -13,7 +13,7 @@
 
     public class ServiceHealthStatusCheckTest 
     {
-        [Fact()]
+        [Fact]
         public async System.Threading.Tasks.Task GetSitefinityHealthStatusAsync()
         {
             var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
@@ -30,7 +30,7 @@
             result.Status.Should().Be(ServiceState.Red);
         }
 
-        [Fact()]
+        [Fact]
         public async System.Threading.Tasks.Task GetAVFeedHealthStatusAsync()
         {
             var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
@@ -48,7 +48,7 @@
         }
 
 
-        [Fact()]
+        [Fact]
         public async System.Threading.Tasks.Task GetServiceHealthStateAsync()
         {
             var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
