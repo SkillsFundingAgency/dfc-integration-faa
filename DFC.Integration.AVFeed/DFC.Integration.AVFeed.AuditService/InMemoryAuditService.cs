@@ -8,10 +8,11 @@ namespace DFC.Integration.AVFeed.AuditService
     public class InMemoryAuditService : IAuditService
     {
         private List<string> _auditService = new List<string>();
-        public async Task AuditAsync(string message)
+
+        public async Task AuditAsync(string outputMessage, string inputMessage = null)
         {
             await Task.FromResult(0);
-            _auditService.Add($"{DateTime.Now}|{message}");
+            _auditService.Add($"{DateTime.Now}|{outputMessage}");
         }
 
         public IEnumerable<string> GetAuditRecords() => _auditService;

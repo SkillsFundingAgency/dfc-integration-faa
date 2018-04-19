@@ -1,11 +1,8 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Service;
 using FakeItEasy;
 using FluentAssertions;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -19,13 +16,14 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
         {
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeAPIService = A.Fake<IApprenticeshipVacancyApi>();
+            var fakeAuditService = A.Fake<IAuditService>();
             var pageNumber = 1;
             var pageSize = 5;
             var returnDiffrentProvidersOnPage = 1;
 
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse(pageNumber, 50, pageSize, pageSize, returnDiffrentProvidersOnPage));
 
-            var client = new ClientProxy(fakeLogger);
+            var client = new ClientProxy(fakeLogger, fakeAuditService);
 
             var aVAPIService = new AVAPIService(fakeAPIService, fakeLogger);
 
@@ -42,10 +40,12 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             pageSumary.CurrentPage.Should().Be(pageNumber);
             pageSumary.Results.Count().Should().Be(pageSize);
 
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened();
+            A.CallTo(() => fakeAuditService.AuditAsync(A<string>._, A<string>._)).MustHaveHappened();
+
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetAVSumaryPageAsync(null, 1); };
             f.Should().Throw<ArgumentNullException>();
-
         }
 
         [Fact]
@@ -53,6 +53,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
         {
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeAPIService = A.Fake<IApprenticeshipVacancyApi>();
+            var fakeAuditService = A.Fake<IAuditService>();
             var pageNumber = 1;
             var pageSize = 5;
             var returnDiffrentProvidersOnPage = 2;
@@ -60,7 +61,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse(pageNumber, 50, pageSize, pageSize, returnDiffrentProvidersOnPage)).Once().
                 Then.Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse((pageNumber + 1), 50, pageSize, pageSize, returnDiffrentProvidersOnPage));
 
-            var client = new ClientProxy(fakeLogger);
+            var client = new ClientProxy(fakeLogger, fakeAuditService);
 
             var aVAPIService = new AVAPIService(fakeAPIService, fakeLogger);
 
@@ -80,10 +81,12 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             var numberProviders = aVSumaryList.Select(v => v.TrainingProviderName).Distinct().Count();
             numberProviders.Should().BeGreaterThan(1);
 
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened(Repeated.Exactly.Twice);
+            A.CallTo(() => fakeAuditService.AuditAsync(A<string>._, A<string>._)).MustHaveHappened();
+
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetAVsForMultipleProvidersAsync(null); };
             f.Should().Throw<ArgumentNullException>();
-
         }
 
         [Fact]
@@ -91,17 +94,21 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
         {
             var fakeLogger = A.Fake<IApplicationLogger>();
             var fakeAPIService = A.Fake<IApprenticeshipVacancyApi>();
+            var fakeAuditService = A.Fake<IAuditService>();
 
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.apprenticeships)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancyDetailsResponse());
 
-            var client = new ClientProxy(fakeLogger);
+            var client = new ClientProxy(fakeLogger, fakeAuditService);
 
             var aVAPIService = new AVAPIService(fakeAPIService, fakeLogger);
 
             var vacancyDetails = await aVAPIService.GetApprenticeshipVacancyDetailsAsync("123");
-            
+
             vacancyDetails.Should().NotBeNull();
             vacancyDetails.VacancyReference.Should().Be(123);
+
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.apprenticeships)).MustHaveHappened();
+            A.CallTo(() => fakeAuditService.AuditAsync(A<string>._, A<string>._)).MustHaveHappened();
 
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetApprenticeshipVacancyDetailsAsync(null); };

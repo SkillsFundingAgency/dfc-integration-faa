@@ -13,10 +13,12 @@ namespace DFC.Integration.AVFeed.Service
         private string _subscriptionKey = ConfigurationManager.AppSettings.Get("FAA.SubscriptionKey");
 
         private IApplicationLogger logger;
+        private readonly IAuditService auditService;
 
-        public ClientProxy(IApplicationLogger logger)
+        public ClientProxy(IApplicationLogger logger, IAuditService auditService)
         {
             this.logger = logger;
+            this.auditService = auditService;
         }
         public async Task<string> GetAsync(string requestQueryString, RequestType requestType )
         {
@@ -26,16 +28,12 @@ namespace DFC.Integration.AVFeed.Service
                 clientProxy.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));//ACCEPT header
 
                 var requestRoute = requestType == RequestType.search ? $"{requestType.ToString()}?" : string.Empty;
-
                 var fullRequest = $"{_endpoint}/{requestRoute}{requestQueryString}";
-
                 logger.Trace($"Getting API data for request :'{fullRequest}'");
 
                 var response = await clientProxy.GetAsync(fullRequest);
-
-                string responseContent = string.Empty;
-               
-                responseContent =  await response.Content?.ReadAsStringAsync();
+                string responseContent = await response.Content?.ReadAsStringAsync();
+                await auditService.AuditAsync(responseContent);
               
                 if (!response.IsSuccessStatusCode)
                 {
