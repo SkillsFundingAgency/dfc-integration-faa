@@ -80,6 +80,7 @@
     <Compile Include="AutofacModule.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions\AutofacExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interceptors\ExceptionInterceptor.cs" />
     <Compile Include="Interceptors\InstrumentationInterceptor.cs" />
     <Compile Include="Logging\DFCLogger.cs" />
