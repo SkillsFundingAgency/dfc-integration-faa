@@ -41,8 +41,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             pageSumary.Results.Count().Should().Be(pageSize);
 
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened();
-            A.CallTo(() => fakeAuditService.AuditAsync(A<string>._, A<string>._)).MustHaveHappened();
-
+       
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetAVSumaryPageAsync(null, 1); };
             f.Should().Throw<ArgumentNullException>();
@@ -82,8 +81,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             numberProviders.Should().BeGreaterThan(1);
 
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened(Repeated.Exactly.Twice);
-            A.CallTo(() => fakeAuditService.AuditAsync(A<string>._, A<string>._)).MustHaveHappened();
-
+  
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetAVsForMultipleProvidersAsync(null); };
             f.Should().Throw<ArgumentNullException>();
@@ -108,8 +106,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             vacancyDetails.VacancyReference.Should().Be(123);
 
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.apprenticeships)).MustHaveHappened();
-            A.CallTo(() => fakeAuditService.AuditAsync(A<string>._, A<string>._)).MustHaveHappened();
-
+         
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetApprenticeshipVacancyDetailsAsync(null); };
             f.Should().Throw<ArgumentNullException>();
