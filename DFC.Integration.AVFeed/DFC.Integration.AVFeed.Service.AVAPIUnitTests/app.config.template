@@ -5,6 +5,7 @@
     <add key="FAA.SubscriptionKey" value="__faasubscriptionkey__" />
     <add key="FAA.PageSize" value="10" />
     <add key="FAA.MaxPagesToTryPerMapping" value="100" />
+    <add key="FAA.SortBy" value="Age" />
   </appSettings>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">

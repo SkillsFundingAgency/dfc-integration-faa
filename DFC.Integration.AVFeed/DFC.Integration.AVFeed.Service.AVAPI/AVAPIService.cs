@@ -15,6 +15,8 @@ namespace DFC.Integration.AVFeed.Service
         private IApprenticeshipVacancyApi apprenticeshipVacancyApi;
         private IApplicationLogger logger;
 
+        private string _sortBy = ConfigurationManager.AppSettings.Get("FAA.SortBy");
+
         public AVAPIService(IApprenticeshipVacancyApi apprenticeshipVacancyApi, IApplicationLogger logger)
         {
             this.apprenticeshipVacancyApi = apprenticeshipVacancyApi;
@@ -88,7 +90,7 @@ namespace DFC.Integration.AVFeed.Service
             queryString["frameworkLarsCodes"] = string.Join(",", mapping.Frameworks);
             queryString["pageSize"] = ConfigurationManager.AppSettings.Get("FAA.PageSize");;
             queryString["pageNumber"] = pageNumber.ToString();
-            queryString["sortBy"] = "Age";
+            queryString["sortBy"] = _sortBy;
 
             var responseResult = await apprenticeshipVacancyApi.GetAsync(queryString.ToString(), RequestType.search);
 

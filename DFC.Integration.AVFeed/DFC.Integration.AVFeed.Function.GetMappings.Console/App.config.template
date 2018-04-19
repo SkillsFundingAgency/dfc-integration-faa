@@ -10,7 +10,6 @@
     <add key="Sitefinity.Username" value="__sitefinityUsername__" />
     <add key="Sitefinity.Password" value="__sitefinityPassword__" />
     <add key="Sitefinity.Scopes" value="__sitefinityScopes__" />
-
     <add key="Sitefinity.SocMappingEndpoint" value="__sitefinitySocMappingEndpoint__" />
   </appSettings>
   <runtime>
