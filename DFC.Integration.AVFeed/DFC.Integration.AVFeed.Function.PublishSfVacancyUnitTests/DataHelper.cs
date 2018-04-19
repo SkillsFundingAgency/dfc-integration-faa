@@ -29,7 +29,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
                           TrainingProviderName =  nameof(ApprenticeshipVacancySummary.TrainingProviderName),
                           VacancyReference = 1,
                           Title =  nameof(ApprenticeshipVacancySummary.Title),
-                          VacancyUrl = new Uri(nameof(ApprenticeshipVacancySummary.VacancyUrl)),
+                          VacancyUrl = new Uri($"http://{nameof(ApprenticeshipVacancySummary.VacancyUrl)}"),
                       },
                       new ApprenticeshipVacancyDetails
                       {
@@ -38,7 +38,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
                           TrainingProviderName =  nameof(ApprenticeshipVacancySummary.TrainingProviderName),
                           VacancyReference = 2,
                           Title =  nameof(ApprenticeshipVacancySummary.Title),
-                          VacancyUrl = new Uri(nameof(ApprenticeshipVacancySummary.VacancyUrl)),
+                          VacancyUrl = new Uri($"http://{nameof(ApprenticeshipVacancySummary.VacancyUrl)}"),
                       },
                   }
             };

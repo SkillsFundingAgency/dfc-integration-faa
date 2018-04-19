@@ -179,7 +179,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
                     TrainingProviderName = nameof(ApprenticeshipVacancyDetails.TrainingProviderName),
                     VacancyReference = 1,
                     Title = nameof(ApprenticeshipVacancyDetails.Title),
-                    VacancyUrl = new Uri(nameof(ApprenticeshipVacancyDetails.VacancyUrl)),
+                    VacancyUrl = new Uri($"http://{nameof(ApprenticeshipVacancySummary.VacancyUrl)}"),
                     WageText = nameof(ApprenticeshipVacancyDetails.WageText)
                 };
         }

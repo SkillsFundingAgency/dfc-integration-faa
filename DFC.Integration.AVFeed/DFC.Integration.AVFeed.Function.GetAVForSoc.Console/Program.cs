@@ -43,7 +43,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSocConsole
                         //by the time it gets here we will only have a 400 error response.
                         if (!ex.Message.Contains("400"))
                         {
-                            throw ex;
+                            throw;
                         }
 
                         //else process the next one

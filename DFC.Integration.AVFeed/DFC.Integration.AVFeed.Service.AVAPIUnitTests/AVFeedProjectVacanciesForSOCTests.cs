@@ -97,7 +97,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
                     break;
 
                 default:
-                    throw new Exception("Test Scenarios not supported");
+                    throw new InvalidOperationException("Test Scenarios not supported");
 
             }
             return v;

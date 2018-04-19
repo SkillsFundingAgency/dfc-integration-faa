@@ -33,7 +33,7 @@ namespace DFC.Integration.AVFeed.Service
 
                 var response = await clientProxy.GetAsync(fullRequest);
                 string responseContent = await response.Content?.ReadAsStringAsync();
-                await auditService.AuditAsync(responseContent);
+                await auditService.AuditAsync(responseContent, requestQueryString);
               
                 if (!response.IsSuccessStatusCode)
                 {

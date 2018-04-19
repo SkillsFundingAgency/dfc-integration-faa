@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest")]
+[assembly: AssemblyTitle("DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest")]
+[assembly: AssemblyProduct("DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

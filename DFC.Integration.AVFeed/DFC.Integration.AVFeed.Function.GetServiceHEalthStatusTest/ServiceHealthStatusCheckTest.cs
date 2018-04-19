@@ -9,7 +9,7 @@ using FakeItEasy;
 using FluentAssertions;
 using Xunit;
 
-namespace DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest
+namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest
 {
     public class ServiceHealthStatusCheckTest 
     {

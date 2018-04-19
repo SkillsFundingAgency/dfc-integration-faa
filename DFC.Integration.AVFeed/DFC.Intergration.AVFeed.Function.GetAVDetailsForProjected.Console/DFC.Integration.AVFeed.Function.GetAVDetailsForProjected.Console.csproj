@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected.Console</RootNamespace>
     <AssemblyName>DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected.Console</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
