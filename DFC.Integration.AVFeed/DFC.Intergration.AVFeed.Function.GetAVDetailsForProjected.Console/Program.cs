@@ -22,7 +22,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedConsole
                     {
                         var socStartTime = new Stopwatch();
                         socStartTime.Start();
-                        var mappedResult = GetAVDetailsForProjected.Startup.RunAsync(input, Integration.AVFeed.Core.RunMode.Console).GetAwaiter().GetResult();
+                        var mappedResult = GetAVDetailsForProjectedAV.Startup.RunAsync(input, Integration.AVFeed.Core.RunMode.Console).GetAwaiter().GetResult();
                         TestUtility.PumpResult(mappedResult, nameof(IGetAvDetailsByIdsFunc));
                        
 

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected
+namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV
 {
     public class GetVacanciesDetailsFunction : IGetAvDetailsByIdsFunc
     {

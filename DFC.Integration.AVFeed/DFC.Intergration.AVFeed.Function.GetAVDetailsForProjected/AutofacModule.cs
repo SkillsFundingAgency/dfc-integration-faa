@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected
+namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV
 {
     public class AutofacModule : Module
     {

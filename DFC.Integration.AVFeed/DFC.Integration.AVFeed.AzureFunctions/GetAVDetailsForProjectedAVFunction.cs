@@ -7,11 +7,11 @@ using DFC.Integration.AVFeed.Function.Common;
 using DFC.Integration.AVFeed.Core;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.AzFunc
+namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
 {
-    public static class GetAVDetailsForProjectedFunction
+    public static class GetAVDetailsForProjectedAVFunction
     {
-        [FunctionName(nameof(GetAVDetailsForProjectedFunction))]
+        [FunctionName(nameof(GetAVDetailsForProjectedAVFunction))]
         public static async Task Run(
             [QueueTrigger("projectedavfeedforsocmapping")]
             ProjectedVacancySummary myQueueItem,
@@ -32,7 +32,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.AzFunc
                     CorrelationId = myQueueItem.CorrelationId,
                     StartedAt = startTime,
                     EndedAt = DateTime.Now,
-                    Function = nameof(GetAVDetailsForProjectedFunction),
+                    Function = nameof(GetAVDetailsForProjectedAVFunction),
                     Input = "",
                     Output = ""
                 }).ConfigureAwait(false);
@@ -55,7 +55,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.AzFunc
                 CorrelationId = myQueueItem.CorrelationId,
                 StartedAt = startTime,
                 EndedAt = DateTime.Now,
-                Function = nameof(GetAVDetailsForProjectedFunction),
+                Function = nameof(GetAVDetailsForProjectedAVFunction),
                 Input = myQueueItem,
                 Output = new
                 {
@@ -74,7 +74,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.AzFunc
                     CorrelationId = myQueueItem.CorrelationId,
                     StartedAt = startTime,
                     EndedAt = DateTime.Now,
-                    Function = nameof(GetAVDetailsForProjectedFunction),
+                    Function = nameof(GetAVDetailsForProjectedAVFunction),
                     Input = myQueueItem,
                     Output = new
                     {

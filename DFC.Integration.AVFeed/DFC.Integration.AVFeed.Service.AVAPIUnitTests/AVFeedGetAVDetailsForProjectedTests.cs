@@ -1,6 +1,6 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Function.GetAVDetailsForProjected;
+using DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV;
 using DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc;
 using FakeItEasy;
 using FluentAssertions;

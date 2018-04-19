@@ -7,7 +7,7 @@ using DFC.Integration.AVFeed.Function.Common;
 using Microsoft.Azure.WebJobs;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected
+namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV
 {
     /// <summary>
     /// Get details for projected vacancies
@@ -47,7 +47,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjected
             }
             builder.RegisterType<InMemoryAuditService>().As<IAuditService>().SingleInstance();
             builder.RegisterModule<Core.AutofacModule>();
-            builder.RegisterModule<GetAVDetailsForProjected.AutofacModule>();
+            builder.RegisterModule<GetAVDetailsForProjectedAV.AutofacModule>();
             builder.RegisterModule<Service.AutofacModule>();
             return builder.Build().BeginLifetimeScope();
         }
