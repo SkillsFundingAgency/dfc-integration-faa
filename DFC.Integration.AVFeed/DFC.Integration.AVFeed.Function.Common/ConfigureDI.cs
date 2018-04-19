@@ -1,10 +1,10 @@
-﻿using Autofac;
-using DFC.Integration.AVFeed.AuditService;
-using DFC.Integration.AVFeed.Core;
-using DFC.Integration.AVFeed.Data.Interfaces;
-
-namespace DFC.Integration.AVFeed.Function.Common
+﻿namespace DFC.Integration.AVFeed.Function.Common
 {
+    using Autofac;
+    using DFC.Integration.AVFeed.AuditService;
+    using DFC.Integration.AVFeed.Core;
+    using DFC.Integration.AVFeed.Data.Interfaces;
+
     public static class ConfigureDI
     {
         public static ContainerBuilder ConfigureContainerWithCommonModules(RunMode mode)
@@ -13,9 +13,6 @@ namespace DFC.Integration.AVFeed.Function.Common
             builder.Properties.Add(nameof(RunMode), mode);
             builder.RegisterType<InMemoryAuditService>().As<IAuditService>();
             builder.RegisterModule<Core.AutofacModule>();
-
-            //builder.RegisterModule<Repository.Audit.AutofacModule>();
-
             return builder;
         }
 

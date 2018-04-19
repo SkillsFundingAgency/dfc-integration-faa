@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-
-namespace DFC.Integration.AVFeed.Function.Common
+﻿namespace DFC.Integration.AVFeed.Function.Common
 {
+    using System;
+    using System.Globalization;
+    using System.Reflection;
+
     public static class BindingRedirects
     {
         public static void Configure()
@@ -24,7 +24,7 @@ namespace DFC.Integration.AVFeed.Function.Common
                 var requestedAssembly = new AssemblyName(args.Name)
                 {
                     Version = targetVersion,
-                    CultureInfo = CultureInfo.InstalledUICulture
+                    CultureInfo = CultureInfo.InstalledUICulture,
                 };
 
                 if (requestedAssembly.Name != shortName)

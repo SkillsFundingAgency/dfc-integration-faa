@@ -1,10 +1,10 @@
-﻿using Microsoft.ApplicationInsights.NLogTarget;
-using NLog;
-using NLog.Config;
-using System.Configuration;
-
-namespace DFC.Integration.AVFeed.Function.Common
+﻿namespace DFC.Integration.AVFeed.Function.Common
 {
+    using System.Configuration;
+    using Microsoft.ApplicationInsights.NLogTarget;
+    using NLog;
+    using NLog.Config;
+
     public static class ConfigureLog
     {
         public static void ConfigureNLogWithAppInsightsTarget()

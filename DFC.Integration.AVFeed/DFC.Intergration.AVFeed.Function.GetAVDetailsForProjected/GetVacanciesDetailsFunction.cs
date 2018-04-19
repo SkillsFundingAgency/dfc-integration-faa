@@ -44,7 +44,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV
         {
             if (projectedVacancyDetails == null)
             {
-                throw new InvalidOperationException($"{nameof(ExecuteAsync)} must be called before geting output");
+                throw new InvalidOperationException($"{nameof(ExecuteAsync)} must be called before getting output");
             }
         }
     }
