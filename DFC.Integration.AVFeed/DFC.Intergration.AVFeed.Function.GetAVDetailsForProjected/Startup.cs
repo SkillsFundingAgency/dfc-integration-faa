@@ -28,7 +28,6 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV
         {
             var container = ConfigureContainer(mode, asyncCollector, masterRecord);
             var getDetailsFunc = container.Resolve<IGetAvDetailsByIdsFunc>();
-            var auditService = container.Resolve<IAuditService>();
             await getDetailsFunc.ExecuteAsync(myQueueItem);
             return getDetailsFunc.GetOutput();
         }
@@ -45,7 +44,6 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV
             {
                 builder.Register(ctx => new CosmosAuditService(asyncCollector, masterRecord));
             }
-            builder.RegisterType<InMemoryAuditService>().As<IAuditService>().SingleInstance();
             builder.RegisterModule<Core.AutofacModule>();
             builder.RegisterModule<GetAVDetailsForProjectedAV.AutofacModule>();
             builder.RegisterModule<Service.AutofacModule>();
