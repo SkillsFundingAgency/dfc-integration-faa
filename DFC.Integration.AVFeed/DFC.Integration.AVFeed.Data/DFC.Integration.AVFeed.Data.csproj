@@ -72,7 +72,6 @@
     <Compile Include="Models\ApprenticeshipLocation.cs" />
     <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
     <Compile Include="Models\ApprenticeshipVacancySummaryResponse.cs" />
-    <Compile Include="Models\AVAPIRequestErrors.cs" />
     <Compile Include="Models\BaseIntegrationModel.cs" />
     <Compile Include="Models\FunctionResult.cs" />
     <Compile Include="Models\GenericAuditRecord.cs" />

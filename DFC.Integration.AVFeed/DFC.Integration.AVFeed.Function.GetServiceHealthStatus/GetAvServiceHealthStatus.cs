@@ -59,7 +59,7 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
 
                 if (apprenticeshipVacancySummaryResponse.TotalReturned > 0)
                 {
-                    var apprenticeshipVacancyDetailsResponse = await AvService.GetApprenticeshipVacancyDetailsAsync(apprenticeshipVacancySummaryResponse.Results[0].VacancyReference.ToString());
+                    var apprenticeshipVacancyDetailsResponse = await AvService.GetApprenticeshipVacancyDetailsAsync(apprenticeshipVacancySummaryResponse.Results.Take(1).FirstOrDefault().VacancyReference.ToString());
                     serviceStatus.Status = ServiceState.Green;
                 }
             }

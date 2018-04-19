@@ -5,8 +5,14 @@
     using NLog;
     using NLog.Config;
 
+    /// <summary>
+    /// Configure loging for the application
+    /// </summary>
     public static class ConfigureLog
     {
+        /// <summary>
+        /// Configure Nlog and set Applications Insights as the target.
+        /// </summary>
         public static void ConfigureNLogWithAppInsightsTarget()
         {
             var appInsightsKey = ConfigurationManager.AppSettings.Get("APPINSIGHTS_INSTRUMENTATIONKEY");
