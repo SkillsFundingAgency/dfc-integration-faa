@@ -35,7 +35,7 @@ namespace DFC.Integration.AVFeed.Data.Models
         public bool IsNationwide { get; set; }
         public string SupplementaryQuestion1 { get; set; }
         public string SupplementaryQuestion2 { get; set; }
-        public string VacancyUrl { get; set; }
+        public System.Uri VacancyUrl { get; set; }
         public AddressLocation Location { get; set; }
         public string ContactName { get; set; }
         public string ContactEmail { get; set; }
