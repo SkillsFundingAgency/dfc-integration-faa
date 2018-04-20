@@ -2,6 +2,10 @@
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
   <ItemGroup>    
     <PackageReference Include="Autofac" Version="4.7.0" />    
     <PackageReference Include="Autofac.Extras.DynamicProxy" Version="4.4.0" />    

@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -93,6 +94,7 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.GetServiceHealthStatus\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.csproj">
       <Project>{5807d139-1fca-44b9-a387-a6b4fcc5163b}</Project>
       <Name>DFC.Integration.AVFeed.Function.GetServiceHealthStatus</Name>
+      <Properties>SkipValidatePackageReferences=true</Properties>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.TestHelper\DFC.Integration.AVFeed.Function.TestHelper.csproj">
       <Project>{01b544aa-ae29-4247-8068-e31c9f9cf88e}</Project>
