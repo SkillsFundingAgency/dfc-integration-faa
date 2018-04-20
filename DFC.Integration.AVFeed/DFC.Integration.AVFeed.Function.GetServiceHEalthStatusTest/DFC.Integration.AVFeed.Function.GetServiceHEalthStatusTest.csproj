@@ -31,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -106,6 +107,7 @@
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.GetServiceHealthStatus\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.csproj">
       <Project>{5807D139-1FCA-44B9-A387-A6B4FCC5163B}</Project>
       <Name>DFC.Integration.AVFeed.Function.GetServiceHealthStatus</Name>
+      <Properties>SkipValidatePackageReferences=true</Properties>
     </ProjectReference>
     <ProjectReference Include="..\DFC.Integration.AVFeed.Repository.Sitefinity\DFC.Integration.AVFeed.Repository.Sitefinity.csproj">
       <Project>{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}</Project>
