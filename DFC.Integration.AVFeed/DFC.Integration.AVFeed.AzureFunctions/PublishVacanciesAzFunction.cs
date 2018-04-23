@@ -10,7 +10,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
     {
         [FunctionName(nameof(PublishVacanciesAzFunction))]
         public static async Task Run(
-            [QueueTrigger("projectedavdetails", Connection = "")]
+            [QueueTrigger("projectedavdetails")]
             ProjectedVacancyDetails myQueueItem,
             TraceWriter log,
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
