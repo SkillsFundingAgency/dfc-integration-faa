@@ -10,6 +10,6 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
     public interface IGetAvDetailsByIdsFunc
     {
         ProjectedVacancyDetails GetOutput();
-        Task ExecuteAsync(ProjectedVacancySummary projectedVacancies);
+        Task ExecuteAsync(ProjectedVacancySummary projectedVacancySummary);
     }
 }

@@ -30,6 +30,7 @@
       <Word>id</Word>
       <Word>Mvc</Word>
       <Word>Postcode</Word>
+      <Word>ExecuteAsync</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
