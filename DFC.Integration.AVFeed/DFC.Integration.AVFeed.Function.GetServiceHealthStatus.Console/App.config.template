@@ -10,11 +10,11 @@
     <add key="Sitefinity.Username" value="__sitefinityUsername__" />
     <add key="Sitefinity.Password" value="__sitefinityPassword__" />
     <add key="Sitefinity.Scopes" value="__sitefinityScopes__" />
-    <add key="FAA.ExternalSystemId" value="__faaExternalSystemId__" />
-    <add key="FAA.PublicKey" value="__faaPublicKey__" />
-    <add key="FAA.MaxReceivedMessageSize" value="__faaMaxReceivedMessageSize__" />
-    <add key="FAA.MaxBufferSize" value="__faaMaxBufferSize__" />
-    <add key="FAA.Endpoint" value="__faaEndPoint__" />
+    <add key="FAA.URL" value="__faaurl__" />
+    <add key="FAA.SubscriptionKey" value="__faasubscriptionkey__" />
+    <add key="FAA.PageSize" value="10" />
+    <add key="FAA.MaxPagesToTryPerMapping" value="100" />
+    <add key="FAA.SortBy" value="Age" />
   </appSettings>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">

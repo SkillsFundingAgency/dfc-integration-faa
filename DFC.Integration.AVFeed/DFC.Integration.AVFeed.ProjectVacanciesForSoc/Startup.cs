@@ -15,7 +15,7 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
             return builder.Build().BeginLifetimeScope();
         }
 
-        public static ProjectedVacancySummary Run(RunMode mode, MappedVacancyDetails input)
+        public static ProjectedVacancySummary Run(RunMode mode, MappedVacancySummary input)
         {
             var container = ConfigureContainer(mode);
             var getAvFunc = container.Resolve<IProjectVacanciesFunc>();

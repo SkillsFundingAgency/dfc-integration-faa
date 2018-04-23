@@ -1,19 +1,19 @@
-﻿namespace DFC.Integration.AVFeed.Function.GetServiceHEalthStatusTest
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using DFC.Integration.AVFeed.Data.Interfaces;
+using DFC.Integration.AVFeed.Data.Models;
+using DFC.Integration.AVFeed.Function.GetServiceHealthStatus;
+using DFC.Integration.AVFeed.Repository.Sitefinity;
+using FakeItEasy;
+using FluentAssertions;
+using Xunit;
+
+namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest
 {
-    using System;
-    using System.Net;
-    using Data.Models;
-    using DFC.Integration.AVFeed.Data.Interfaces;
-    using DFC.Integration.AVFeed.Repository.Sitefinity;
-    using FakeItEasy;
-    using FluentAssertions;
-    using GetServiceHealthStatus;
-    using Xunit;
-
-
     public class ServiceHealthStatusCheckTest 
     {
-        [Fact()]
+        [Fact]
         public async System.Threading.Tasks.Task GetSitefinityHealthStatusAsync()
         {
             var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
@@ -30,39 +30,56 @@
             result.Status.Should().Be(ServiceState.Red);
         }
 
-        [Fact()]
+        [Fact]
         public async System.Threading.Tasks.Task GetAVFeedHealthStatusAsync()
         {
             var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
             var fakeAVService = A.Fake<IAVService>();
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
 
+            //Set up calls
+            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).Returns(GetDummyApprenticeshipVacancySummaryResponse());
+            A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetailsAsync(A<string>._)).Returns(new ApprenticeshipVacancyDetails());
+
             var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
 
             var result = await getAvServiceHealthStatus.GetApprenticeshipFeedHealthStatusAsync();
             result.Status.Should().Be(ServiceState.Green);
             
-            A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetails(A<SocMapping>._)).ThrowsAsync(new Exception("Fake Exception"));
+            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).ThrowsAsync(new Exception("Fake Exception"));
             result = await getAvServiceHealthStatus.GetApprenticeshipFeedHealthStatusAsync();
             result.Status.Should().Be(ServiceState.Red);
         }
 
 
-        [Fact()]
+        [Fact]
         public async System.Threading.Tasks.Task GetServiceHealthStateAsync()
         {
             var fakeSocSitefinityOdataRepository = A.Fake<ISocSitefinityOdataRepository>();
             var fakeAVService = A.Fake<IAVService>();
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
 
+            //Set up calls
+            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).Returns(GetDummyApprenticeshipVacancySummaryResponse());
+            A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetailsAsync(A<string>._)).Returns(new ApprenticeshipVacancyDetails());
+
             var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
 
             var result = await getAvServiceHealthStatus.GetServiceHealthStateAsync();
             result.ApplicationStatus.Should().Be(HttpStatusCode.OK);
 
-            A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetails(A<SocMapping>._)).ThrowsAsync(new Exception("Fake Exception"));
+            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).ThrowsAsync(new Exception("Fake Exception"));
             result = await getAvServiceHealthStatus.GetServiceHealthStateAsync();
             result.ApplicationStatus.Should().Be(HttpStatusCode.BadGateway);
+        }
+
+        private ApprenticeshipVacancySummaryResponse GetDummyApprenticeshipVacancySummaryResponse()
+        {
+            var apprenticeshipVacancySummaryResponse = new ApprenticeshipVacancySummaryResponse() { TotalReturned = 1 };
+            var results = new List<ApprenticeshipVacancySummary>();
+            results.Add(new ApprenticeshipVacancySummary() { VacancyReference = 123 });
+            apprenticeshipVacancySummaryResponse.Results = results.ToArray();
+            return apprenticeshipVacancySummaryResponse;
         }
     }
 }

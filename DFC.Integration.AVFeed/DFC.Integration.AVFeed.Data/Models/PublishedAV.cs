@@ -3,8 +3,8 @@
     public class PublishedAV
     {
         public int VacancyReference { get; set; }
-        public string VacancyUrl { get; set; }
-        public string VacancyTitle { get; set; }
+        public System.Uri VacancyUrl { get; set; }
+        public string Title { get; set; }
         public string UrlName { get; set; }
     }
 }

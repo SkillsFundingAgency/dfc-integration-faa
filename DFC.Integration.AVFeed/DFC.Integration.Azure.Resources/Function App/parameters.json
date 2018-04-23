@@ -26,26 +26,11 @@
     "subscriptionId": {
       "value": "__funcSubscriptionId__"
     },
-    "FAA.ExternalSystemId": {
-      "value": "__appSettingFAAExternalSystemId__"
-    },
-    "FAA.PublicKey": {
-      "value": "__appSettingFAAPublicKey__"
-    },
-    "FAA.Endpoint": {
-      "value": "__appSettingFAAEndpoint__"
-    },
     "AVAuditCosmosDB": {
       "value": "__appSettingAVAuditCosmosDB__"
     },
     "Sitefinity.SocMappingEndpoint": {
       "value": "__appSettingSitefinitySocMappingEndpoint__"
-    },
-    "FAA.MaxReceivedMessageSize": {
-      "value": "__appSettingFAAMaxReceivedMessageSize__"
-    },
-    "FAA.MaxBufferSize": {
-      "value": "__appSettingFAAMaxBufferSize__"
     },
     "Sitefinity.ClientId": {
       "value": "__appSettingSitefinityClientId__"
@@ -73,6 +58,12 @@
     },
     "AzureWebJobsSecretStorageType": {
       "value": "__appSettingAzureWebJobsSecretStorageType__"
+    },
+    "FAA.URL": {
+      "value": "__faaurl__"
+    },
+    "FAA.SubscriptionKey": {
+      "value": "__faasubscriptionkey__"
     }
   }
 }

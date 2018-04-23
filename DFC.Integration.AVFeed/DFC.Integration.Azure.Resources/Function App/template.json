@@ -24,12 +24,6 @@
     "subscriptionId": {
       "type": "string"
     },
-    "FAA.ExternalSystemId": {
-      "type": "string"
-    },
-    "FAA.PublicKey": {
-      "type": "string"
-    },
     "FAA.Endpoint": {
       "type": "string"
     },
@@ -37,12 +31,6 @@
       "type": "string"
     },
     "Sitefinity.SocMappingEndpoint": {
-      "type": "string"
-    },
-    "FAA.MaxReceivedMessageSize": {
-      "type": "string"
-    },
-    "FAA.MaxBufferSize": {
       "type": "string"
     },
     "Sitefinity.ClientId": {
@@ -71,7 +59,14 @@
     },
     "AzureWebJobsSecretStorageType": {
       "type": "string"
+    },
+    "FAA.SubscriptionKey": {
+      "type": "string"
+    },
+    "FAA.URL": {
+      "type": "string"
     }
+
   },
   "resources": [
     {

@@ -1,11 +1,17 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-
-namespace DFC.Integration.AVFeed.Function.Common
+﻿namespace DFC.Integration.AVFeed.Function.Common
 {
+    using System;
+    using System.Globalization;
+    using System.Reflection;
+
+    /// <summary>
+    /// Congiure binding redirects for dependant assemblies
+    /// /// </summary>
     public static class BindingRedirects
     {
+        /// <summary>
+        /// Set the version redirects for dependant assemblies
+        /// </summary>
         public static void Configure()
         {
             RedirectAssembly("Autofac", new Version("4.6.1.0"), "17863af14b0044da");
@@ -24,7 +30,7 @@ namespace DFC.Integration.AVFeed.Function.Common
                 var requestedAssembly = new AssemblyName(args.Name)
                 {
                     Version = targetVersion,
-                    CultureInfo = CultureInfo.InstalledUICulture
+                    CultureInfo = CultureInfo.InstalledUICulture,
                 };
 
                 if (requestedAssembly.Name != shortName)

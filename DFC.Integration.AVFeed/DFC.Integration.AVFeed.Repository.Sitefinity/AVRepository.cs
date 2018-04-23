@@ -31,24 +31,24 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
         }
 
-        public async Task<string> PublishAsync(ApprenticeshipVacancySummary apprenticeshipVacancySummary, Guid socCodeId)
+        public async Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails, Guid socCodeId)
         {
             //Add vacancy
             var addedVacancyId = await repository.AddAsync(new SfApprenticeshipVacancy
             {
                 PublicationDate = DateTime.UtcNow,
                 UrlName = Guid.NewGuid().ToString(),
-                URL = apprenticeshipVacancySummary.VacancyUrl,
-                Location = $"{apprenticeshipVacancySummary.AddressDataTown} {apprenticeshipVacancySummary.AddressDataPostCode}",
+                URL = apprenticeshipVacancyDetails.VacancyUrl.ToString(),
+                Location = $"{apprenticeshipVacancyDetails.Location.Town} {apprenticeshipVacancyDetails.Location.PostCode}",
                 WageUnitType = "Wage",
-                WageAmount = apprenticeshipVacancySummary.WageText,
-                Title = apprenticeshipVacancySummary.VacancyTitle,
-                VacancyId = apprenticeshipVacancySummary.VacancyReference.ToString(),
+                WageAmount = apprenticeshipVacancyDetails.WageText,
+                Title = apprenticeshipVacancyDetails.Title,
+                VacancyId = apprenticeshipVacancyDetails.VacancyReference.ToString(),
             });
-            logger.Info($"Published vacancy '{apprenticeshipVacancySummary.VacancyTitle}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
+            logger.Info($"Published vacancy '{apprenticeshipVacancyDetails.Title}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
 
             await repository.AddRelatedAsync(addedVacancyId.Id.ToString(), socCodeId);
-            logger.Info($"Added related field for vacancy '{apprenticeshipVacancySummary.VacancyTitle}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
+            logger.Info($"Added related field for vacancy '{apprenticeshipVacancyDetails.Title}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
 
             return addedVacancyId.UrlName;
         }

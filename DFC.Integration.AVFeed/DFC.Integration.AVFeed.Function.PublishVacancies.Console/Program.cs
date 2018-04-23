@@ -14,12 +14,12 @@ namespace DFC.Integration.AVFeed.Function.PublishVacanciesConsole
             try
             {
 
-                var input = TestUtility.ReadQueue<ProjectedVacancySummary>(nameof(IProjectVacanciesFunc));
+                var input = TestUtility.ReadQueue<ProjectedVacancyDetails>(nameof(IGetAvDetailsByIdsFunc));
                 while (input != null)
                 {
                     var result = Startup.RunAsync(input, Core.RunMode.Console).GetAwaiter().GetResult();
                     TestUtility.PumpResult(result, nameof(IPublishAVFunc));
-                    input = TestUtility.ReadQueue<ProjectedVacancySummary>(nameof(IProjectVacanciesFunc));
+                    input = TestUtility.ReadQueue<ProjectedVacancyDetails>(nameof(IGetAvDetailsByIdsFunc));
                 }
             }
             catch (Exception ex)

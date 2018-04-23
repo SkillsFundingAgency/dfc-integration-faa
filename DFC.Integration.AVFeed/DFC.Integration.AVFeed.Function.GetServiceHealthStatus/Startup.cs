@@ -23,7 +23,7 @@
             var builder = ConfigureDI.ConfigureContainerWithCommonModules(mode);
             builder.RegisterModule<AutofacModule>();
             builder.RegisterModule<Repository.Sitefinity.AutofacModule>();
-            builder.RegisterModule<Service.AVSoapAPI.AutofacModule>();
+            builder.RegisterModule<Service.AutofacModule>();
             return builder.Build().BeginLifetimeScope();
         }
     }

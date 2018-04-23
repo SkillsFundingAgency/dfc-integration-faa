@@ -17,7 +17,7 @@ namespace DFC.Integration.AVFeed.AuditService
             this.auditRecordCollector = auditRecordCollector;
             this.masterRecord = record;
         }
-        public async Task AuditAsync(string message)
+        public async Task AuditAsync(string outputMessage, string inputMessage = null)
         {
             await auditRecordCollector.AddAsync(new AuditRecord<object, object>
             {
@@ -25,8 +25,8 @@ namespace DFC.Integration.AVFeed.AuditService
                 StartedAt = masterRecord.StartedAt,
                 EndedAt = DateTime.Now,
                 Function = masterRecord.Function,
-                Input = string.Empty,
-                Output = message
+                Input = inputMessage ?? string.Empty,
+                Output = outputMessage
             });
         }
 

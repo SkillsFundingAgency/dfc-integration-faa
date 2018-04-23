@@ -5,7 +5,7 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface IAuditService
     {
-        Task AuditAsync(string message);
+        Task AuditAsync(string outputMessage, string inputMessage = null);
         IEnumerable<string> GetAuditRecords();
     }
 }

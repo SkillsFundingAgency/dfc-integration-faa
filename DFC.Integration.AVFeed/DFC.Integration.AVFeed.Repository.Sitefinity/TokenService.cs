@@ -82,7 +82,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         {
             if (string.IsNullOrEmpty(_accessToken))
             {
-                using (var tokenClient = new TokenClient(TokenEndpoint, ClientId, ClientSecret, null, AuthenticationStyle.PostValues))
+                using (var tokenClient = new TokenClient(TokenEndpoint, ClientId, ClientSecret, AuthenticationStyle.PostValues))
                 {
                     logger.Info($"Token client {TokenEndpoint} called with client {ClientId}.");
 

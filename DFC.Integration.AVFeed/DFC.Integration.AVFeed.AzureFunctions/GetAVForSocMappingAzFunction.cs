@@ -49,7 +49,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
             }
         }
 
-        private static async Task AuditProjections(SocMapping myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, MappedVacancyDetails mappedResult, ProjectedVacancySummary projectedResult)
+        private static async Task AuditProjections(SocMapping myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, MappedVacancySummary mappedResult, ProjectedVacancySummary projectedResult)
         {
             myQueueItem.AccessToken = null;
             await auditRecord.AddAsync(new AuditRecord<object, object>
@@ -69,7 +69,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
             });
         }
 
-        private static async Task AuditMapping(SocMapping myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, MappedVacancyDetails mappedResult)
+        private static async Task AuditMapping(SocMapping myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, MappedVacancySummary mappedResult)
         {
             myQueueItem.AccessToken = null;
             await auditRecord.AddAsync(new AuditRecord<object, object>

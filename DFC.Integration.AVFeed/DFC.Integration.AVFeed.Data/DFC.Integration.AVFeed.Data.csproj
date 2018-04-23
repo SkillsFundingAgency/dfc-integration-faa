@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DFC.Integration.AVFeed.Data</RootNamespace>
     <AssemblyName>DFC.Integration.AVFeed.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\DFC.Digital.CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,8 +35,8 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.7.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.7.0\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Extras.DynamicProxy, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Extras.DynamicProxy.4.4.0\lib\net45\Autofac.Extras.DynamicProxy.dll</HintPath>
@@ -62,15 +65,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\IGetAvDetailsByIdsFunc.cs" />
     <Compile Include="Interfaces\IGetServiceHealthStatus.cs" />
     <Compile Include="Interfaces\IApprenticeshipVacancyRepository.cs" />
     <Compile Include="Interfaces\IHttpClientService.cs" />
     <Compile Include="Interfaces\IAuditService.cs" />
     <Compile Include="Interfaces\IPublishAVFunc.cs" />
     <Compile Include="Interfaces\ITokenClient.cs" />
+    <Compile Include="Models\ApprenticeshipLocation.cs" />
+    <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
+    <Compile Include="Models\ApprenticeshipVacancySummaryResponse.cs" />
     <Compile Include="Models\BaseIntegrationModel.cs" />
     <Compile Include="Models\FunctionResult.cs" />
     <Compile Include="Models\GenericAuditRecord.cs" />
+    <Compile Include="Models\GeoPoint.cs" />
+    <Compile Include="Models\AddressLocation.cs" />
+    <Compile Include="Models\ProjectedVacancyDetails.cs" />
     <Compile Include="Models\ProjectedVacancySummary.cs" />
     <Compile Include="Interfaces\IGetSocMappingFunc.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -79,7 +90,6 @@
     <Compile Include="Interfaces\IApplicationLogger.cs" />
     <Compile Include="Interfaces\IAVService.cs" />
     <Compile Include="Interfaces\IGetAvForSocFunc.cs" />
-    <Compile Include="Models\ApprenticeshipVacancySummary.cs" />
     <Compile Include="Models\ApprenticeshipVacancyDetails.cs" />
     <Compile Include="Models\AuditRecord.cs" />
     <Compile Include="Models\MappedVacancySummary.cs" />

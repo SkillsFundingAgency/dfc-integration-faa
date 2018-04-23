@@ -18,7 +18,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         /// </summary>
         /// <param name="myQueueItem">My queue item.</param>
         /// <param name="mode">The mode.</param>
-        public static async Task<FunctionResult<PublishedVacancySummary>> RunAsync(ProjectedVacancySummary myQueueItem, RunMode mode)
+        public static async Task<FunctionResult<PublishedVacancySummary>> RunAsync(ProjectedVacancyDetails myQueueItem, RunMode mode)
         {
             var container = ConfigureContainer(mode);
             var publishFunc = container.Resolve<IPublishAVFunc>();
