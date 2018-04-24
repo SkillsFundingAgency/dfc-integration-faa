@@ -24,9 +24,6 @@
     "subscriptionId": {
       "type": "string"
     },
-    "FAA.Endpoint": {
-      "type": "string"
-    },
     "AVAuditCosmosDB": {
       "type": "string"
     },
@@ -100,16 +97,12 @@
               "value": "[reference(resourceId('microsoft.insights/components/', parameters('functionName')), '2015-05-01').InstrumentationKey]"
             },
             {
-              "name": "FAA.ExternalSystemId",
-              "value": "[parameters('FAA.ExternalSystemId')]"
+              "name": "FAA.SubscriptionKey",
+              "value": "[parameters('FAA.SubscriptionKey')]"
             },
             {
-              "name": "FAA.PublicKey",
-              "value": "[parameters('FAA.PublicKey')]"
-            },
-            {
-              "name": "FAA.Endpoint",
-              "value": "[parameters('FAA.Endpoint')]"
+              "name": "FAA.URL",
+              "value": "[parameters('FAA.URL')]"
             },
             {
               "name": "AVAuditCosmosDB",
@@ -118,14 +111,6 @@
             {
               "name": "Sitefinity.SocMappingEndpoint",
               "value": "[parameters('Sitefinity.SocMappingEndpoint')]"
-            },
-            {
-              "name": "FAA.MaxReceivedMessageSize",
-              "value": "[parameters('FAA.MaxReceivedMessageSize')]"
-            },
-            {
-              "name": "FAA.MaxBufferSize",
-              "value": "[parameters('FAA.MaxBufferSize')]"
             },
             {
               "name": "Sitefinity.ClientId",
