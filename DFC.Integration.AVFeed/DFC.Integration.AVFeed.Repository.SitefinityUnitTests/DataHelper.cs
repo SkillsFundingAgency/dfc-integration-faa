@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
+using DFC.Integration.AVFeed.Repository.Sitefinity;
 
 namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 {

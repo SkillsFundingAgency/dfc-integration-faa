@@ -3,8 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
+
 
 namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {

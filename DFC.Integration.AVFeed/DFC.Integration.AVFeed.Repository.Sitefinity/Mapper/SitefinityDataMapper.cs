@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Mapper
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class SitefinityDataMapper : Profile
     {

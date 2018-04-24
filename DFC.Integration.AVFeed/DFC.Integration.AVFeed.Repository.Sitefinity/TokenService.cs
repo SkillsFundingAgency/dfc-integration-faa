@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     /// <summary>
     /// Token Service for Sitefinity Access tokens
@@ -22,12 +22,10 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         };
         private string _accessToken;
         private readonly IApplicationLogger logger;
-        private readonly IAuditService service;
-
-        public TokenService(IApplicationLogger logger, IAuditService service)
+  
+        public TokenService(IApplicationLogger logger)
         {
             this.logger = logger;
-            this.service = service;
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Models
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     [DataContract]
     [JsonObject(IsReference = true)]

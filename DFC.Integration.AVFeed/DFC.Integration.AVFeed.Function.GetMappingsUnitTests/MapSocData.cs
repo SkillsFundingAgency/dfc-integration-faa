@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
+using DFC.Integration.AVFeed.Repository.Sitefinity;
 
 namespace DFC.Integration.AVFeed.Function.GetMappingsUnitTests
 {

@@ -1,4 +1,4 @@
-﻿namespace DFC.Integration.AVFeed.Repository.Sitefinity.Model
+﻿namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class NavigateToApprenticeshipStandard
     {

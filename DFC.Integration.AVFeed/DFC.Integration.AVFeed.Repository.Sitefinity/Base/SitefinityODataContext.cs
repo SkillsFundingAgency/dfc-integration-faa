@@ -4,10 +4,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Data.Interfaces;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 using Newtonsoft.Json;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class SitefinityODataContext<T> : IOdataContext<T> where T : class, new()
     {

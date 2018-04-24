@@ -3,8 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Repository.Sitefinity;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
 using FakeItEasy;
 using FluentAssertions;
 using Xunit;
