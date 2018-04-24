@@ -2,7 +2,7 @@
 using NLog;
 using System;
 
-namespace DFC.Integration.AVFeed.Core.Logging
+namespace DFC.Integration.AVFeed.Core
 {
     public class DFCLogger : IApplicationLogger
     {

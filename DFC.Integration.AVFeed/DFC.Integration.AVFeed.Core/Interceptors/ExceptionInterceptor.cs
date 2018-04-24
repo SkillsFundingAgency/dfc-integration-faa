@@ -1,11 +1,10 @@
 ﻿using Castle.DynamicProxy;
-using DFC.Integration.AVFeed.Core.Logging;
 using DFC.Integration.AVFeed.Data.Interfaces;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Core.Interceptors
+namespace DFC.Integration.AVFeed.Core
 {
     public class ExceptionInterceptor : IInterceptor
     {
