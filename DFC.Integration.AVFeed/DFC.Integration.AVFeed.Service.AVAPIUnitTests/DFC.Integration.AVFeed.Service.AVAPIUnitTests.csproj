@@ -101,7 +101,6 @@
   <ItemGroup>
     <Compile Include="AVFeedGetAVDetailsForProjectedTests.cs" />
     <Compile Include="FAAAPIDummyResposnes.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AVFeedProjectVacanciesForSOCTests.cs" />
     <Compile Include="AVAPIServiceUnitTests.cs" />

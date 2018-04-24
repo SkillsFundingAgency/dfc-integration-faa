@@ -103,7 +103,6 @@
     <Compile Include="Base\AVSitefinityRepositoryTests.cs" />
     <Compile Include="Base\SitefinityODataContextTests.cs" />
     <Compile Include="DataHelper.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="SitefinityODataContextUnitTest.cs" />
     <Compile Include="SitefinityRepositoryUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

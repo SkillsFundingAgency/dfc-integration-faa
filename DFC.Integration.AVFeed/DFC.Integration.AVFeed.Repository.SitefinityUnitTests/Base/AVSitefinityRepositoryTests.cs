@@ -9,7 +9,7 @@ using RichardSzalay.MockHttp;
 using Xunit;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
+namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 {
     /// <summary>
     /// AVSitefinityRepository Tests

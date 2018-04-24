@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
 using Xunit;
 
-namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
+namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 {
     public class SitefinityODataContextTests
     {
