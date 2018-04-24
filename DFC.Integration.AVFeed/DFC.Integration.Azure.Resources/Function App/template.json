@@ -100,12 +100,12 @@
               "value": "[reference(resourceId('microsoft.insights/components/', parameters('functionName')), '2015-05-01').InstrumentationKey]"
             },
             {
-              "name": "FAA.ExternalSystemId",
-              "value": "[parameters('FAA.ExternalSystemId')]"
+              "name": "FAA.SubscriptionKey",
+              "value": "[parameters('FAA.SubscriptionKey')]"
             },
             {
-              "name": "FAA.PublicKey",
-              "value": "[parameters('FAA.PublicKey')]"
+              "name": "FAA.URL",
+              "value": "[parameters('FAA.URL')]"
             },
             {
               "name": "FAA.Endpoint",
@@ -118,14 +118,6 @@
             {
               "name": "Sitefinity.SocMappingEndpoint",
               "value": "[parameters('Sitefinity.SocMappingEndpoint')]"
-            },
-            {
-              "name": "FAA.MaxReceivedMessageSize",
-              "value": "[parameters('FAA.MaxReceivedMessageSize')]"
-            },
-            {
-              "name": "FAA.MaxBufferSize",
-              "value": "[parameters('FAA.MaxBufferSize')]"
             },
             {
               "name": "Sitefinity.ClientId",
