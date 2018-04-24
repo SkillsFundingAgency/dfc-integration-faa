@@ -24,9 +24,6 @@
     "subscriptionId": {
       "type": "string"
     },
-    "FAA.Endpoint": {
-      "type": "string"
-    },
     "AVAuditCosmosDB": {
       "type": "string"
     },
@@ -106,10 +103,6 @@
             {
               "name": "FAA.URL",
               "value": "[parameters('FAA.URL')]"
-            },
-            {
-              "name": "FAA.Endpoint",
-              "value": "[parameters('FAA.Endpoint')]"
             },
             {
               "name": "AVAuditCosmosDB",
