@@ -61,27 +61,6 @@ namespace DFC.Integration.AVFeed.Core
         }
 
 
-        private async Task<TResult> InterceptAsyncFunc<TResult>(IInvocation invocation)
-        {
-            try
-            {
-                invocation.Proceed();
-                return await (Task<TResult>)invocation.ReturnValue;
-            }
-            catch (LoggedException)
-            {
-                // Ignore already logged exceptions.
-                // We would loose the stack trace to the callee is that an issue?
-                throw;
-            }
-            // other exception policies as we go along.
-            catch (Exception ex)
-            {
-                loggingService.Error($"Async Method '{invocation.Method.Name}' called with parameters '{string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray())}' failed with exception.", ex);
-                throw;
-            }
-        }
-
         private void InterceptSync(IInvocation invocation)
         {
             try
