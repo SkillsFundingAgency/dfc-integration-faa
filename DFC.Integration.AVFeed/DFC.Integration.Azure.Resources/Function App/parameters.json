@@ -64,6 +64,15 @@
     },
     "FAA.SubscriptionKey": {
       "value": "__faasubscriptionkey__"
+    },
+    "FAA.PageSize": {
+      "value": "10"
+    },
+    "FAA.MaxPagesToTryPerMapping": {
+      "value": "100"
+    },
+    "FAA.SortBy": {
+      "value": "Age"
     }
   }
 }
