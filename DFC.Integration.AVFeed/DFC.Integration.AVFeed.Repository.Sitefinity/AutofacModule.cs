@@ -1,10 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
 using DFC.Integration.AVFeed.Data.Interfaces;
-using DFC.Integration.AVFeed.Function.PublishSfVacancy;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -17,28 +17,28 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
            
         }
 
-        public void Execute(MappedVacancySummary allVacanciesForSOC)
+        public void Execute(MappedVacancySummary mappedVacancySummary)
         {
-            if (allVacanciesForSOC != null)
+            if (mappedVacancySummary != null)
             {
                 projectedVacanciesForSOC = new ProjectedVacancySummary
                 {
-                    SocCode = allVacanciesForSOC.SocCode,
-                    SocMappingId = allVacanciesForSOC.SocMappingId,
-                    AccessToken = allVacanciesForSOC.AccessToken,
+                    SocCode = mappedVacancySummary.SocCode,
+                    SocMappingId = mappedVacancySummary.SocMappingId,
+                    AccessToken = mappedVacancySummary.AccessToken,
                 };
 
                 //if none were found for SOC
-                if (allVacanciesForSOC.Vacancies == null)
+                if (mappedVacancySummary.Vacancies == null)
                     return;
 
-                var numberProvoidersFound = allVacanciesForSOC.Vacancies.Select(v => v.TrainingProviderName).Distinct().Count();
+                var numberProvoidersFound = mappedVacancySummary.Vacancies.Select(v => v.TrainingProviderName).Distinct().Count();
 
                 var projection = Enumerable.Empty<ApprenticeshipVacancySummary>();
                 if (numberProvoidersFound > 1)
                 {
                     //have multipe providers
-                    projection = allVacanciesForSOC.Vacancies
+                    projection = mappedVacancySummary.Vacancies
                         .GroupBy(v => v.TrainingProviderName)
                         .Select(g => g.First())
                         .Take(2);
@@ -46,7 +46,7 @@ namespace DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc
                 else
                 {
                     //just have a single or no provider 
-                    projection = allVacanciesForSOC.Vacancies.Take(2);
+                    projection = mappedVacancySummary.Vacancies.Take(2);
                 }
 
                 projectedVacanciesForSOC.Vacancies = projection;

@@ -30,6 +30,7 @@
       <Word>id</Word>
       <Word>Mvc</Word>
       <Word>Postcode</Word>
+      <Word>ExecuteAsync</Word>
     </Recognized>
     <Deprecated>
     </Deprecated>
@@ -39,6 +40,7 @@
       <Term CompoundAlternate="ToGo">ToGo</Term>
       <Term CompoundAlternate="Postcode">PostCode</Term>
       <Term CompoundAlternate="Metadata">MetaData</Term>
+      <Term CompoundAlternate="ExecuteAsync">ExecuteAsync</Term>
     </Compound>
     </Words>
   <Acronyms>

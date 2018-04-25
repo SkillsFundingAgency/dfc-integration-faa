@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.Http;
 using DFC.Integration.AVFeed.Repository.Sitefinity;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 using FakeItEasy;
 using Xunit;
 using System.Threading.Tasks;

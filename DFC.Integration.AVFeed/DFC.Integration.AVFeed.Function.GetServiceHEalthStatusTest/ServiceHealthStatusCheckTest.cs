@@ -38,7 +38,7 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
 
             //Set up calls
-            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).Returns(GetDummyApprenticeshipVacancySummaryResponse());
+            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).Returns(DummyTestResponses.GetDummyApprenticeshipVacancySummaryResponse());
             A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetailsAsync(A<string>._)).Returns(new ApprenticeshipVacancyDetails());
 
             var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
@@ -60,7 +60,7 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
 
             //Set up calls
-            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).Returns(GetDummyApprenticeshipVacancySummaryResponse());
+            A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).Returns(DummyTestResponses.GetDummyApprenticeshipVacancySummaryResponse());
             A.CallTo(() => fakeAVService.GetApprenticeshipVacancyDetailsAsync(A<string>._)).Returns(new ApprenticeshipVacancyDetails());
 
             var getAvServiceHealthStatus = new GetAvServiceHealthStatus(fakeSocSitefinityOdataRepository, fakeAVService, fakeApplicationLogger);
@@ -71,15 +71,6 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest
             A.CallTo(() => fakeAVService.GetAVSumaryPageAsync(A<SocMapping>._, 1)).ThrowsAsync(new Exception("Fake Exception"));
             result = await getAvServiceHealthStatus.GetServiceHealthStateAsync();
             result.ApplicationStatus.Should().Be(HttpStatusCode.BadGateway);
-        }
-
-        private ApprenticeshipVacancySummaryResponse GetDummyApprenticeshipVacancySummaryResponse()
-        {
-            var apprenticeshipVacancySummaryResponse = new ApprenticeshipVacancySummaryResponse() { TotalReturned = 1 };
-            var results = new List<ApprenticeshipVacancySummary>();
-            results.Add(new ApprenticeshipVacancySummary() { VacancyReference = 123 });
-            apprenticeshipVacancySummaryResponse.Results = results.ToArray();
-            return apprenticeshipVacancySummaryResponse;
         }
     }
 }

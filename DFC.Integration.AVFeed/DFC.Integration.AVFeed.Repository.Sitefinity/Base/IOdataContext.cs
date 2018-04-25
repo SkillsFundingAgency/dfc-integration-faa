@@ -1,5 +1,4 @@
-﻿using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using System;
+﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 

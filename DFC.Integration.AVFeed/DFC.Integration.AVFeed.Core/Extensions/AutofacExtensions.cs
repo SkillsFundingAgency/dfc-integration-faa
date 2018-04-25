@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace DFC.Integration.AVFeed.Core.Extensions
+namespace DFC.Integration.AVFeed.Core
 {
     public static class AutofacExtensions
     {
