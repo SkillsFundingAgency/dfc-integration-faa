@@ -62,8 +62,16 @@
     },
     "FAA.URL": {
       "type": "string"
+    },
+    "FAA.PageSize": {
+      "type": "string"
+    },
+    "FAA.MaxPagesToTryPerMapping": {
+      "type": "string"
+    },
+    "FAA.SortBy": {
+      "type": "string"
     }
-
   },
   "resources": [
     {
@@ -103,6 +111,18 @@
             {
               "name": "FAA.URL",
               "value": "[parameters('FAA.URL')]"
+            },
+            {
+              "name": "FAA.PageSize",
+              "value": "[parameters('FAA.PageSize')]"
+            },
+            {
+              "name": "FAA.MaxPagesToTryPerMapping",
+              "value": "[parameters('FAA.MaxPagesToTryPerMapping')]"
+            },
+            {
+              "name": "FAA.SortBy",
+              "value": "[parameters('FAA.SortBy')]"
             },
             {
               "name": "AVAuditCosmosDB",
