@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class AVSitefinityRepository : SitefinityRepository<SfApprenticeshipVacancy>, IAVSitefinityOdataRepository
     {

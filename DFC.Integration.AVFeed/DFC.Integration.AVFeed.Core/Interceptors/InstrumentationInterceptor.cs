@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Core.Interceptors
+namespace DFC.Integration.AVFeed.Core
 {
     public class InstrumentationInterceptor : IInterceptor
     {

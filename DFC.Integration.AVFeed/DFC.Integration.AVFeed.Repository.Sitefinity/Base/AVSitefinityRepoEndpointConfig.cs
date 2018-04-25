@@ -1,8 +1,8 @@
-﻿using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
+﻿
 using System;
 using System.Configuration;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class AVSitefinityRepoEndpointConfig : IRepoEndpointConfig<SfApprenticeshipVacancy>
     {

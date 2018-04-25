@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json.Serialization;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Models
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     class JsonPropertiesResolver : DefaultContractResolver
     {

@@ -1,8 +1,7 @@
-﻿using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using System;
+﻿using System;
 using System.Configuration;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class SocRepositoryEndpointConfig : IRepoEndpointConfig<SitefinitySocMapping>
     {

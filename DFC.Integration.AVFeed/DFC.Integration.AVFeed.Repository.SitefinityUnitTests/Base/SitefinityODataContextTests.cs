@@ -3,15 +3,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using DFC.Integration.AVFeed.Data.Interfaces;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
+using DFC.Integration.AVFeed.Repository.Sitefinity;
 using FakeItEasy;
 using FluentAssertions;
 using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
 using Xunit;
 
-namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
+namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 {
     public class SitefinityODataContextTests
     {

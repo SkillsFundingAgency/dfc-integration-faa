@@ -1,8 +1,6 @@
 ﻿using Autofac;
 using Castle.DynamicProxy;
-using DFC.Integration.AVFeed.Core.Extensions;
-using DFC.Integration.AVFeed.Core.Interceptors;
-using DFC.Integration.AVFeed.Core.Logging;
+using DFC.Integration.AVFeed.Core;
 using NLog;
 
 namespace DFC.Integration.AVFeed.Core

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class SitefinityRepository<T> : IRepository<T> where T : class, new()
     {
