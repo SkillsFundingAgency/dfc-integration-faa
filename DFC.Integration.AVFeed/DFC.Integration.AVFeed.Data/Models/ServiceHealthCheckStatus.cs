@@ -4,6 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Net;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
 
     public class FeedsServiceHealthCheck
     {
@@ -29,6 +30,7 @@
         public string ApplicationName { get; set; }
 
         [JsonProperty("Status")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public ServiceState Status { get; set; }
 
         [JsonProperty("CheckParametersUsed")]
