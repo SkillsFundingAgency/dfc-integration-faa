@@ -38,7 +38,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
         public static ILifetimeScope ConfigureContainer(RunMode mode)
         {
             var builder = ConfigureDI.ConfigureContainerWithCommonModules(mode);
-            builder.RegisterType<InMemoryAuditService>().As<IAuditService>().SingleInstance();
+            builder.RegisterType<InMemoryAuditService>().As<IAuditService>();
             builder.RegisterModule<AutofacModule>();
             builder.RegisterModule<Repository.Sitefinity.AutofacModule>();
             return builder.Build().BeginLifetimeScope();

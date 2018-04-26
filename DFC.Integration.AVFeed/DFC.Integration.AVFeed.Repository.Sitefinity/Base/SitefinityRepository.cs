@@ -60,7 +60,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             throw new NotImplementedException();
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(bool shouldAudit = true)
         {
             bool hasNextPage = false;
             Uri nextPage = RepoEndpointConfig.GetAllItemsEndpoint();
@@ -68,7 +68,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
             do
             {
-                var result = await OdataContext.GetResult(nextPage);
+                var result = await OdataContext.GetResult(nextPage, shouldAudit);
                 sitefinitySocMapping.AddRange(result.Value);
                 hasNextPage = result.HasNextPage;
                 if (hasNextPage)

@@ -25,7 +25,7 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest
             var result = await  getAvServiceHealthStatus.GetSitefinityHealthStatusAsync();
             result.Status.Should().Be(ServiceState.Green);
 
-            A.CallTo(() => fakeSocSitefinityOdataRepository.GetAllAsync()).ThrowsAsync(new Exception("Fake Exception"));
+            A.CallTo(() => fakeSocSitefinityOdataRepository.GetAllAsync(A<bool>._)).ThrowsAsync(new Exception("Fake Exception"));
             result = await getAvServiceHealthStatus.GetSitefinityHealthStatusAsync();
             result.Status.Should().Be(ServiceState.Red);
         }

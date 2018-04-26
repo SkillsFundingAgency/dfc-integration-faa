@@ -19,7 +19,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var odataRepository = A.Fake<ISocSitefinityOdataRepository>();
 
             //Act -- Actually should have happended with the Arranged and Act-On object
-            A.CallTo(() => odataRepository.GetAllAsync()).Returns(mappingData.Value);
+            A.CallTo(() => odataRepository.GetAllAsync(A<bool>._)).Returns(mappingData.Value);
 
             //Assert - should have returned the value as expected and created in the dummy data
             Assert.Equal(mappingData.Value, await odataRepository.GetAllAsync());
@@ -35,7 +35,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var requestUri = new Uri("http://TestUri.gov.uk");
 
             A.CallTo(() => odataclient.GetHttpClientAsync()).Returns(new HttpClient());
-            A.CallTo(() => odataclient.GetResult(requestUri)).Returns(DataHelper.GetDummyOdataResultSocMapping());
+            A.CallTo(() => odataclient.GetResult(requestUri, A<bool>._)).Returns(DataHelper.GetDummyOdataResultSocMapping());
         }
     }
 }

@@ -21,23 +21,14 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             await OdataContext.PutAsync(base.RepoEndpointConfig.GetReferenceEndpoint(addedVacancyId, "SOCCode"), relatedSocLink);
         }
 
-        //public override async Task<SfApprenticeshipVacancy> AddAsync(SfApprenticeshipVacancy entity)
-        //{
-        //    entity.SOCCode1 = $"{{\"@odata.id\":  \"{socEndpointConfig.GetSingleItemEndpoint(entity.SOCCode1)}\"}}";
-        //    return await base.AddAsync(entity);
-        //}
-
         public override async Task DeleteAsync(SfApprenticeshipVacancy entity)
         {
-            using (var client = await OdataContext.GetHttpClientAsync())
-            {
-                await client.DeleteAsync(base.RepoEndpointConfig.GetSingleItemEndpoint(entity.Id.ToString()));
-            }
+            await OdataContext.DeleteAsync(base.RepoEndpointConfig.GetSingleItemEndpoint(entity.Id.ToString()));
         }
 
         public override async Task<IEnumerable<SfApprenticeshipVacancy>> GetManyAsync(Expression<Func<SfApprenticeshipVacancy, bool>> where)
         {
-            var allVacancies = await GetAllAsync();
+            var allVacancies = await GetAllAsync(false);
             return allVacancies.AsQueryable().Where(where).AsEnumerable();
         }
     }

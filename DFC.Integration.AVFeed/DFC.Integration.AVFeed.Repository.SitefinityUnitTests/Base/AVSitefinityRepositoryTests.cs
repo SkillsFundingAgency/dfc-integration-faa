@@ -103,7 +103,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             Expression<Func<SfApprenticeshipVacancy, bool>>
                 expression = vacancy => vacancy.UrlName.Equals(string.Empty);
             A.CallTo(() => fakeContext.GetHttpClientAsync()).Returns(new HttpClient(mockHttp));
-            A.CallTo(() => fakeContext.GetResult(A<Uri>._)).Returns(pageResults);
+            A.CallTo(() => fakeContext.GetResult(A<Uri>._, A<bool>._)).Returns(pageResults);
             var fakeRepoEndPoint = A.Fake<IRepoEndpointConfig<SfApprenticeshipVacancy>>();
             A.CallTo(() => fakeRepoEndPoint.GetSingleItemEndpoint(A<string>._)).Returns(string.Empty);
             var fakeSocRepoEndPointConfig = A.Fake<IRepoEndpointConfig<SitefinitySocMapping>>();
@@ -114,7 +114,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             sitefinityAvRepository.GetManyAsync(expression).GetAwaiter().GetResult();
 
             //Assert
-            A.CallTo(() => fakeContext.GetResult(A<Uri>._)).MustHaveHappened();
+            A.CallTo(() => fakeContext.GetResult(A<Uri>._, A<bool>._)).MustHaveHappened();
             A.CallTo(() => fakeRepoEndPoint.GetAllItemsEndpoint()).MustHaveHappened();
         }
     }

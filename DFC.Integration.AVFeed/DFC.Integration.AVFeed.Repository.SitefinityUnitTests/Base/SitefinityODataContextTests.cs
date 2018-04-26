@@ -77,7 +77,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var sitefinityODataContext = new SitefinityODataContext<SfApprenticeshipVacancy>(fakeTokenService, fakeHttpClientService, fakeLogger, fakeAudit);
 
             //Act
-            var result = sitefinityODataContext.GetResult(dummyUri).GetAwaiter().GetResult();
+            var result = sitefinityODataContext.GetResult(dummyUri, false).GetAwaiter().GetResult();
 
             //Assert
             A.CallTo(() => fakeHttpClientService.GetHttpClient()).MustHaveHappened();

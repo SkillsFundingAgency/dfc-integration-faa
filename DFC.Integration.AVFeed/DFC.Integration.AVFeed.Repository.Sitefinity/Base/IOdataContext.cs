@@ -8,8 +8,9 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
     {
         Task<HttpClient> GetHttpClientAsync();
 
-        Task<PagedOdataResult<T>> GetResult(Uri requestUri);
+        Task<PagedOdataResult<T>> GetResult(Uri requestUri, bool shouldAudit);
         Task<string> PostAsync(Uri requestUri, T data);
         Task<string> PutAsync(Uri requestUri, string relatedEntityLink);
+        Task DeleteAsync(string requestUri);
     }
 }
