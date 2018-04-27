@@ -25,7 +25,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
             await auditRecord.AddAsync(new AuditRecord<ProjectedVacancyDetails, PublishedVacancySummary>
             {
-                CorrelationId = correlationId,
+                CorrelationId = myQueueItem.CorrelationId,
                 StartedAt = startTime,
                 EndedAt = DateTime.UtcNow,
                 Function = nameof(PublishVacanciesAzFunction),
