@@ -37,6 +37,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
                     Output = ""
                 }).ConfigureAwait(false);
 
+                getDetailsResult.CorrelationId = myQueueItem.CorrelationId;
                 await AuditMapping(myQueueItem, auditRecord, startTime, getDetailsResult);
                 await projectedVacancyDetails.AddAsync(getDetailsResult).ConfigureAwait(false);
             }
