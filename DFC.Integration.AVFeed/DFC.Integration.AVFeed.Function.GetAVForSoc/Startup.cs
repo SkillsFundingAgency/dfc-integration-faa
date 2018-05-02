@@ -30,7 +30,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
             var builder = ConfigureDI.ConfigureContainerWithCommonModules(mode);
             if (mode == RunMode.Azure)
             {
-                builder.Register(ctx => new CosmosAuditService(asyncCollector, masterRecord));
+                builder.Register(ctx => new CosmosAuditService(asyncCollector, masterRecord)).As<IAuditService>();
             }
 
             builder.RegisterModule<Service.AutofacModule>();
