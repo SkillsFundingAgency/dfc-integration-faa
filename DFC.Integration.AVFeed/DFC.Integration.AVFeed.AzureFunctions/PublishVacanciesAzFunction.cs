@@ -16,7 +16,6 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<ProjectedVacancyDetails, PublishedVacancySummary>> auditRecord)
         {
-            Guid correlationId = Guid.NewGuid();
             DateTime startTime = DateTime.UtcNow;
 
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
@@ -25,7 +24,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
             await auditRecord.AddAsync(new AuditRecord<ProjectedVacancyDetails, PublishedVacancySummary>
             {
-                CorrelationId = correlationId,
+                CorrelationId = myQueueItem.CorrelationId,
                 StartedAt = startTime,
                 EndedAt = DateTime.UtcNow,
                 Function = nameof(PublishVacanciesAzFunction),

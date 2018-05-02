@@ -80,9 +80,8 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             await sitefinityAvRepository.DeleteAsync(entity);
 
             //Assert
-            A.CallTo(() => fakeRepoEndPoint.GetSingleItemEndpoint(A<string>._)).MustHaveHappened();
-            A.CallTo(() => fakeContext.GetHttpClientAsync()).MustHaveHappened();
-
+            A.CallTo(() => fakeContext.DeleteAsync(A<string>._)).MustHaveHappened();
+            
         }
 
         /// <summary>
