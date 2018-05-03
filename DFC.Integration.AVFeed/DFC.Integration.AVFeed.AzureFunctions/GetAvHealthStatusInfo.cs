@@ -20,6 +20,8 @@ namespace DFC.Integration.AVFeed.AzureFunctions
         public static async Task Run([TimerTrigger("0 0 * * * *")]TimerInfo myTimer, TraceWriter log, [DocumentDB("AVFeedAudit", "ServiceHealthStatus", ConnectionStringSetting = "AVAuditCosmosDB")]
            IAsyncCollector<FeedsServiceHealthCheck> healthServiceStatus)
         {
+            Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
+
             log.Info($"GetHealthStatusInfo function executed at: with :- {DateTime.Now}-:-{myTimer}");
             try
             {
