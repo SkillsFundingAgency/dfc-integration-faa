@@ -42,7 +42,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV
             var builder = ConfigureDI.ConfigureContainerWithCommonModules(mode);
             if (mode == RunMode.Azure)
             {
-                builder.Register(ctx => new CosmosAuditService(asyncCollector, masterRecord));
+                builder.Register(ctx => new CosmosAuditService(asyncCollector, masterRecord)).As<IAuditService>(); 
             }
             builder.RegisterModule<Core.AutofacModule>();
             builder.RegisterModule<GetAVDetailsForProjectedAV.AutofacModule>();
