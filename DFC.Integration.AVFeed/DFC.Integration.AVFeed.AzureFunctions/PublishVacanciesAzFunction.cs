@@ -3,7 +3,6 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using DFC.Integration.AVFeed.Data.Models;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace DFC.Integration.AVFeed.AzureFunctions
 {
@@ -11,22 +10,21 @@ namespace DFC.Integration.AVFeed.AzureFunctions
     {
         [FunctionName(nameof(PublishVacanciesAzFunction))]
         public static async Task Run(
-            [QueueTrigger("projectedavfeedforsocmapping", Connection = "")]
-            ProjectedVacancySummary myQueueItem,
+            [QueueTrigger("projectedavdetails")]
+            ProjectedVacancyDetails myQueueItem,
             TraceWriter log,
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
-            IAsyncCollector<AuditRecord<ProjectedVacancySummary, PublishedVacancySummary>> auditRecord)
+            IAsyncCollector<AuditRecord<ProjectedVacancyDetails, PublishedVacancySummary>> auditRecord)
         {
-            Guid correlationId = Guid.NewGuid();
             DateTime startTime = DateTime.UtcNow;
 
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
             var result = await Function.PublishSfVacancy.Startup.RunAsync(myQueueItem, Core.RunMode.Azure);
 
-            await auditRecord.AddAsync(new AuditRecord<ProjectedVacancySummary, PublishedVacancySummary>
+            await auditRecord.AddAsync(new AuditRecord<ProjectedVacancyDetails, PublishedVacancySummary>
             {
-                CorrelationId = correlationId,
+                CorrelationId = myQueueItem.CorrelationId,
                 StartedAt = startTime,
                 EndedAt = DateTime.UtcNow,
                 Function = nameof(PublishVacanciesAzFunction),

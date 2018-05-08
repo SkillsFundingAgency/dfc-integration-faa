@@ -290,3 +290,6 @@ __pycache__/
 #Ignore the libs
 DFC.Digital/Lib
 **/*Feature.cs
+
+#Ignore config files
+*.config

@@ -1,23 +1,26 @@
-﻿using Autofac;
-using DFC.Integration.AVFeed.AuditService;
-using DFC.Integration.AVFeed.Core;
-using DFC.Integration.AVFeed.Data.Interfaces;
-using Microsoft.Azure.WebJobs.Host;
-using NLog.Config;
-
-namespace DFC.Integration.AVFeed.Function.Common
+﻿namespace DFC.Integration.AVFeed.Function.Common
 {
+    using Autofac;
+    using DFC.Integration.AVFeed.AuditService;
+    using DFC.Integration.AVFeed.Core;
+    using DFC.Integration.AVFeed.Data.Interfaces;
+
+    /// <summary>
+    /// Configure DI for this module
+    /// </summary>
     public static class ConfigureDI
     {
+        /// <summary>
+        /// Configure DI container builder for this module
+        /// </summary>
+        /// <param name="mode">Set depending on where we are running Azure or Console</param>
+        /// <returns>The Container Builder</returns>
         public static ContainerBuilder ConfigureContainerWithCommonModules(RunMode mode)
         {
             ContainerBuilder builder = new ContainerBuilder();
             builder.Properties.Add(nameof(RunMode), mode);
             builder.RegisterType<InMemoryAuditService>().As<IAuditService>();
             builder.RegisterModule<Core.AutofacModule>();
-
-            //builder.RegisterModule<Repository.Audit.AutofacModule>();
-
             return builder;
         }
 

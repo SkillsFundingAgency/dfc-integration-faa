@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Linq;
-
-namespace DFC.Integration.AVFeed.Function.TestHelper
+﻿namespace DFC.Integration.AVFeed.Function.TestHelper
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using Newtonsoft.Json;
+
     public static class TestUtility
-    { 
+    {
         public static T ReadQueue<T>(string function)
         {
             var dir = $"..\\..\\..\\DFC.Integration.AVFeed.Function.TestHelper\\Temp\\{function}\\queue\\";
@@ -18,17 +18,12 @@ namespace DFC.Integration.AVFeed.Function.TestHelper
             {
                 return default(T);
             }
-            else
-            {
-                Console.WriteLine($"Processing: {firstFile.Name} total left {queue.GetFiles().Count()}");
-                var data = JsonConvert.DeserializeObject<T>(File.ReadAllText(firstFile.FullName));
-                if (!firstFile.Name.StartsWith("sample", StringComparison.InvariantCultureIgnoreCase))
-                {
-                   firstFile.Delete();
-                }
+            Console.WriteLine($"Processing: {firstFile.Name} total left {queue.GetFiles().Count()}");
+            var data = JsonConvert.DeserializeObject<T>(File.ReadAllText(firstFile.FullName));
+            if (!firstFile.Name.StartsWith("sample", StringComparison.InvariantCultureIgnoreCase))
+                firstFile.Delete();
 
-                return data;
-            }
+            return data;
         }
 
         public static void PumpResult(object result, string function)
@@ -39,14 +34,13 @@ namespace DFC.Integration.AVFeed.Function.TestHelper
                 Directory.CreateDirectory(dir);
             }
 
-            using (StreamWriter sw = File.CreateText($"{dir}{Guid.NewGuid()}.json"))
-            using (JsonWriter jw = new JsonTextWriter(sw))
-            {
-                jw.Formatting = Formatting.Indented;
-
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(jw, result);
-            }
+                var sw = File.CreateText($"{dir}{Guid.NewGuid()}.json");
+                using (JsonWriter jw = new JsonTextWriter(sw))
+                {
+                    jw.Formatting = Formatting.Indented;
+                    var serializer = new JsonSerializer();
+                    serializer.Serialize(jw, result);
+                }
         }
     }
 }

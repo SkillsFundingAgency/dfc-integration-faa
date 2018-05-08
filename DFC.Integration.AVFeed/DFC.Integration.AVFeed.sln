@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Datastructure", "Datastructure", "{AD7DDE46-297C-4E54-A801-9E78528EEA3A}"
 EndProject
@@ -19,10 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Functions", "Functions", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{C46D76C3-1361-498A-A771-4746EB222F56}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{1817D574-205A-49E0-833F-E1A9DE7F80FE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Service.AVSoapAPI", "DFC.Integration.AVFeed.Service.AVSoapAPI\DFC.Integration.AVFeed.Service.AVSoapAPI.csproj", "{018E2FFC-EACC-4E4A-978B-D915963CEA59}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Repository.Sitefinity", "DFC.Integration.AVFeed.Repository.Sitefinity\DFC.Integration.AVFeed.Repository.Sitefinity.csproj", "{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetMappings.Console", "DFC.Integration.AVFeed.Function.GetMappings.Console\DFC.Integration.AVFeed.Function.GetMappings.Console.csproj", "{56D01031-2299-48E0-AED8-755FAB8BD7CE}"
@@ -31,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.PublishVacancies.Console", "DFC.Integration.AVFeed.Function.PublishVacancies.Console\DFC.Integration.AVFeed.Function.PublishVacancies.Console.csproj", "{0C9BD918-AC18-442C-B57F-AA69659FA449}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests", "DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests\DFC.Integration.AVFeed.Service.AVSoapAPIUnitTests.csproj", "{0A41E7F5-7023-4FCA-8FE1-8522D082BBE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Service.AVAPIUnitTests", "DFC.Integration.AVFeed.Service.AVAPIUnitTests\DFC.Integration.AVFeed.Service.AVAPIUnitTests.csproj", "{0A41E7F5-7023-4FCA-8FE1-8522D082BBE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureFuncs", "AzureFuncs", "{AAC3B763-0C74-44A9-A323-E2E4360ACFE1}"
 EndProject
@@ -52,6 +48,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E13C76A-2422-40CB-A8A9-0DAF2C008B56}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		CustomDictionary.xml = CustomDictionary.xml
+		DFC.Digital.CodeAnalysis.ruleset = DFC.Digital.CodeAnalysis.ruleset
+		UnitTests.CodeAnalysis.ruleset = UnitTests.CodeAnalysis.ruleset
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Repository.SitefinityUnitTests", "DFC.Integration.AVFeed.Repository.SitefinityUnitTests\DFC.Integration.AVFeed.Repository.SitefinityUnitTests.csproj", "{53B33B4E-9CC6-4981-BC44-3382599BC319}"
@@ -68,6 +67,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Audi
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "DFC.Integration.Azure.Resources", "DFC.Integration.Azure.Resources\DFC.Integration.Azure.Resources.deployproj", "{7B48752C-0BF2-412D-930A-F08BC93D8E6E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetServiceHealthStatus", "DFC.Integration.AVFeed.Function.GetServiceHealthStatus\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.csproj", "{5807D139-1FCA-44B9-A387-A6B4FCC5163B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console", "DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console\DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console.csproj", "{8262BAA2-4419-43D0-855D-B1282622A170}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest", "DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest\DFC.Integration.AVFeed.Function.GetServiceHealthStatusTest.csproj", "{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Service.AVAPI", "DFC.Integration.AVFeed.Service.AVAPI\DFC.Integration.AVFeed.Service.AVAPI.csproj", "{9753DC21-D0CF-4AEF-A265-6CF80B21507E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetAVDetailsForProjected", "DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected\DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.csproj", "{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.Console", "DFC.Intergration.AVFeed.Function.GetAVDetailsForProjected.Console\DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.Console.csproj", "{7B4BE878-329F-4C88-8017-FE68DB086917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,10 +89,6 @@ Global
 		{FDECC75B-0821-4015-974A-5056B5A00344}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDECC75B-0821-4015-974A-5056B5A00344}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDECC75B-0821-4015-974A-5056B5A00344}.Release|Any CPU.Build.0 = Release|Any CPU
-		{018E2FFC-EACC-4E4A-978B-D915963CEA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{018E2FFC-EACC-4E4A-978B-D915963CEA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{018E2FFC-EACC-4E4A-978B-D915963CEA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{018E2FFC-EACC-4E4A-978B-D915963CEA59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -154,6 +161,30 @@ Global
 		{7B48752C-0BF2-412D-930A-F08BC93D8E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B48752C-0BF2-412D-930A-F08BC93D8E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B48752C-0BF2-412D-930A-F08BC93D8E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5807D139-1FCA-44B9-A387-A6B4FCC5163B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5807D139-1FCA-44B9-A387-A6B4FCC5163B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5807D139-1FCA-44B9-A387-A6B4FCC5163B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5807D139-1FCA-44B9-A387-A6B4FCC5163B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8262BAA2-4419-43D0-855D-B1282622A170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8262BAA2-4419-43D0-855D-B1282622A170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8262BAA2-4419-43D0-855D-B1282622A170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8262BAA2-4419-43D0-855D-B1282622A170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9753DC21-D0CF-4AEF-A265-6CF80B21507E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9753DC21-D0CF-4AEF-A265-6CF80B21507E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9753DC21-D0CF-4AEF-A265-6CF80B21507E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9753DC21-D0CF-4AEF-A265-6CF80B21507E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B4BE878-329F-4C88-8017-FE68DB086917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,8 +193,6 @@ Global
 		{FDECC75B-0821-4015-974A-5056B5A00344} = {AD7DDE46-297C-4E54-A801-9E78528EEA3A}
 		{AB965242-DE31-480A-8951-BD1F33F12974} = {F435B0B7-BCD3-41D3-8872-656F61CAE8A7}
 		{C46D76C3-1361-498A-A771-4746EB222F56} = {F435B0B7-BCD3-41D3-8872-656F61CAE8A7}
-		{1817D574-205A-49E0-833F-E1A9DE7F80FE} = {F435B0B7-BCD3-41D3-8872-656F61CAE8A7}
-		{018E2FFC-EACC-4E4A-978B-D915963CEA59} = {94C66C4D-97C8-43CC-AB9E-38B2101646E7}
 		{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB} = {F7E42F7E-2CD1-43ED-9933-7F56934EC6A3}
 		{56D01031-2299-48E0-AED8-755FAB8BD7CE} = {AB965242-DE31-480A-8951-BD1F33F12974}
 		{CEC5A63F-CB96-413A-AE21-A6B0F7D831CB} = {AB965242-DE31-480A-8951-BD1F33F12974}
@@ -182,6 +211,12 @@ Global
 		{A8F56BAC-1CA0-4183-8F5D-B445E5904613} = {C46D76C3-1361-498A-A771-4746EB222F56}
 		{63CAA0FD-CD21-4CD3-92B3-F04E3D76FC33} = {94C66C4D-97C8-43CC-AB9E-38B2101646E7}
 		{7B48752C-0BF2-412D-930A-F08BC93D8E6E} = {B82F1569-FC8D-40AC-8548-6C875FBC56C8}
+		{5807D139-1FCA-44B9-A387-A6B4FCC5163B} = {6DEC99B1-8B5C-4EC7-BEF4-6CC8541B1ACE}
+		{8262BAA2-4419-43D0-855D-B1282622A170} = {AB965242-DE31-480A-8951-BD1F33F12974}
+		{AC7B1D2D-C869-4F8C-BC0B-30763DE980C5} = {C46D76C3-1361-498A-A771-4746EB222F56}
+		{9753DC21-D0CF-4AEF-A265-6CF80B21507E} = {94C66C4D-97C8-43CC-AB9E-38B2101646E7}
+		{50ADFF15-9D6F-42E2-BA2B-64CA3CEE6009} = {6DEC99B1-8B5C-4EC7-BEF4-6CC8541B1ACE}
+		{7B4BE878-329F-4C88-8017-FE68DB086917} = {AB965242-DE31-480A-8951-BD1F33F12974}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0D17034-364D-415F-8261-8ED9ED37CE86}

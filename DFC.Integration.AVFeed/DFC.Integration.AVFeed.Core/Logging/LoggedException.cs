@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DFC.Integration.AVFeed.Core.Logging
+namespace DFC.Integration.AVFeed.Core
 {
     [Serializable]
     public class LoggedException : Exception

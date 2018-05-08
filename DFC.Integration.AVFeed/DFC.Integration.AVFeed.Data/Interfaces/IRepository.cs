@@ -28,7 +28,7 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
         // Gets all entities of type T
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         IEnumerable<T> GetAll();
-        Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(bool shouldAudit = true);
         // Gets entities using delegate
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where);
         Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> where);

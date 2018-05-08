@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
+using DFC.Integration.AVFeed.Repository.Sitefinity;
 
 namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 {
@@ -68,16 +67,16 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 
         public static PagedOdataResult<SfApprenticeshipVacancy> GetDummyOdataResultAppVacancies()
         {
-            PagedOdataResult<SfApprenticeshipVacancy> mappingData = new PagedOdataResult<SfApprenticeshipVacancy>()
+            var mappingData = new PagedOdataResult<SfApprenticeshipVacancy>()
             {
                   Value =  GetDummySfApprenticeshipVacancies(1)
             };
             return mappingData;
         }
 
-        public static List<SitefinitySocMapping> GetListOfSiteFinitySocMapping()
+        public static ICollection<SitefinitySocMapping> GetListOfSiteFinitySocMapping()
         {
-            List<SitefinitySocMapping> value = new List<SitefinitySocMapping>()
+            var value = new List<SitefinitySocMapping>()
             {
                 new SitefinitySocMapping()
                 {
@@ -167,21 +166,20 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             return string.Empty;
         }
 
-        public static ApprenticeshipVacancySummary GetDummyApprenticeshipVacancySummary()
+        public static ApprenticeshipVacancyDetails GetDummyApprenticeshipVacancyDetails()
         {
             return
-                new ApprenticeshipVacancySummary
+                new ApprenticeshipVacancyDetails
                 {
-                    AddressDataPostCode = nameof(ApprenticeshipVacancySummary.AddressDataPostCode),
-                    AddressDataTown = nameof(ApprenticeshipVacancySummary.AddressDataTown),
-                    PossibleStartDate = DateTime.Now,
-                    CreatedDateTime = DateTime.Now,
-                    FrameworkCode = nameof(ApprenticeshipVacancySummary.FrameworkCode),
-                    LearningProviderName = nameof(ApprenticeshipVacancySummary.LearningProviderName),
+                    Location = new AddressLocation() { PostCode = nameof(AddressLocation.PostCode), Town = nameof(AddressLocation.Town) },
+                    ExpectedStartDate = DateTime.Now.ToString(),
+                    PostedDate = DateTime.Now.ToString(),
+                    FrameworkCode = nameof(ApprenticeshipVacancyDetails.FrameworkCode),
+                    TrainingProviderName = nameof(ApprenticeshipVacancyDetails.TrainingProviderName),
                     VacancyReference = 1,
-                    VacancyTitle = nameof(ApprenticeshipVacancySummary.VacancyTitle),
-                    VacancyUrl = nameof(ApprenticeshipVacancySummary.VacancyUrl),
-                    WageText = nameof(ApprenticeshipVacancySummary.WageText)
+                    Title = nameof(ApprenticeshipVacancyDetails.Title),
+                    VacancyUrl = new Uri($"http://{nameof(ApprenticeshipVacancySummary.VacancyUrl)}"),
+                    WageText = nameof(ApprenticeshipVacancyDetails.WageText)
                 };
         }
     }

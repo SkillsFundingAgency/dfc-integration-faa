@@ -3,16 +3,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
 using DFC.Integration.AVFeed.Repository.Sitefinity;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
 using FakeItEasy;
 using FluentAssertions;
 using RichardSzalay.MockHttp;
 using Xunit;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
+namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 {
     /// <summary>
     /// AVSitefinityRepository Tests
@@ -83,9 +80,8 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
             await sitefinityAvRepository.DeleteAsync(entity);
 
             //Assert
-            A.CallTo(() => fakeRepoEndPoint.GetSingleItemEndpoint(A<string>._)).MustHaveHappened();
-            A.CallTo(() => fakeContext.GetHttpClientAsync()).MustHaveHappened();
-
+            A.CallTo(() => fakeContext.DeleteAsync(A<string>._)).MustHaveHappened();
+            
         }
 
         /// <summary>
@@ -106,7 +102,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
             Expression<Func<SfApprenticeshipVacancy, bool>>
                 expression = vacancy => vacancy.UrlName.Equals(string.Empty);
             A.CallTo(() => fakeContext.GetHttpClientAsync()).Returns(new HttpClient(mockHttp));
-            A.CallTo(() => fakeContext.GetResult(A<Uri>._)).Returns(pageResults);
+            A.CallTo(() => fakeContext.GetResult(A<Uri>._, A<bool>._)).Returns(pageResults);
             var fakeRepoEndPoint = A.Fake<IRepoEndpointConfig<SfApprenticeshipVacancy>>();
             A.CallTo(() => fakeRepoEndPoint.GetSingleItemEndpoint(A<string>._)).Returns(string.Empty);
             var fakeSocRepoEndPointConfig = A.Fake<IRepoEndpointConfig<SitefinitySocMapping>>();
@@ -117,7 +113,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
             sitefinityAvRepository.GetManyAsync(expression).GetAwaiter().GetResult();
 
             //Assert
-            A.CallTo(() => fakeContext.GetResult(A<Uri>._)).MustHaveHappened();
+            A.CallTo(() => fakeContext.GetResult(A<Uri>._, A<bool>._)).MustHaveHappened();
             A.CallTo(() => fakeRepoEndPoint.GetAllItemsEndpoint()).MustHaveHappened();
         }
     }

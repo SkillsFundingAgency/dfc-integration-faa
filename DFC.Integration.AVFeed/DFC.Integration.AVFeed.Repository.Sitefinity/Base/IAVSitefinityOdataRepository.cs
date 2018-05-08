@@ -1,12 +1,8 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public interface IAVSitefinityOdataRepository : IRepository<SfApprenticeshipVacancy>
     {

@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using DFC.Integration.AVFeed.Data.Models;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
+using DFC.Integration.AVFeed.Repository.Sitefinity;
 
 namespace DFC.Integration.AVFeed.Function.GetMappingsUnitTests
 {
     public static class MapSocData
     {
-        public static IMapper MapperData;
         public  static void Configure()
         {
+            //Reset the mapper between tests
+            AutoMapper.Mapper.Reset();
 
-             Mapper.Initialize(cfg =>
+            Mapper.Initialize(cfg =>
             {
 
                 cfg.CreateMap<NavigateToApprenticeshipStandard, string>().ConvertUsing(r => r.UrlName.ToString());
@@ -21,8 +22,7 @@ namespace DFC.Integration.AVFeed.Function.GetMappingsUnitTests
                     .ForMember(s=>s.SocMappingId,m=>m.MapFrom(d=>d.Id))
                     .ReverseMap();
             });
-            
-            //config.AssertConfigurationIsValid();
+
         }
     }
 }

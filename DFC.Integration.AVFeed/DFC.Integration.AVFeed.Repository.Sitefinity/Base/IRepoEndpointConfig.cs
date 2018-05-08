@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public interface IRepoEndpointConfig<T> where T : class, new()
     {

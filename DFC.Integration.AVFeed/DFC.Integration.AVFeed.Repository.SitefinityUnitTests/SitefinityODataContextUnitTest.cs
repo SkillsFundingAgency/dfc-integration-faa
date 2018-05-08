@@ -1,6 +1,5 @@
 ﻿using System;
 using DFC.Integration.AVFeed.Repository.Sitefinity;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 using FakeItEasy;
 using Xunit;
 
@@ -14,11 +13,8 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var idatacontext = A.Fake<IOdataContext<SitefinitySocMapping>>();
 
             A.CallTo(() => idatacontext.GetHttpClientAsync()).Returns(new System.Net.Http.HttpClient());
-            A.CallTo(() => idatacontext.GetResult(new Uri("http://test.com")))
+            A.CallTo(() => idatacontext.GetResult(new Uri("http://test.com"), A<bool>._))
                 .Returns(DataHelper.GetDummyOdataResultSocMapping());
-
-            //var v = idatacontext.GetResult(new Uri("http://test.com")).Result;
-            //    Assert.Equal(DataHelper.GetDummyOdataResultSocMapping(),idatacontext.GetResult(new Uri("http://test.com")).Result);
         }
     }
 }

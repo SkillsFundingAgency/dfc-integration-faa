@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface IAuditService
     {
-        Task AuditAsync(string message);
+        Task AuditAsync(string outputMessage, string inputMessage = null);
         IEnumerable<string> GetAuditRecords();
     }
 }

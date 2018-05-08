@@ -3,8 +3,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Repository.Sitefinity;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
 using FakeItEasy;
 using FluentAssertions;
 using Xunit;
@@ -67,7 +65,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
         public void PublishAsyncTest()
         {
             //Arrange
-            var vacancySummary = DataHelper.GetDummyApprenticeshipVacancySummary();
+            var vacancyDetails = DataHelper.GetDummyApprenticeshipVacancyDetails();
             var vacancyToPublish = DataHelper.GetDummySfApprenticeshipVacancies(1).FirstOrDefault();
             var fakeRepo = A.Fake<IAVSitefinityOdataRepository>();
             var fakeLogger = A.Fake<IApplicationLogger>();
@@ -75,7 +73,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var avRepository = new AVRepository(fakeRepo, fakeLogger);
 
             //Act
-            avRepository.PublishAsync(vacancySummary, new Guid()).GetAwaiter().GetResult();
+            avRepository.PublishAsync(vacancyDetails, new Guid()).GetAwaiter().GetResult();
 
             //Assert
             A.CallTo(() => fakeRepo.AddAsync(A<SfApprenticeshipVacancy>._)).MustHaveHappened();

@@ -1,14 +1,11 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
-using System.Net.Http;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class SitefinityRepository<T> : IRepository<T> where T : class, new()
     {
@@ -63,7 +60,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
             throw new NotImplementedException();
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync(bool shouldAudit = true)
         {
             bool hasNextPage = false;
             Uri nextPage = RepoEndpointConfig.GetAllItemsEndpoint();
@@ -71,7 +68,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
 
             do
             {
-                var result = await OdataContext.GetResult(nextPage);
+                var result = await OdataContext.GetResult(nextPage, shouldAudit);
                 sitefinitySocMapping.AddRange(result.Value);
                 hasNextPage = result.HasNextPage;
                 if (hasNextPage)

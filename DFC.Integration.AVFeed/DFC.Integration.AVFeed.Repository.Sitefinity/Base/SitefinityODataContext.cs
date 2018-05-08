@@ -4,10 +4,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Data.Interfaces;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
 using Newtonsoft.Json;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     public class SitefinityODataContext<T> : IOdataContext<T> where T : class, new()
     {
@@ -36,13 +35,16 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
             return httpClient;
         }
 
-        public async Task<PagedOdataResult<T>> GetResult(Uri requestUri)
+        public async Task<PagedOdataResult<T>> GetResult(Uri requestUri, bool shouldAudit)
         {
             using (var client = await GetHttpClientAsync())
             {
                 var result = await client.GetStringAsync(requestUri);
                 logger.Info($"Requested with url - '{requestUri}'.");
-                await auditService.AuditAsync($"{requestUri} | {result}");
+                if (shouldAudit)
+                {
+                    await auditService.AuditAsync($"{requestUri} | {result}");
+                }
 
                 return JsonConvert.DeserializeObject<PagedOdataResult<T>>(result);
             }
@@ -87,6 +89,18 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
                 }
 
                 return jsonContent;
+            }
+        }
+
+        public async Task DeleteAsync(string requestUri)
+        {
+            using (var client = await GetHttpClientAsync())
+            {
+                var result = await client.DeleteAsync(requestUri);
+                logger.Info($"DELETE to url - '{requestUri}', returned '{result.StatusCode}' and headers '{result.Headers}'.");
+                var jsonContent = await result.Content.ReadAsStringAsync();
+
+                await auditService.AuditAsync($"DELETE to url - {requestUri} | Returned - {jsonContent}");
             }
         }
     }

@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
 using System.Runtime.Serialization;
 
-namespace DFC.Integration.AVFeed.Repository.Sitefinity.Models
+namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
     [DataContract]
    public class SfApprenticeshipVacancy

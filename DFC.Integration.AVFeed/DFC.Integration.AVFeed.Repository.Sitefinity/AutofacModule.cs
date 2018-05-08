@@ -1,10 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
 using DFC.Integration.AVFeed.Data.Interfaces;
-using DFC.Integration.AVFeed.Function.PublishSfVacancy;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,8 +11,8 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            var regContinuation = builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
-   
+            builder.RegisterAssemblyTypes(ThisAssembly).AsImplementedInterfaces();
+
             builder.RegisterType<TokenService>().As<ITokenClient>().SingleInstance().OwnedByLifetimeScope();
 
             builder.RegisterType<SitefinityRepository<SitefinitySocMapping>>().As<IRepository<SitefinitySocMapping>>();

@@ -4,16 +4,13 @@ using System.Net;
 using System.Net.Http;
 using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Repository.Sitefinity;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Model;
-using DFC.Integration.AVFeed.Repository.Sitefinity.Models;
 using FakeItEasy;
 using FluentAssertions;
 using Newtonsoft.Json;
 using RichardSzalay.MockHttp;
 using Xunit;
 
-namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
+namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 {
     public class SitefinityODataContextTests
     {
@@ -80,7 +77,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests.Base
             var sitefinityODataContext = new SitefinityODataContext<SfApprenticeshipVacancy>(fakeTokenService, fakeHttpClientService, fakeLogger, fakeAudit);
 
             //Act
-            var result = sitefinityODataContext.GetResult(dummyUri).GetAwaiter().GetResult();
+            var result = sitefinityODataContext.GetResult(dummyUri, false).GetAwaiter().GetResult();
 
             //Assert
             A.CallTo(() => fakeHttpClientService.GetHttpClient()).MustHaveHappened();
