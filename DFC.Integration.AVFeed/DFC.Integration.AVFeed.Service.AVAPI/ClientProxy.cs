@@ -1,5 +1,5 @@
-﻿using DFC.Integration.AVFeed.Data.Interfaces;
-using System;
+﻿using DFC.Integration.AVFeed.Core;
+using DFC.Integration.AVFeed.Data.Interfaces;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -11,7 +11,6 @@ namespace DFC.Integration.AVFeed.Service
     {
         private string _endpoint = ConfigurationManager.AppSettings.Get("FAA.URL");
         private string _subscriptionKey = ConfigurationManager.AppSettings.Get("FAA.SubscriptionKey");
-
         private IApplicationLogger logger;
         private readonly IAuditService auditService;
 
@@ -20,6 +19,7 @@ namespace DFC.Integration.AVFeed.Service
             this.logger = logger;
             this.auditService = auditService;
         }
+
         public async Task<string> GetAsync(string requestQueryString, RequestType requestType )
         {
             using (var clientProxy = new HttpClient())
@@ -32,15 +32,14 @@ namespace DFC.Integration.AVFeed.Service
                 logger.Trace($"Getting API data for request :'{fullRequest}'");
 
                 var response = await clientProxy.GetAsync(fullRequest);
-                string responseContent = await response.Content?.ReadAsStringAsync();
+                var responseContent = await response.Content?.ReadAsStringAsync();
                 await auditService.AuditAsync(responseContent, requestQueryString);
               
                 if (!response.IsSuccessStatusCode)
                 {
                     logger.Error($"Error status {response.StatusCode},  Getting API data for request :'{fullRequest}' \nResponse : {responseContent}", null );
-
                     //this will throw an exception as is not a success code
-                    response.EnsureSuccessStatusCode();
+                   throw new AvApiResponseException(response.StatusCode,responseContent);
                 }
                 return responseContent;
             }

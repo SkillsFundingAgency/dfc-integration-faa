@@ -7,6 +7,8 @@ using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Net;
+using DFC.Integration.AVFeed.Core;
 
 namespace DFC.Integration.AVFeed.Service
 {
@@ -14,7 +16,6 @@ namespace DFC.Integration.AVFeed.Service
     {
         private IApprenticeshipVacancyApi apprenticeshipVacancyApi;
         private IApplicationLogger logger;
-
         private string _sortBy = ConfigurationManager.AppSettings.Get("FAA.SortBy");
 
         public AVAPIService(IApprenticeshipVacancyApi apprenticeshipVacancyApi, IApplicationLogger logger)
@@ -22,8 +23,7 @@ namespace DFC.Integration.AVFeed.Service
             this.apprenticeshipVacancyApi = apprenticeshipVacancyApi;
             this.logger = logger;
         }
-
-       
+        
         public async Task<ApprenticeshipVacancyDetails> GetApprenticeshipVacancyDetailsAsync(string vacancyRef)
         {
             if (vacancyRef == null)
@@ -36,13 +36,12 @@ namespace DFC.Integration.AVFeed.Service
             return JsonConvert.DeserializeObject<ApprenticeshipVacancyDetails>(responseResult);
         }
 
-
         /// <summary>
         /// Get Apprenticeship Vacancy Summaries untill we have at leat two providers or all of them for the mapping
         /// </summary>
         /// <param name="mapping"></param>
         /// <returns></returns>
-        /// 
+        ///
         public async Task<IEnumerable<ApprenticeshipVacancySummary>> GetAVsForMultipleProvidersAsync(SocMapping mapping)
         {
             if (mapping == null)
@@ -50,8 +49,7 @@ namespace DFC.Integration.AVFeed.Service
                 throw new ArgumentNullException(nameof(SocMapping));
             }
 
-            List<ApprenticeshipVacancySummary> avSummary = new List<ApprenticeshipVacancySummary>();
-
+            var avSummary = new List<ApprenticeshipVacancySummary>();
             var pageNumber = 0;
             var maxPagesToTry =  int.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxPagesToTryPerMapping"));
 
@@ -60,16 +58,27 @@ namespace DFC.Integration.AVFeed.Service
             //Allways break after a given number off loops
             while (maxPagesToTry > pageNumber)
             {
-                var apprenticeshipVacancySummaryResponse = await GetAVSumaryPageAsync(mapping, ++pageNumber);
+                try
+                {
+                    var apprenticeshipVacancySummaryResponse = await GetAVSumaryPageAsync(mapping, ++pageNumber);
 
-                logger.Trace($"Got {apprenticeshipVacancySummaryResponse.TotalReturned} vacancies of {apprenticeshipVacancySummaryResponse.TotalMatched} on page: {pageNumber} of {apprenticeshipVacancySummaryResponse.TotalPages}");
+                    logger.Trace(
+                        $"Got {apprenticeshipVacancySummaryResponse.TotalReturned} vacancies of {apprenticeshipVacancySummaryResponse.TotalMatched} on page: {pageNumber} of {apprenticeshipVacancySummaryResponse.TotalPages}");
 
-                avSummary.AddRange(apprenticeshipVacancySummaryResponse.Results);
+                    avSummary.AddRange(apprenticeshipVacancySummaryResponse.Results);
 
-                //stop when there are no more pages or we have more then multiple supplier
-                if (apprenticeshipVacancySummaryResponse.TotalPages < pageNumber ||
-                     avSummary.Select(v => v.TrainingProviderName).Distinct().Count() > 1)
-                    break;
+                    //stop when there are no more pages or we have more then multiple supplier
+                    if (apprenticeshipVacancySummaryResponse.TotalPages < pageNumber ||
+                        avSummary.Select(v => v.TrainingProviderName).Distinct().Count() > 1)
+                        break;
+                }
+                catch (AvApiResponseException response)
+                {
+                    if (response.StatusCode != HttpStatusCode.BadRequest)
+                        throw;
+                    logger.Warn($"Exception raised while fetching AV API -Url:{response.Message} with ErrorCode :{response.StatusCode}",response);
+                }
+
             }
 
             return avSummary;
@@ -83,7 +92,7 @@ namespace DFC.Integration.AVFeed.Service
             }
 
             logger.Trace($"Extracting AV summaries for SOC {mapping.SocCode} page : {pageNumber}");
-           
+
             var queryString = HttpUtility.ParseQueryString(string.Empty);
 
             queryString["standardLarsCodes"] = string.Join(",", mapping.Standards);

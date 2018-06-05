@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc
 {
+    using System.Linq;
+
     public class ApprenticeshipVacancyFunction : IGetAvForSocFunc
     {
         private SocMapping socMapping;
@@ -31,8 +33,9 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
             {
                 Vacancies = vacancySummaries,
                 SocCode = socMapping.SocCode,
-                SocMappingId = socMapping.SocMappingId,
-                AccessToken = socMapping.AccessToken
+                SocMappingId =  socMapping.SocMappingId,
+                AccessToken = (vacancySummaries.Any()) ? socMapping.AccessToken:null,
+                IsValidVacancy = (vacancySummaries.Any()) ?true:false
             };
         }
 

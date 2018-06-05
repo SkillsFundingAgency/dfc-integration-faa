@@ -14,7 +14,9 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
         [FunctionName(nameof(GetAVForSocMappingAzFunction))]
         public static async Task Run(
             [QueueTrigger("socmapping")]
-            SocMapping myQueueItem, 
+            SocMapping myQueueItem,
+            [Queue("socmapping-invalid")]
+            IAsyncCollector<SocMapping> invalidSocMappings,
             TraceWriter log,
             [Queue("projectedavfeedforsocmapping")]
             IAsyncCollector<ProjectedVacancySummary> projectedVacancySummary,
@@ -37,11 +39,18 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                     Output = ""
                 }).ConfigureAwait(false);
                 await AuditMapping(myQueueItem, auditRecord, startTime, mappedResult);
-
-                var projectedResult = Function.ProjectVacanciesForSoc.Startup.Run(RunMode.Azure, mappedResult);
-                projectedResult.CorrelationId = myQueueItem.CorrelationId;
-                await projectedVacancySummary.AddAsync(projectedResult).ConfigureAwait(false);
-                await AuditProjections(myQueueItem, auditRecord, startTime, mappedResult, projectedResult);
+                if (mappedResult.IsValidVacancy)
+                {
+                    var projectedResult = Function.ProjectVacanciesForSoc.Startup.Run(RunMode.Azure, mappedResult);
+                    projectedResult.CorrelationId = myQueueItem.CorrelationId;
+                    await projectedVacancySummary.AddAsync(projectedResult).ConfigureAwait(false);
+                    await AuditProjections(myQueueItem, auditRecord, startTime, mappedResult, projectedResult);
+                }
+                else
+                {
+                    mappedResult.AccessToken = null;
+                    await invalidSocMappings.AddAsync(myQueueItem);
+                }
             }
             finally
             {
