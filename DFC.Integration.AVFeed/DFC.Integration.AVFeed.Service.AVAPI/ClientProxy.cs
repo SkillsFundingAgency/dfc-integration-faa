@@ -39,7 +39,7 @@ namespace DFC.Integration.AVFeed.Service
                 {
                     logger.Error($"Error status {response.StatusCode},  Getting API data for request :'{fullRequest}' \nResponse : {responseContent}", null );
                     //this will throw an exception as is not a success code
-                   throw new AvApiResponseException(response.StatusCode,responseContent);
+                     await response.EnsureSuccessStatusCodeAsync();
                 }
                 return responseContent;
             }

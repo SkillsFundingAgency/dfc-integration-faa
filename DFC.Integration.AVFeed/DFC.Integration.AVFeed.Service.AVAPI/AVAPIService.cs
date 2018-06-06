@@ -12,6 +12,7 @@ using DFC.Integration.AVFeed.Core;
 
 namespace DFC.Integration.AVFeed.Service
 {
+
     public class AVAPIService : IAVService
     {
         private IApprenticeshipVacancyApi apprenticeshipVacancyApi;
@@ -23,7 +24,7 @@ namespace DFC.Integration.AVFeed.Service
             this.apprenticeshipVacancyApi = apprenticeshipVacancyApi;
             this.logger = logger;
         }
-        
+
         public async Task<ApprenticeshipVacancyDetails> GetApprenticeshipVacancyDetailsAsync(string vacancyRef)
         {
             if (vacancyRef == null)
@@ -54,7 +55,6 @@ namespace DFC.Integration.AVFeed.Service
             var maxPagesToTry =  int.Parse(ConfigurationManager.AppSettings.Get("FAA.MaxPagesToTryPerMapping"));
 
             logger.Trace($"Getting vacancies for mapping {JsonConvert.SerializeObject(mapping)}");
-
             //Allways break after a given number off loops
             while (maxPagesToTry > pageNumber)
             {
@@ -72,11 +72,11 @@ namespace DFC.Integration.AVFeed.Service
                         avSummary.Select(v => v.TrainingProviderName).Distinct().Count() > 1)
                         break;
                 }
-                catch (AvApiResponseException response)
+                catch (AvApiResponseException responseException)
                 {
-                    if (response.StatusCode != HttpStatusCode.BadRequest)
+                    if (responseException.StatusCode != HttpStatusCode.BadRequest)
                         throw;
-                    logger.Warn($"Exception raised while fetching AV API -Url:{response.Message} with ErrorCode :{response.StatusCode}",response);
+                    logger.Warn($"Exception raised while fetching AV API -Url:{responseException.Message} with ErrorCode :{responseException.StatusCode}",responseException);
                 }
 
             }
@@ -95,9 +95,9 @@ namespace DFC.Integration.AVFeed.Service
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-            queryString["standardLarsCodes"] = string.Join(",", mapping.Standards);
-            queryString["frameworkLarsCodes"] = string.Join(",", mapping.Frameworks);
-            queryString["pageSize"] = ConfigurationManager.AppSettings.Get("FAA.PageSize");;
+            queryString["standardLarsCodes"] = string.Join(",", mapping.Standards.Where(std=>!string.IsNullOrEmpty(std)));
+            queryString["frameworkLarsCodes"] = string.Join(",", mapping.Frameworks.Where(fwrk=>!string.IsNullOrEmpty(fwrk)));
+            queryString["pageSize"] = ConfigurationManager.AppSettings.Get("FAA.PageSize");
             queryString["pageNumber"] = pageNumber.ToString();
             queryString["sortBy"] = _sortBy;
 

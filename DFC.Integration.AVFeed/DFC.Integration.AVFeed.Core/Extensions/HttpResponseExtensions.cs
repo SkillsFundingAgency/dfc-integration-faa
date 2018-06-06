@@ -5,7 +5,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
 
-    public static class HttpResponseMessageExtensions
+    public static class HttpResponseExtensions
     {
         public static async Task EnsureSuccessStatusCodeAsync(this HttpResponseMessage response)
         {
