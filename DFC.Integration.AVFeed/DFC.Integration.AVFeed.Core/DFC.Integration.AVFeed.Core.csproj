@@ -81,6 +81,7 @@
     <Compile Include="AutofacModule.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions\AutofacExtensions.cs" />
+    <Compile Include="Extensions\AvApiResponseException.cs" />
     <Compile Include="Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Interceptors\ExceptionInterceptor.cs" />
     <Compile Include="Interceptors\InstrumentationInterceptor.cs" />
