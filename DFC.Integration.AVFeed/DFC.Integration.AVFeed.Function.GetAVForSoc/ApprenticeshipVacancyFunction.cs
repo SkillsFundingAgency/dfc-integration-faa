@@ -1,20 +1,18 @@
-﻿using AutoMapper;
-using DFC.Integration.AVFeed.Data.Interfaces;
+﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc
 {
-    using System.Linq;
 
     public class ApprenticeshipVacancyFunction : IGetAvForSocFunc
     {
         private SocMapping socMapping;
         private IAVService avService;
         private IEnumerable<ApprenticeshipVacancySummary> vacancySummaries;
-
         public ApprenticeshipVacancyFunction(IAVService avService)
         {
             this.avService = avService;
@@ -35,7 +33,6 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc
                 SocCode = socMapping.SocCode,
                 SocMappingId =  socMapping.SocMappingId,
                 AccessToken = (vacancySummaries.Any()) ? socMapping.AccessToken:null,
-                IsValidVacancy = (vacancySummaries.Any()) ?true:false
             };
         }
 

@@ -12,7 +12,6 @@ using DFC.Integration.AVFeed.Core;
 
 namespace DFC.Integration.AVFeed.Service
 {
-
     public class AVAPIService : IAVService
     {
         private IApprenticeshipVacancyApi apprenticeshipVacancyApi;
@@ -58,8 +57,6 @@ namespace DFC.Integration.AVFeed.Service
             //Allways break after a given number off loops
             while (maxPagesToTry > pageNumber)
             {
-                try
-                {
                     var apprenticeshipVacancySummaryResponse = await GetAVSumaryPageAsync(mapping, ++pageNumber);
 
                     logger.Trace(
@@ -71,14 +68,6 @@ namespace DFC.Integration.AVFeed.Service
                     if (apprenticeshipVacancySummaryResponse.TotalPages < pageNumber ||
                         avSummary.Select(v => v.TrainingProviderName).Distinct().Count() > 1)
                         break;
-                }
-                catch (AvApiResponseException responseException)
-                {
-                    if (responseException.StatusCode != HttpStatusCode.BadRequest)
-                        throw;
-                    logger.Warn($"Exception raised while fetching AV API -Url:{responseException.Message} with ErrorCode :{responseException.StatusCode}",responseException);
-                }
-
             }
 
             return avSummary;
@@ -95,8 +84,8 @@ namespace DFC.Integration.AVFeed.Service
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-            queryString["standardLarsCodes"] = string.Join(",", mapping.Standards.Where(std=>!string.IsNullOrEmpty(std)));
-            queryString["frameworkLarsCodes"] = string.Join(",", mapping.Frameworks.Where(fwrk=>!string.IsNullOrEmpty(fwrk)));
+            queryString["standardLarsCodes"] = string.Join("," , mapping.Standards.Where(std=>!string.IsNullOrEmpty(std)));
+            queryString["frameworkLarsCodes"] = string.Join("," , mapping.Frameworks.Where(fwrk=>!string.IsNullOrEmpty(fwrk)));
             queryString["pageSize"] = ConfigurationManager.AppSettings.Get("FAA.PageSize");
             queryString["pageNumber"] = pageNumber.ToString();
             queryString["sortBy"] = _sortBy;
