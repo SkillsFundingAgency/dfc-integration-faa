@@ -83,14 +83,15 @@ namespace DFC.Integration.AVFeed.Service
             logger.Trace($"Extracting AV summaries for SOC {mapping.SocCode} page : {pageNumber}");
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
-
-            queryString["standardLarsCodes"] = string.Join("," , mapping.Standards.Where(std=>!string.IsNullOrEmpty(std)));
-            queryString["frameworkLarsCodes"] = string.Join("," , mapping.Frameworks.Where(fwrk=>!string.IsNullOrEmpty(fwrk)));
+            if (!mapping.Standards.Any() && !mapping.Frameworks.Any())
+                return null;
+            queryString["standardLarsCodes"] = string.Join("," , mapping.Standards.Where(std => !string.IsNullOrEmpty(std)));
+            queryString["frameworkLarsCodes"] = string.Join("," , mapping.Frameworks.Where(fwrk => !string.IsNullOrEmpty(fwrk)));
             queryString["pageSize"] = ConfigurationManager.AppSettings.Get("FAA.PageSize");
             queryString["pageNumber"] = pageNumber.ToString();
             queryString["sortBy"] = _sortBy;
 
-            var responseResult = await apprenticeshipVacancyApi.GetAsync(queryString.ToString(), RequestType.search);
+            var responseResult = await apprenticeshipVacancyApi.GetAsync(queryString.ToString() , RequestType.search);
 
             return JsonConvert.DeserializeObject<ApprenticeshipVacancySummaryResponse>(responseResult);
         }
