@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using DFC.Integration.AVFeed.Data.Models;
+﻿using DFC.Integration.AVFeed.Data.Models;
 using DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc;
 using FluentAssertions;
 using System;
@@ -41,28 +40,28 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 
         private static IEnumerable<ApprenticeshipVacancySummary> GetTestVacanciesMultipeProvidersMoreThanTwo()
         {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Not Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider A", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider A", Title = "Not Displayed" };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider B", Title = "Displayed" };
         }
 
         private static IEnumerable<ApprenticeshipVacancySummary> GetTestVacanciesOnlyOneAvailable()
         {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider A", Title = "Displayed" };
         }
 
         private static IEnumerable<ApprenticeshipVacancySummary> GetTestVacanciesSingleProviderMoreThanTwo()
         {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Displayed" };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "Not Displayed" };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider A", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider A", Title = "Displayed" };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider A", Title = "Not Displayed" };
         }
 
-        private void CheckResultIsAsExpected(string SocCode, ProjectedVacancySummary projectedVacancies, int expectedCount)
+        private static void CheckResultIsAsExpected(string SocCode, ProjectedVacancySummary projectedVacancies, int expectedCount)
         {
             projectedVacancies.SocCode.Should().Be(SocCode);
 
-            int numberOfProjectedVacanices = 0;
+            var numberOfProjectedVacanices = 0;
             if (expectedCount > 0)
             {
                 foreach (ApprenticeshipVacancySummary v in projectedVacancies.Vacancies)
@@ -74,9 +73,9 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             numberOfProjectedVacanices.Should().Be(expectedCount);
         }
 
-        private MappedVacancySummary GetTestMappedVacancySummary(Scenario scenario)
+        private static MappedVacancySummary GetTestMappedVacancySummary(Scenario scenario)
         {
-            var v = new MappedVacancySummary() { SocCode = "T01" };
+            var v = new MappedVacancySummary { SocCode = "T01" };
 
             switch (scenario)
             {
@@ -87,7 +86,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
                 case Scenario.MultipeProvidersMoreThanTwo:
                     v.Vacancies = GetTestVacanciesMultipeProvidersMoreThanTwo();
                     break;
-  
+
                 case Scenario.OnlyOneAvailable:
                     v.Vacancies = GetTestVacanciesOnlyOneAvailable();
                     break;

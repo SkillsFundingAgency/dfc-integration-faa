@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-
+ 
 namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 {
     public class AVAPIServiceUnitTests
@@ -41,7 +41,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             pageSumary.Results.Count().Should().Be(pageSize);
 
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened();
-       
+
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetAVSumaryPageAsync(null, 1); };
             f.Should().Throw<ArgumentNullException>();
@@ -81,10 +81,42 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             numberProviders.Should().BeGreaterThan(1);
 
             A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened(Repeated.Exactly.Twice);
-  
+
             //check null exception
             Func<Task> f = async () => { await aVAPIService.GetAVsForMultipleProvidersAsync(null); };
             f.Should().Throw<ArgumentNullException>();
+        }
+
+        [Theory]
+        [InlineData("3211","321","434")]
+        [InlineData("3211", null, null)]
+        public async Task GetAVSumaryPageAsync(string socCode,string standard,string framework)
+        {
+            var fakeAPIService = A.Fake<IApprenticeshipVacancyApi>();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            var pageNumber = 1;
+
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search));
+
+            var aVapiService = new AVAPIService(fakeAPIService, fakeLogger);
+
+            var mapping = new SocMapping
+            {
+                SocCode = socCode,
+                SocMappingId = Guid.NewGuid(),
+                Standards = new[] { standard },
+                Frameworks = new[] { framework }
+            };
+            var result= await aVapiService.GetAVSumaryPageAsync(mapping, pageNumber);
+            if (mapping.Frameworks.All(string.IsNullOrEmpty) && mapping.Standards.All(string.IsNullOrEmpty))
+            {
+                result.Should().BeNull();
+            }
+            else
+            {
+                A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened();
+
+            }
         }
 
         [Fact]
