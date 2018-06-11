@@ -60,13 +60,13 @@ namespace DFC.Integration.AVFeed.Service
                     var apprenticeshipVacancySummaryResponse = await GetAVSumaryPageAsync(mapping, ++pageNumber);
 
                     logger.Trace(
-                        $"Got {apprenticeshipVacancySummaryResponse.TotalReturned} vacancies of {apprenticeshipVacancySummaryResponse.TotalMatched} on page: {pageNumber} of {apprenticeshipVacancySummaryResponse.TotalPages}");
+                        $"Got {apprenticeshipVacancySummaryResponse?.TotalReturned} vacancies of {apprenticeshipVacancySummaryResponse?.TotalMatched} on page: {pageNumber} of {apprenticeshipVacancySummaryResponse?.TotalPages}");
 
-                if (apprenticeshipVacancySummaryResponse.Results != null)
+                if (apprenticeshipVacancySummaryResponse?.Results != null)
                     avSummary.AddRange(apprenticeshipVacancySummaryResponse.Results);
 
                 //stop when there are no more pages or we have more then multiple supplier
-                    if (apprenticeshipVacancySummaryResponse.TotalPages < pageNumber ||
+                    if (apprenticeshipVacancySummaryResponse?.TotalPages < pageNumber ||
                         avSummary.Select(v => v.TrainingProviderName).Distinct().Count() > 1)
                         break;
             }
@@ -84,7 +84,8 @@ namespace DFC.Integration.AVFeed.Service
             logger.Trace($"Extracting AV summaries for SOC {mapping.SocCode} page : {pageNumber}");
 
             var queryString = HttpUtility.ParseQueryString(string.Empty);
-            if (!mapping.Standards.Any() && !mapping.Frameworks.Any())
+           
+            if (!mapping.Standards.Where(s=>!string.IsNullOrEmpty(s)).Distinct().Any() && !mapping.Frameworks.Where(f => !string.IsNullOrEmpty(f)).Distinct().Any())
                 return null;
             queryString["standardLarsCodes"] = string.Join("," , mapping.Standards.Where(std => !string.IsNullOrEmpty(std)));
             queryString["frameworkLarsCodes"] = string.Join("," , mapping.Frameworks.Where(fwrk => !string.IsNullOrEmpty(fwrk)));

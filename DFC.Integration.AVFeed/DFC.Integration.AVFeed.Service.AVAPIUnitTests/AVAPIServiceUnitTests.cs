@@ -9,7 +9,7 @@ using Xunit;
  
 namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 {
-    public class AVAPIServiceUnitTests
+    public class AVAPIServiceUnitTests : SocMappingCollectionDummy
     {
         [Fact]
         public async System.Threading.Tasks.Task GetAVSumaryPageTestAsync()
@@ -88,6 +88,44 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
         }
 
         [Theory]
+        [MemberData(nameof(SocMappingCollections))]
+        public async System.Threading.Tasks.Task GetAVsForMultipleProvidersAsync(string socCode,Guid socMappingId,string[] standard,string[] framework)
+        {
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            var fakeAPIService = A.Fake<IApprenticeshipVacancyApi>();
+            var pageNumber = 1;
+            var pageSize = 5;
+            var returnDiffrentProvidersOnPage = 2;
+
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse(pageNumber, 50, pageSize, pageSize, returnDiffrentProvidersOnPage)).Once().
+                Then.Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponse((pageNumber + 1), 50, pageSize, pageSize, returnDiffrentProvidersOnPage));
+
+            var aVapiService = new AVAPIService(fakeAPIService, fakeLogger);
+
+            var mapping = new SocMapping
+            {
+                SocCode = socCode,
+                SocMappingId = socMappingId,
+                Standards = standard,
+                Frameworks = framework
+            };
+
+            var aVSumaryList = await aVapiService.GetAVsForMultipleProvidersAsync(mapping);
+            if (!mapping.Standards.Where(s => !string.IsNullOrEmpty(s)).Distinct().Any() && !mapping.Frameworks.Where(f => !string.IsNullOrEmpty(f)).Distinct().Any())
+            {
+                aVSumaryList.Count().Should().BeLessOrEqualTo(0);
+            }
+            else
+            {
+                aVSumaryList.Count().Should().BeGreaterThan(pageSize);
+                var numberProviders = aVSumaryList.Select(v => v.TrainingProviderName).Distinct().Count();
+                numberProviders.Should().BeGreaterThan(1);
+                A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened(Repeated.Exactly.Twice);
+            }
+
+        }
+
+        [Theory]
         [InlineData("3211","321","434")]
         [InlineData("3211", null, null)]
         public async Task GetAVSumaryPageAsync(string socCode,string standard,string framework)
@@ -108,7 +146,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
                 Frameworks = new[] { framework }
             };
             var result= await aVapiService.GetAVSumaryPageAsync(mapping, pageNumber);
-            if (mapping.Frameworks.All(string.IsNullOrEmpty) && mapping.Standards.All(string.IsNullOrEmpty))
+            if (!mapping.Standards.Where(s => !string.IsNullOrEmpty(s)).Distinct().Any() && !mapping.Frameworks.Where(f => !string.IsNullOrEmpty(f)).Distinct().Any())
             {
                 result.Should().BeNull();
             }
