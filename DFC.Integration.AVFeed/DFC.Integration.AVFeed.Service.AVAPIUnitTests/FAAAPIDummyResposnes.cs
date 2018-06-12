@@ -13,17 +13,19 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
         public static string GetDummyApprenticeshipVacancySummaryResponse(int currentPage, int totalMatches, int nunmberToReturn, int pageSize, int diffrentProvidersPage)
         {
 
-            var r = new ApprenticeshipVacancySummaryResponse();
-            r.CurrentPage = currentPage;
-            r.TotalMatched = totalMatches;
-            r.TotalPages = (totalMatches / pageSize);
-            r.TotalReturned = nunmberToReturn;
+            var r = new ApprenticeshipVacancySummaryResponse
+            {
+                CurrentPage = currentPage,
+                TotalMatched = totalMatches,
+                TotalPages = totalMatches / pageSize,
+                TotalReturned = nunmberToReturn
+            };
 
             var recordsToReturn = new List<ApprenticeshipVacancySummary>();
 
-            for (int ii = 0; ii < nunmberToReturn; ii++)
+            for (var ii = 0; ii < nunmberToReturn; ii++)
             {
-                recordsToReturn.Add(new ApprenticeshipVacancySummary()
+                recordsToReturn.Add(new ApprenticeshipVacancySummary
                 {
                     VacancyReference = ii,
                     Title = $"Title {ii}",
@@ -39,7 +41,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
         public static  string GetDummyApprenticeshipVacancyDetailsResponse()
         {
 
-            var r = new ApprenticeshipVacancyDetails()
+            var r = new ApprenticeshipVacancyDetails
             {
                 VacancyReference = 123
             };

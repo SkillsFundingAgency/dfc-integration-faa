@@ -7,7 +7,6 @@ namespace DFC.Integration.AVFeed.Data.Models
     {
         public string SocCode { get; set; }
         public Guid SocMappingId { get; set; }
-
         public IEnumerable<ApprenticeshipVacancySummary> Vacancies { get; set; }
         public string AccessToken { get; set; }
     }

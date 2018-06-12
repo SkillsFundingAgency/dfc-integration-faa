@@ -9,12 +9,16 @@ using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 {
+    using System.Net;
+
     public static class GetAVForSocMappingAzFunction
     {
         [FunctionName(nameof(GetAVForSocMappingAzFunction))]
         public static async Task Run(
             [QueueTrigger("socmapping")]
-            SocMapping myQueueItem, 
+            SocMapping myQueueItem,
+            [Queue("socmapping-invalid")]
+            IAsyncCollector<SocMapping> invalidSocMappings,
             TraceWriter log,
             [Queue("projectedavfeedforsocmapping")]
             IAsyncCollector<ProjectedVacancySummary> projectedVacancySummary,
@@ -36,12 +40,24 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                     Input = "",
                     Output = ""
                 }).ConfigureAwait(false);
-                await AuditMapping(myQueueItem, auditRecord, startTime, mappedResult);
 
+                await AuditMapping(myQueueItem, auditRecord, startTime, mappedResult);
                 var projectedResult = Function.ProjectVacanciesForSoc.Startup.Run(RunMode.Azure, mappedResult);
                 projectedResult.CorrelationId = myQueueItem.CorrelationId;
                 await projectedVacancySummary.AddAsync(projectedResult).ConfigureAwait(false);
                 await AuditProjections(myQueueItem, auditRecord, startTime, mappedResult, projectedResult);
+               }
+            catch (AvApiResponseException responseException)
+            {
+                if (responseException.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    await invalidSocMappings.AddAsync(myQueueItem);
+                    log.Warning($"Exception raised while fetching AV API -Url:{responseException.Message} with ErrorCode :{responseException.StatusCode}");
+                }
+                else
+                {
+                    throw;
+                }
             }
             finally
             {
