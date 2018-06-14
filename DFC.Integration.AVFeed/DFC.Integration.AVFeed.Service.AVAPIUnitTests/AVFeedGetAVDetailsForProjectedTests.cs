@@ -1,13 +1,11 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
 using DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV;
-using DFC.Integration.AVFeed.Function.ProjectVacanciesForSoc;
 using FakeItEasy;
 using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Xunit;
 
 namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 {
@@ -18,7 +16,7 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
             var fakeIAVService = A.Fake<IAVService>();
             var getVacanciesDetailsFunction = new GetVacanciesDetailsFunction(fakeIAVService);
 
-            var dummyProjectedVacancySummary = new ProjectedVacancySummary()
+            var dummyProjectedVacancySummary = new ProjectedVacancySummary
             {
                 SocCode = "SOC123",
                 AccessToken = "Access123",
@@ -45,13 +43,13 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 
         private static IEnumerable<ApprenticeshipVacancySummary> GetDummyVacanciesSummary()
         {
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider A", Title = "DummyTitle One", VacancyReference = 1 };
-            yield return new ApprenticeshipVacancySummary() { TrainingProviderName = "Provider B", Title = "DummyTitle Two", VacancyReference = 2 };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider A", Title = "DummyTitle One", VacancyReference = 1 };
+            yield return new ApprenticeshipVacancySummary { TrainingProviderName = "Provider B", Title = "DummyTitle Two", VacancyReference = 2 };
         }
 
         private static ApprenticeshipVacancyDetails GetDummyVacanciesDetails(string vacancyRef)
         {
-            return new ApprenticeshipVacancyDetails() { TrainingProviderName = "Provider A", Title = "DummyTitle One", VacancyReference = int.Parse(vacancyRef)};
+            return new ApprenticeshipVacancyDetails { TrainingProviderName = "Provider A", Title = "DummyTitle One", VacancyReference = int.Parse(vacancyRef)};
         }
     }
 }
