@@ -1,0 +1,130 @@
+﻿{
+    "Databases": [
+      {
+        "DatabaseName": "AVFeedAudit",
+        "Collections": [
+          {
+            "CollectionName": "AuditRecords",
+            "OfferThroughput": 5000,
+            "PartitionKey": "CandidateId",
+            "StoredProcedures": [],
+            "IndexingPolicy": {
+              "indexingMode": "consistent",
+              "automatic": true,
+              "includedPaths": [
+                {
+                  "path": "/*",
+                  "indexes": [
+                    {
+                      "kind": "Range",
+                      "dataType": "Number",
+                      "precision": -1
+                    },
+                    {
+                      "kind": "Hash",
+                      "dataType": "String",
+                      "precision": 3
+                    }
+                  ]
+                },
+                {
+                  "path": "/StartedAt/?",
+                  "indexes": [
+                    {
+                      "kind": "Range",
+                      "dataType": "String",
+                      "precision": -1
+                    },
+                    {
+                      "kind": "Range",
+                      "dataType": "Number",
+                      "precision": -1
+                    }
+                  ]
+                },
+                {
+                  "path": "/EndedAt/?",
+                  "indexes": [
+                    {
+                      "kind": "Range",
+                      "dataType": "String",
+                      "precision": -1
+                    },
+                    {
+                      "kind": "Range",
+                      "dataType": "Number",
+                      "precision": -1
+                    }
+                  ]
+                }
+              ],
+              "excludedPaths": []
+            }
+          },
+          {
+            "CollectionName": "ServiceHealthStatus",
+            "OfferThroughput": 400,
+            "StoredProcedures": [],
+            "IndexingPolicy": {
+              "indexingMode": "consistent",
+              "automatic": true,
+              "includedPaths": [
+                {
+                  "path": "/*",
+                  "indexes": [
+                    {
+                      "kind": "Range",
+                      "dataType": "Number",
+                      "precision": -1
+                    },
+                    {
+                      "kind": "Range",
+                      "dataType": "String",
+                      "precision": -1
+                    },
+                    {
+                      "kind": "Spatial",
+                      "dataType": "Point"
+                    }
+                  ]
+                }
+              ],
+              "excludedPaths": []
+            }
+          }
+        ]
+      },
+      {
+        "DatabaseName": "CourseSearch",
+        "Collections": [
+          {
+            "CollectionName": "AuditRecords",
+            "OfferThroughput": 5000,
+            "StoredProcedures": [],
+            "IndexingPolicy": {
+              "indexingMode": "consistent",
+              "automatic": true,
+              "includedPaths": [
+                {
+                  "path": "/*",
+                  "indexes": [
+                    {
+                      "kind": "Range",
+                      "dataType": "Number",
+                      "precision": -1
+                    },
+                    {
+                      "kind": "Range",
+                      "dataType": "String",
+                      "precision": -1
+                    }
+                  ]
+                }
+              ],
+              "excludedPaths": []
+            }
+          }
+        ]
+      }
+    ]
+}
