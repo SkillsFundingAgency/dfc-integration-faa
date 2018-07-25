@@ -5,9 +5,9 @@
         "Collections": [
           {
             "CollectionName": "AuditRecords",
-            "OfferThroughput": 5000,
-            "PartitionKey": "CandidateId",
+            "OfferThroughput": __AVFeedAuditAuditRecordsRu__,
             "StoredProcedures": [],
+            "DefaultTtl": 2592000,
             "IndexingPolicy": {
               "indexingMode": "consistent",
               "automatic": true,
@@ -63,8 +63,9 @@
           },
           {
             "CollectionName": "ServiceHealthStatus",
-            "OfferThroughput": 400,
+            "OfferThroughput": __AVFeedAuditServiceHealthStatusRu__,
             "StoredProcedures": [],
+            "DefaultTtl": 2592000,
             "IndexingPolicy": {
               "indexingMode": "consistent",
               "automatic": true,
@@ -99,8 +100,9 @@
         "Collections": [
           {
             "CollectionName": "AuditRecords",
-            "OfferThroughput": 5000,
+            "OfferThroughput": __CourseSearchAuditRecords__,
             "StoredProcedures": [],
+            "DefaultTtl": 2592000,
             "IndexingPolicy": {
               "indexingMode": "consistent",
               "automatic": true,
