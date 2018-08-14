@@ -1,5 +1,6 @@
 {
   "queues":{
-    "batchSize":5
+    "batchSize":5,
+    "visibilityTimeout": "00:01:00"
   }
 }
