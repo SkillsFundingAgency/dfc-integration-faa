@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 {
     using System.Net;
+    using System.Text.RegularExpressions;
+    using System.Threading;
 
     public static class GetAVForSocMappingAzFunction
     {
@@ -27,8 +29,19 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
         {
             try
             {
-                var startTime = DateTime.UtcNow;
+                await GetAVForSocMappingFunc(myQueueItem, projectedVacancySummary, auditRecord, invalidSocMappings, log);
+            }
+            finally
+            {
+                log.Info($"C# Queue trigger function processed: {myQueueItem}");
+            }
+        }
 
+        private static async Task GetAVForSocMappingFunc(SocMapping myQueueItem, IAsyncCollector<ProjectedVacancySummary> projectedVacancySummary, IAsyncCollector<AuditRecord<object, object>> auditRecord, IAsyncCollector<SocMapping> invalidSocMappings, TraceWriter log, int attempt = 1)
+        {
+            try
+            {
+                var startTime = DateTime.UtcNow;
                 ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
                 var mappedResult = await Startup.RunAsync(myQueueItem, RunMode.Azure, auditRecord, new AuditRecord<object, object>
@@ -46,7 +59,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                 projectedResult.CorrelationId = myQueueItem.CorrelationId;
                 await projectedVacancySummary.AddAsync(projectedResult).ConfigureAwait(false);
                 await AuditProjections(myQueueItem, auditRecord, startTime, mappedResult, projectedResult);
-               }
+            }
             catch (AvApiResponseException responseException)
             {
                 if (responseException.StatusCode == HttpStatusCode.BadRequest)
@@ -54,14 +67,17 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                     await invalidSocMappings.AddAsync(myQueueItem);
                     log.Warning($"Exception raised while fetching AV API -Url:{responseException.Message} with ErrorCode :{responseException.StatusCode}");
                 }
+                else if (responseException.StatusCode == ((HttpStatusCode)429) && attempt < 3)
+                {
+                    var retryInSeconds = 60;
+                    int.TryParse(Regex.Match(responseException.Message, "\\d+")?.Value, out retryInSeconds);
+                    Thread.Sleep(retryInSeconds * 1000);
+                    await GetAVForSocMappingFunc(myQueueItem, projectedVacancySummary, auditRecord, invalidSocMappings, log, attempt++);
+                }
                 else
                 {
                     throw;
                 }
-            }
-            finally
-            {
-                log.Info($"C# Queue trigger function processed: {myQueueItem}");
             }
         }
 
