@@ -1,17 +1,17 @@
-using System;
+using DFC.Integration.AVFeed.Core;
+using DFC.Integration.AVFeed.Data.Models;
+using DFC.Integration.AVFeed.Function.Common;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
-using DFC.Integration.AVFeed.Data.Models;
+using System;
 using System.Linq;
-using DFC.Integration.AVFeed.Function.Common;
-using DFC.Integration.AVFeed.Core;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
 {
-    
     public static class GetAVDetailsForProjectedAVFunction
     {
         [FunctionName(nameof(GetAVDetailsForProjectedAVFunction))]
@@ -24,10 +24,20 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
         {
-            Stopwatch stopWatch = new Stopwatch();
             try
             {
-                stopWatch.Start();
+                await GetDetailsForProjectedAvFunc(myQueueItem, projectedVacancyDetails, auditRecord);
+            }
+            finally
+            {
+                log.Info($"C# Queue trigger function processed: {myQueueItem}");
+            }
+        }
+
+        private static async Task GetDetailsForProjectedAvFunc(ProjectedVacancySummary myQueueItem, IAsyncCollector<ProjectedVacancyDetails> projectedVacancyDetails, IAsyncCollector<AuditRecord<object, object>> auditRecord, int attempt = 1)
+        {
+            try
+            {
                 var startTime = DateTime.UtcNow;
 
                 ConfigureLog.ConfigureNLogWithAppInsightsTarget();
@@ -46,18 +56,21 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
                 await AuditMapping(myQueueItem, auditRecord, startTime, getDetailsResult);
                 await projectedVacancyDetails.AddAsync(getDetailsResult).ConfigureAwait(false);
             }
-            finally
+            catch (AvApiResponseException responseException)
             {
-                log.Info($"C# Queue trigger function processed: {myQueueItem}");
-                stopWatch.Stop();
-                if (stopWatch.Elapsed.Seconds < 30)
+                if (responseException.StatusCode == ((HttpStatusCode)429) && attempt < 3)
                 {
-                    Thread.Sleep((30 - stopWatch.Elapsed.Seconds) *1000);
+                    var retryInSeconds = 60;
+                    int.TryParse(Regex.Match(responseException.Message, "\\d+")?.Value, out retryInSeconds);
+                    Thread.Sleep(retryInSeconds * 1000);
+                    await GetDetailsForProjectedAvFunc(myQueueItem, projectedVacancyDetails, auditRecord, attempt++);
                 }
-               log.Info($"C# GetAVDetailsForProjectedAVFunction ElapsedTime :  {stopWatch.Elapsed}");
+                else
+                {
+                    throw;
+                }
             }
         }
-
 
         private static async Task AuditMapping(ProjectedVacancySummary myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, ProjectedVacancyDetails getDetailsResult)
         {

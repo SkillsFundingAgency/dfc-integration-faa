@@ -1,18 +1,17 @@
-using System;
+using DFC.Integration.AVFeed.Core;
+using DFC.Integration.AVFeed.Data.Models;
+using DFC.Integration.AVFeed.Function.Common;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
-using DFC.Integration.AVFeed.Data.Models;
+using System;
 using System.Linq;
-using DFC.Integration.AVFeed.Function.Common;
-using DFC.Integration.AVFeed.Core;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 {
-    using System.Net;
-    using System.Text.RegularExpressions;
-    using System.Threading;
-
     public static class GetAVForSocMappingAzFunction
     {
         [FunctionName(nameof(GetAVForSocMappingAzFunction))]
