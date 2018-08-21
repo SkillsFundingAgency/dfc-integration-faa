@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 {
+    using System.Diagnostics;
     using System.Net;
+    using System.Threading;
 
     public static class GetAVForSocMappingAzFunction
     {
@@ -25,8 +27,10 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
         {
+            Stopwatch stopWatch=new Stopwatch();
             try
             {
+                stopWatch.Start();
                 var startTime = DateTime.UtcNow;
 
                 ConfigureLog.ConfigureNLogWithAppInsightsTarget();
@@ -62,6 +66,12 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
             finally
             {
                 log.Info($"C# Queue trigger function processed: {myQueueItem}");
+                stopWatch.Stop();
+                if (stopWatch.Elapsed.Seconds < 30)
+                {
+                    Thread.Sleep(30-stopWatch.Elapsed.Seconds);
+                }
+                log.Info($"C# GetAVForSocMappingAzFunction ElapsedTime[Second] - ElapsedTime : {stopWatch.Elapsed.Seconds} - {stopWatch.Elapsed}");
             }
         }
 
