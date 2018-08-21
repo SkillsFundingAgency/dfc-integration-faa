@@ -71,7 +71,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                 {
                     Thread.Sleep((30-stopWatch.Elapsed.Seconds) * 1000);
                 }
-                log.Info($"C# GetAVForSocMappingAzFunction ElapsedTime[Second] - ElapsedTime : {stopWatch.Elapsed.Seconds} - {stopWatch.Elapsed}");
+                log.Info($"C# GetAVForSocMappingAzFunction  ElapsedTime :  {stopWatch.Elapsed}");
             }
         }
 

@@ -54,7 +54,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
                 {
                     Thread.Sleep((30-stopWatch.Elapsed.Seconds) *1000);
                 }
-               log.Info($"C# GetAVDetailsForProjectedAVFunction ElapsedTime[Second] - ElapsedTime : {stopWatch.Elapsed.Seconds} - {stopWatch.Elapsed}");
+               log.Info($"C# GetAVDetailsForProjectedAVFunction ElapsedTime :  {stopWatch.Elapsed}");
             }
         }
 
