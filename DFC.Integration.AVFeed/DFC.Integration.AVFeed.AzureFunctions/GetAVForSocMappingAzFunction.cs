@@ -9,9 +9,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Net;
-using System.Threading;
 
 namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
 {
@@ -29,7 +26,6 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
         {
-            Stopwatch stopWatch = new Stopwatch();
             try
             {
                 await GetAVForSocMappingFunc(myQueueItem, projectedVacancySummary, auditRecord, invalidSocMappings, log);

@@ -10,7 +10,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using System.Threading;
 
 namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
 {
@@ -27,7 +26,6 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
         {
-            Stopwatch stopWatch = new Stopwatch();
             try
             {
                 await GetDetailsForProjectedAvFunc(myQueueItem, projectedVacancyDetails, auditRecord);
