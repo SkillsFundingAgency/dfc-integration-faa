@@ -5,6 +5,8 @@ using DFC.Integration.AVFeed.Data.Models;
 using System.Collections.Generic;
 using DFC.Integration.AVFeed.Core;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Threading;
 
 namespace DFC.Integration.AVFeed.AzureFunctions
 {
@@ -26,12 +28,19 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
             var result = await Function.GetMappings.Startup.RunAsync(RunMode.Azure);
+            var counter = 0;
             foreach (var item in result.Output)
             {
+                if(counter++ % 50 == 0)
+                {
+                    //If there are 50 added to the queue, flush the output and then wait for 1min before the next batch.
+                    await output.FlushAsync();
+                    Thread.Sleep(60 * 1000);
+                }
+
                 item.CorrelationId = correlationId;
-                item.AccessToken = string.Empty;
-                await output.AddAsync(item);
-               
+                //item.AccessToken = string.Empty;
+                await output.AddAsync(item);               
             }
 
             await auditRecord.AddAsync(new AuditRecord<string, IEnumerable<SocMapping>>

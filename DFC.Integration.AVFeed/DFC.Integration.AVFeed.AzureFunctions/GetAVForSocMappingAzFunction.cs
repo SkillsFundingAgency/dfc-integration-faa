@@ -54,6 +54,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                 }).ConfigureAwait(false);
 
                 await AuditMapping(myQueueItem, auditRecord, startTime, mappedResult);
+
                 var projectedResult = Function.ProjectVacanciesForSoc.Startup.Run(RunMode.Azure, mappedResult);
                 projectedResult.CorrelationId = myQueueItem.CorrelationId;
                 await projectedVacancySummary.AddAsync(projectedResult).ConfigureAwait(false);

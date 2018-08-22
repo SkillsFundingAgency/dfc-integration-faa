@@ -37,6 +37,19 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
         public async Task<PagedOdataResult<T>> GetResult(Uri requestUri, bool shouldAudit)
         {
+            try
+            {
+                return await GetInternalAsync(requestUri, shouldAudit);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                tokenClient.SetAccessToken(string.Empty);
+                return await GetInternalAsync(requestUri, shouldAudit);
+            }
+        }
+
+        private async Task<PagedOdataResult<T>> GetInternalAsync(Uri requestUri, bool shouldAudit)
+        {
             using (var client = await GetHttpClientAsync())
             {
                 var result = await client.GetStringAsync(requestUri);
@@ -51,6 +64,19 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         }
 
         public async Task<string> PostAsync(Uri requestUri, T data)
+        {
+            try
+            {
+                return await PostInternal(requestUri, data);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                tokenClient.SetAccessToken(string.Empty);
+                return await PostInternal(requestUri, data);
+            }
+        }
+
+        private async Task<string> PostInternal(Uri requestUri, T data)
         {
             using (var client = await GetHttpClientAsync())
             {
@@ -73,6 +99,19 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
         public async Task<string> PutAsync(Uri requestUri, string relatedEntityLink)
         {
+            try
+            {
+                return await PutInternalAsync(requestUri, relatedEntityLink);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                tokenClient.SetAccessToken(string.Empty);
+                return await PutInternalAsync(requestUri, relatedEntityLink);
+            }
+        }
+
+        private async Task<string> PutInternalAsync(Uri requestUri, string relatedEntityLink)
+        {
             using (var client = await GetHttpClientAsync())
             {
                 var content = new StringContent(relatedEntityLink, Encoding.UTF8, CONTENT_TYPE);
@@ -93,6 +132,19 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         }
 
         public async Task DeleteAsync(string requestUri)
+        {
+            try
+            {
+                await DeleteInternalAsync(requestUri);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                tokenClient.SetAccessToken(string.Empty);
+                await DeleteInternalAsync(requestUri);
+            }
+        }
+
+        private async Task DeleteInternalAsync(string requestUri)
         {
             using (var client = await GetHttpClientAsync())
             {
