@@ -78,6 +78,10 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                     throw;
                 }
             }
+            finally
+            {
+                log.Info($"C# Queue trigger function processed: {myQueueItem}");
+            }
         }
 
         private static async Task AuditProjections(SocMapping myQueueItem, IAsyncCollector<AuditRecord<object, object>> auditRecord, DateTime startTime, MappedVacancySummary mappedResult, ProjectedVacancySummary projectedResult)

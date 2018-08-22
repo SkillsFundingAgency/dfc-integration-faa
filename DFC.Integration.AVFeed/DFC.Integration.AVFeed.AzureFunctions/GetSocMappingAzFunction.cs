@@ -29,9 +29,9 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             foreach (var item in result.Output)
             {
                 item.CorrelationId = correlationId;
+                item.AccessToken = string.Empty;
                 await output.AddAsync(item);
-
-                item.AccessToken = null;
+               
             }
 
             await auditRecord.AddAsync(new AuditRecord<string, IEnumerable<SocMapping>>
