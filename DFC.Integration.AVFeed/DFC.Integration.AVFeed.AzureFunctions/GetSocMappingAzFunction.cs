@@ -7,6 +7,7 @@ using DFC.Integration.AVFeed.Core;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Threading;
+using System.Linq;
 
 namespace DFC.Integration.AVFeed.AzureFunctions
 {
@@ -29,13 +30,16 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
             var result = await Function.GetMappings.Startup.RunAsync(RunMode.Azure);
             var counter = 0;
+            var total = result.Output.Count();
             foreach (var item in result.Output)
             {
                 if(counter++ % 50 == 0)
                 {
                     //If there are 50 added to the queue, flush the output and then wait for 1min before the next batch.
                     await output.FlushAsync();
-                    Thread.Sleep(60 * 1000);
+                    log.Info($"C# Timer trigger function executing at: {DateTime.Now} with CorrelationId:{correlationId} - Added 50 to the queue total so far added {counter} of {total} added to the queue and waiting for a minute");
+
+                    await Task.Delay(60 * 1000);
                 }
 
                 item.CorrelationId = correlationId;

@@ -71,7 +71,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                 {
                     var retryInSeconds = 60;
                     int.TryParse(Regex.Match(responseException.Message, "\\d+")?.Value, out retryInSeconds);
-                    Thread.Sleep(retryInSeconds * 1000);
+                    await Task.Delay(retryInSeconds * 1000);
                     await GetAVForSocMappingFunc(myQueueItem, projectedVacancySummary, auditRecord, invalidSocMappings, log, attempt++);
                 }
                 else

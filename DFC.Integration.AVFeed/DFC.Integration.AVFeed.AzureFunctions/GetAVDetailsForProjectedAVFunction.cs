@@ -64,7 +64,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
                 {
                     var retryInSeconds = 60;
                     int.TryParse(Regex.Match(responseException.Message, "\\d+")?.Value, out retryInSeconds);
-                    Thread.Sleep(retryInSeconds * 1000);
+                    await Task.Delay(retryInSeconds * 1000);
                     await GetDetailsForProjectedAvFunc(myQueueItem, projectedVacancyDetails, auditRecord, attempt++);
                 }
                 else
