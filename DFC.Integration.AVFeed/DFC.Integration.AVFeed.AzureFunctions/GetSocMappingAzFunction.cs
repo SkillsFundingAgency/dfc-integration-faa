@@ -29,9 +29,10 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
             var result = await Function.GetMappings.Startup.RunAsync(RunMode.Azure);
+            var resultWithData = result.Output.Where(i => i.Standards?.Count() > 0 || i.Frameworks?.Count() > 0);
             var counter = 0;
-            var total = result.Output.Count();
-            foreach (var item in result.Output)
+            var total = resultWithData.Count();
+            foreach (var item in resultWithData)
             {
                 if(++counter % 100 == 0)
                 {
