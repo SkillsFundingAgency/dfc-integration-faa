@@ -33,7 +33,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             var total = result.Output.Count();
             foreach (var item in result.Output)
             {
-                if(counter++ % 50 == 0)
+                if(++counter % 100 == 0)
                 {
                     //If there are 50 added to the queue, flush the output and then wait for 1min before the next batch.
                     await output.FlushAsync();
