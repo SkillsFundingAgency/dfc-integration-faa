@@ -32,13 +32,14 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             var resultWithData = result.Output.Where(i => i.Standards?.Count() > 0 || i.Frameworks?.Count() > 0);
             var counter = 0;
             var total = resultWithData.Count();
+            const int maxPerMin = 100;
             foreach (var item in resultWithData)
             {
-                if(++counter % 100 == 0)
+                if(++counter % maxPerMin == 0)
                 {
                     //If there are 50 added to the queue, flush the output and then wait for 1min before the next batch.
                     await output.FlushAsync();
-                    log.Info($"C# Timer trigger function executing at: {DateTime.Now} with CorrelationId:{correlationId} - Added 50 to the queue total so far added {counter} of {total} added to the queue and waiting for a minute");
+                    log.Info($"C# Timer trigger function executing at: {DateTime.Now} with CorrelationId:{correlationId} - Added {maxPerMin} to the queue total so far added {counter} of {total} added to the queue and waiting for a minute");
 
                     await Task.Delay(60 * 1000);
                 }
