@@ -28,6 +28,7 @@
     <None Include="App Service Plan\parameters.json" />
     <None Include="App Service Plan\template.json" />
     <None Include="Cosmo DB\config.azcli" />
+    <None Include="Cosmo DB\configuration.json" />
     <None Include="Cosmo DB\parameters.json" />
     <None Include="Cosmo DB\template.json" />
     <None Include="Deployment.targets">

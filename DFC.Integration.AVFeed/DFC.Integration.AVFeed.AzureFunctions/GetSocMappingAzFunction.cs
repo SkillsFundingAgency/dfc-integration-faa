@@ -5,6 +5,9 @@ using DFC.Integration.AVFeed.Data.Models;
 using System.Collections.Generic;
 using DFC.Integration.AVFeed.Core;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Threading;
+using System.Linq;
 
 namespace DFC.Integration.AVFeed.AzureFunctions
 {
@@ -26,12 +29,24 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
             var result = await Function.GetMappings.Startup.RunAsync(RunMode.Azure);
-            foreach (var item in result.Output)
+            var resultWithData = result.Output.Where(i => i.Standards?.Count() > 0 || i.Frameworks?.Count() > 0);
+            var counter = 0;
+            var total = resultWithData.Count();
+            const int maxPerMin = 100;
+            foreach (var item in resultWithData)
             {
-                item.CorrelationId = correlationId;
-                await output.AddAsync(item);
+                if(++counter % maxPerMin == 0)
+                {
+                    //If there are 50 added to the queue, flush the output and then wait for 1min before the next batch.
+                    await output.FlushAsync();
+                    log.Info($"C# Timer trigger function executing at: {DateTime.Now} with CorrelationId:{correlationId} - Added {maxPerMin} to the queue total so far added {counter} of {total} added to the queue and waiting for a minute");
 
-                item.AccessToken = null;
+                    await Task.Delay(60 * 1000);
+                }
+
+                item.CorrelationId = correlationId;
+                //item.AccessToken = string.Empty;
+                await output.AddAsync(item);               
             }
 
             await auditRecord.AddAsync(new AuditRecord<string, IEnumerable<SocMapping>>
