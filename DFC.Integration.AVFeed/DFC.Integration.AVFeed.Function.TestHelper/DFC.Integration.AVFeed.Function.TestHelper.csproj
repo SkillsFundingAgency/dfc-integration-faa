@@ -87,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Temp\IGetAvDetailsByIdsFunc\queue\" />
     <Folder Include="Temp\IGetAvForSocFunc\queue\" />
     <Folder Include="Temp\IGetSocMappingFunc\Queue\" />
     <Folder Include="Temp\IProjectVacanciesFunc\Queue\" />

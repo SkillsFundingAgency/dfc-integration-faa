@@ -10,6 +10,7 @@
         public static T ReadQueue<T>(string function)
         {
             var dir = $"..\\..\\..\\DFC.Integration.AVFeed.Function.TestHelper\\Temp\\{function}\\queue\\";
+            var processed = $"..\\..\\..\\DFC.Integration.AVFeed.Function.TestHelper\\Temp\\{function}\\processed\\";
 
             var queue = new DirectoryInfo(dir);
             var firstFile = queue.GetFiles().OrderBy(f => f.LastWriteTimeUtc).FirstOrDefault();
@@ -21,7 +22,7 @@
             Console.WriteLine($"Processing: {firstFile.Name} total left {queue.GetFiles().Count()}");
             var data = JsonConvert.DeserializeObject<T>(File.ReadAllText(firstFile.FullName));
             if (!firstFile.Name.StartsWith("sample", StringComparison.InvariantCultureIgnoreCase))
-                firstFile.Delete();
+                firstFile.MoveTo($"{processed}{firstFile.Name}");
 
             return data;
         }
