@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace DFC.Integration.AVFeed.Repository.Sitefinity
@@ -10,5 +11,10 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
     {
         [DataMember]
         public Guid Id { get; set; }
+        [DataMember]
+        public List<string> apprenticeshipstandards { get; set; }
+        [DataMember]
+        public List<string> apprenticeshipframeworks { get; set; }
+
     }
 }
