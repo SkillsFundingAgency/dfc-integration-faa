@@ -13,6 +13,7 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 
         Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails, Guid socCodeId);
 
-        IEnumerable<OrphanedVacancySummary> GetOrphanedApprenticeshipVacanciesAsync();
+        Task<IEnumerable<OrphanedVacancySummary>> GetOrphanedApprenticeshipVacanciesAsync();
+      
     }
 }

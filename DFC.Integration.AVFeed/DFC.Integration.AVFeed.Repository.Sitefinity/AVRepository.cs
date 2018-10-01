@@ -33,10 +33,8 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
         public async Task DeleteByIdAsync(Guid Id)
         {
-            var infoMsg = $"apprenticeship vacancy with Sitefinity Id '{Id}'";
-            logger.Info($"Deleting {infoMsg}");
             await repository.DeleteByIdAsync(Id);
-            logger.Info($"Deleted {infoMsg}");
+            logger.Info($"Deleted apprenticeship vacancy with Sitefinity Id '{Id}");
         }
 
         public async Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails, Guid socCodeId)
@@ -61,10 +59,16 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             return addedVacancyId.UrlName;
         }
 
-        public IEnumerable<OrphanedVacancySummary> GetOrphanedApprenticeshipVacanciesAsync()
+        public async Task<IEnumerable<OrphanedVacancySummary>> GetOrphanedApprenticeshipVacanciesAsync()
         {
-            return repository.GetManyAsync(av => av.SOCCode == null || (av.SOCCode.apprenticeshipstandards.Count() == 0 && av.SOCCode.apprenticeshipframeworks.Count() == 0)).
-                Result.Select(v => new OrphanedVacancySummary { Id = v.Id, PublicationDate = v.PublicationDate, Title = v.Title, VacancyId = v.VacancyId });
+            var op = await repository.GetManyAsync(av => av.SOCCode == null || (av.SOCCode.apprenticeshipstandards.Count() == 0 && av.SOCCode.apprenticeshipframeworks.Count() == 0));
+            return op.Select(v => new OrphanedVacancySummary
+            {
+                Id = v.Id,
+                PublicationDate = v.PublicationDate,
+                Title = v.Title,
+                VacancyId = v.VacancyId
+            });
         }
     }
 }

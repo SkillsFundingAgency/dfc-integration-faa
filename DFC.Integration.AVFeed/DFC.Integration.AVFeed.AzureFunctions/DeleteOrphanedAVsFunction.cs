@@ -22,8 +22,6 @@ namespace DFC.Integration.AVFeed.Function.DeleteOrphanedAVs
 
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
-            //var result = await Startup.RunAsync(RunMode.Azure);
-
             await Startup.RunAsync(RunMode.Azure);
 
             await auditRecord.AddAsync(new AuditRecord<object, object>

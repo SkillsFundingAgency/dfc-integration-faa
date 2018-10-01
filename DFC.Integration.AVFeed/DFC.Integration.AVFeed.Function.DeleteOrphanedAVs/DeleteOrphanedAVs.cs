@@ -13,25 +13,30 @@ namespace DFC.Integration.AVFeed.Function.DeleteOrphanedAVs
         private readonly IApprenticeshipVacancyRepository apprenticeshipVacancyRepository;
         private readonly ITokenClient sitefinityTokenClient;
         private readonly IApplicationLogger logger;
+        private readonly IAuditService auditService;
 
-        public DeleteOrphanedAVs(IApprenticeshipVacancyRepository apprenticeshipVacancyRepository, ITokenClient sitefinityTokenClient, IApplicationLogger logger)
+        public DeleteOrphanedAVs(IApprenticeshipVacancyRepository apprenticeshipVacancyRepository, ITokenClient sitefinityTokenClient, IApplicationLogger logger, IAuditService auditService)
         {
             this.apprenticeshipVacancyRepository = apprenticeshipVacancyRepository;
             this.sitefinityTokenClient = sitefinityTokenClient;
             this.logger = logger;
+            this.auditService = auditService;
         }
 
         public async Task ExecuteAsync()
         {
             var accessToken = await sitefinityTokenClient.GetAccessTokenAsync();
             logger.Info("Getting orphaned apprenticeship vacancies");
-            var orphanedApprenticeshipVacancies = apprenticeshipVacancyRepository.GetOrphanedApprenticeshipVacanciesAsync();
-            logger.Info($"Got {orphanedApprenticeshipVacancies.Count()} orphaned apprenticeship vacancies");
+            var orphanedApprenticeshipVacancies = await apprenticeshipVacancyRepository.GetOrphanedApprenticeshipVacanciesAsync();
+
+            await auditService.AuditAsync($"Got {orphanedApprenticeshipVacancies.Count()} orphaned apprenticeship vacancies");
+
             foreach (OrphanedVacancySummary o in orphanedApprenticeshipVacancies)
             {
-                 logger.Info($"Got orphaned apprenticeship and about to delete vacancies id= {o.Id} published = {o.PublicationDate.ToString()} title = {o.Title} vacancyId = {o.VacancyId}" );
-                 //await apprenticeshipVacancyRepository.DeleteByIdAsync(o.Id);
+                 await auditService.AuditAsync($"Got orphaned apprenticeship deleting vacancies id= {o.Id} published = {o.PublicationDate.ToString()} title = {o.Title} vacancyId = {o.VacancyId}");
+                 await apprenticeshipVacancyRepository.DeleteByIdAsync(o.Id);
             }
+
             logger.Info("Completed deleting orphaned apprenticeship vacancies");
         }
     }
