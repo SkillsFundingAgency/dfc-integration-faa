@@ -32,7 +32,7 @@ namespace DFC.Integration.AVFeed.Function.DeleteOrphanedAVs
        {
             var container = ConfigureContainer(mode, asyncCollector, masterRecord);
             var deleteOrphanedAVs = container.Resolve<IDeleteOrphanedAVs>();
-            await deleteOrphanedAVs.ExecuteAsync();
+            await deleteOrphanedAVs.DeleteOrphanedAvsAsync();
        }
     }
 }

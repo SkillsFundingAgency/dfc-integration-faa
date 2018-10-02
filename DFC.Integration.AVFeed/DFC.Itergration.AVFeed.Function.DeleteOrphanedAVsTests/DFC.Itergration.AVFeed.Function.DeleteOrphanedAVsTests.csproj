@@ -73,6 +73,20 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Data\DFC.Integration.AVFeed.Data.csproj">
+      <Project>{FDECC75B-0821-4015-974A-5056B5A00344}</Project>
+      <Name>DFC.Integration.AVFeed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Function.DeleteOrphanedAVs\DFC.Integration.AVFeed.Function.DeleteOrphanedAVs.csproj">
+      <Project>{CA0DCBB1-EB9E-4A41-AF3E-D847611B4111}</Project>
+      <Name>DFC.Integration.AVFeed.Function.DeleteOrphanedAVs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Repository.Sitefinity\DFC.Integration.AVFeed.Repository.Sitefinity.csproj">
+      <Project>{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}</Project>
+      <Name>DFC.Integration.AVFeed.Repository.Sitefinity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

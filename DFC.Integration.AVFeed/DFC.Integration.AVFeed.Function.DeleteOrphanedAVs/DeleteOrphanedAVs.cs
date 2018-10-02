@@ -23,7 +23,7 @@ namespace DFC.Integration.AVFeed.Function.DeleteOrphanedAVs
             this.auditService = auditService;
         }
 
-        public async Task ExecuteAsync()
+        public async Task DeleteOrphanedAvsAsync()
         {
             var accessToken = await sitefinityTokenClient.GetAccessTokenAsync();
             logger.Info("Getting orphaned apprenticeship vacancies");

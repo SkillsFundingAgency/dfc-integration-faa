@@ -8,6 +8,6 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface IDeleteOrphanedAVs
     {
-        Task ExecuteAsync();
+        Task DeleteOrphanedAvsAsync();
     }
 }
