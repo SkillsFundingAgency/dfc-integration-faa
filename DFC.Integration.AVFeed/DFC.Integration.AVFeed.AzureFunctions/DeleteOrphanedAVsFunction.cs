@@ -16,22 +16,19 @@ namespace DFC.Integration.AVFeed.Function.DeleteOrphanedAVs
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
         {
             Guid correlationId = Guid.NewGuid();
-            DateTime startTime = DateTime.UtcNow;
-
-            log.Info($"DeleteOrphanedAVsFunction Timer trigger function executed at: {DateTime.Now} with CorrelationId:{correlationId}");
-
+            DateTime startDate = DateTime.Now;
+          
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
+            log.Info($"DeleteOrphanedAVsFunction Timer trigger function executed at: {startDate} with CorrelationId:{correlationId}");
 
-            await Startup.RunAsync(RunMode.Azure);
-
-            await auditRecord.AddAsync(new AuditRecord<object, object>
+            await Startup.RunAsync(RunMode.Azure, auditRecord, new AuditRecord<object, object>
             {
                 CorrelationId = correlationId,
-                StartedAt = startTime,
+                StartedAt = startDate,
                 EndedAt = DateTime.Now,
                 Function = nameof(DeleteOrphanedAVsFunction),
-                Input = $"Triggered  {myTimer.ScheduleStatus.Last.ToString()}",
-                Output = "Removed xxx records"
+                Input = "",
+                Output = ""
             });
 
             log.Info($"DeleteOrphanedAVsFunction Timer trigger function completed at: {DateTime.Now} with CorrelationId:{correlationId}");

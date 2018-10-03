@@ -30,7 +30,6 @@ namespace DFC.Itergration.AVFeed.Function.DeleteOrphanedAVsTests
             await deleteOrphanedAVs.DeleteOrphanedAvsAsync();
 
             //Asserts
-            A.CallTo(() => fakeTokenClient.GetAccessTokenAsync()).MustHaveHappenedOnceExactly();
             A.CallTo(() => fakeApprenticeshipVacancyRepository.DeleteByIdAsync(A<Guid>._)).MustHaveHappened(Repeated.Exactly.Times(numberOfOrphanedAVs));
 
         }
