@@ -19,15 +19,15 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             this.logger = logger;
         }
 
-        public async Task DeleteExistingAsync(Guid socCodevalue)
+        public async Task DeleteExistingAsync(string SOC)
         {
-            var existingAvCollection = await repository.GetManyAsync(av => av.SOCCode != null && av.SOCCode.Id == socCodevalue);
+            var existingAvCollection = await repository.GetManyAsync(av => av.SOCCode != null && av.SOCCode.SOCCode == SOC);
 
-            logger.Info($"Deleting '{existingAvCollection.Count()}' vacancies from sitefintiy for SocCode id '{socCodevalue}'");
+            logger.Info($"Deleting '{existingAvCollection.Count()}' vacancies from sitefintiy for SOC '{SOC}'");
             foreach (var av in existingAvCollection)
             {
                 await repository.DeleteAsync(av);
-                logger.Info($"Deleted vacancy '{av.UrlName}-{av.Title}' from sitefintiy for SocCode '{av.SOCCode}'");
+                logger.Info($"Deleted vacancy '{av.UrlName}-{av.Title}' from sitefintiy for SocCode '{av.SOCCode.SOCCode}'");
             }
         }
 

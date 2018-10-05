@@ -44,14 +44,14 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var vacanciesToDelete = DataHelper.GetDummySfApprenticeshipVacancies(numberofVacancies);
             var fakeRepo = A.Fake<IAVSitefinityOdataRepository>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            var deleteId = new Guid();
+            var dummySOC = nameof(SfSocCode.SOCCode);
             A.CallTo(() => fakeRepo.GetManyAsync(A<Expression<Func<SfApprenticeshipVacancy, bool>>>._)).Returns(vacanciesToDelete);
             A.CallTo(() => fakeRepo.DeleteAsync(A<SfApprenticeshipVacancy>._)).Returns(Task.CompletedTask);
            
             var avRepository = new AVRepository(fakeRepo, fakeLogger);
 
             //Act
-            avRepository.DeleteExistingAsync(deleteId).GetAwaiter().GetResult();
+            avRepository.DeleteExistingAsync(dummySOC).GetAwaiter().GetResult();
 
             //Assert
             A.CallTo(() => fakeRepo.GetManyAsync(A<Expression<Func<SfApprenticeshipVacancy, bool>>>._)).MustHaveHappened();

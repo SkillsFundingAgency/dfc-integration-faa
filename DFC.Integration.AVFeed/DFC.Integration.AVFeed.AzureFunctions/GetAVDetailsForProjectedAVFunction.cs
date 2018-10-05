@@ -32,7 +32,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVDetailsForProjectedAV.AzFunc
             }
             finally
             {
-                log.Info($"C# Queue trigger function processed: {myQueueItem}");
+                log.Info($"C# Queue trigger function processed: {myQueueItem} CorrelationId = {myQueueItem.CorrelationId} SOC = {myQueueItem.SocCode}");
             }
         }
 

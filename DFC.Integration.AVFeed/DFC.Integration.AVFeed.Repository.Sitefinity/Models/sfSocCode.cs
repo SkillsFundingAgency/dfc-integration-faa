@@ -15,6 +15,9 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         public List<string> apprenticeshipstandards { get; set; }
         [DataMember]
         public List<string> apprenticeshipframeworks { get; set; }
+        [DataMember]
+        public string SOCCode { get; set; }
+
 
     }
 }
