@@ -38,7 +38,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
             log.Info($"Got {total} SOCs that have a linked standard or framework CorrelationId:{correlationId}");
 
-            //Max request the AV API will do is 100 over 60 second, each of the SOC will generate at least 2 calls so no more the 50 over a 1 min 
+            //Max request the AV API will do is 100 over 60 second, each of the SOC will generate at least 3 calls so no more the 50 over a 1 min 
             //period should be fed in.
             foreach (var item in resultWithData)
             {
@@ -46,7 +46,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
                     await output.AddAsync(item);
                     await output.FlushAsync();
                     log.Info($"Pushing on to que {DateTime.Now}  for SOC {item.SocCode} SOC Id = {item.SocMappingId} - Added to the queue  {++counter} of {total} with CorrelationId:{correlationId}");
-                    await Task.Delay(3000);     //
+                    await Task.Delay(3000);   //This is about the limit where we do not get limit faults
             }
 
             await auditRecord.AddAsync(new AuditRecord<string, IEnumerable<SocMapping>>
