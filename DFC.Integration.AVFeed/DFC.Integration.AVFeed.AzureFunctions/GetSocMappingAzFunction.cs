@@ -16,7 +16,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
         [FunctionName(nameof(GetSocMappingAzFunction))]
         public async static Task Run
         (
-            [TimerTrigger("0 0 4 * * *")]TimerInfo myTimer, 
+            [TimerTrigger("0 0 4 * * *")]TimerInfo myTimer,
             TraceWriter log,
             [Queue("socmapping")] IAsyncCollector<SocMapping> output,
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
@@ -28,25 +28,25 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
 
-            log.Info($"C# Timer trigger function for  {nameof(GetSocMappingAzFunction)} executing at: {startTime}");
-
             var result = await Function.GetMappings.Startup.RunAsync(RunMode.Azure);
             var resultWithData = result.Output.Where(i => i.Standards?.Count() > 0 || i.Frameworks?.Count() > 0);
-
             var counter = 0;
             var total = resultWithData.Count();
-
-            log.Info($"Got {total} SOCs that have a linked standard or framework CorrelationId:{correlationId}");
-
-            //Max request the AV API will do is 100 over 60 second, each of the SOC will generate at least 3 calls so no more the 50 over a 1 min 
-            //period should be fed in.
+            const int maxPerMin = 100;
             foreach (var item in resultWithData)
             {
-                    item.CorrelationId = correlationId;
-                    await output.AddAsync(item);
+                if (++counter % maxPerMin == 0)
+                {
+                    //If there are 50 added to the queue, flush the output and then wait for 1min before the next batch.
                     await output.FlushAsync();
-                    log.Info($"Pushing on to que {DateTime.Now}  for SOC {item.SocCode} SOC Id = {item.SocMappingId} - Added to the queue  {++counter} of {total} with CorrelationId:{correlationId}");
-                    await Task.Delay(3000);   //This is about the limit where we do not get limit faults
+                    log.Info($"C# Timer trigger function executing at: {DateTime.Now} with CorrelationId:{correlationId} - Added {maxPerMin} to the queue total so far added {counter} of {total} added to the queue and waiting for a minute");
+
+                    await Task.Delay(60 * 1000);
+                }
+
+                item.CorrelationId = correlationId;
+                //item.AccessToken = string.Empty;
+                await output.AddAsync(item);
             }
 
             await auditRecord.AddAsync(new AuditRecord<string, IEnumerable<SocMapping>>
