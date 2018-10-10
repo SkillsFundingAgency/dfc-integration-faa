@@ -121,5 +121,3 @@ https://das-prd-raa-apim.portal.azure-api.net/
     1.  **AutoMapper**
     
         *Automapper is a simple reusable component which helps you to copy data from object type to other . Please find more info on [How to use AutoMapper](http://automapper.org/)*
-
-
