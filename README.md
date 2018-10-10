@@ -34,6 +34,7 @@ Once you have cloned the public repo you need to remove the .template part from 
 | DFC.Integration.AVFeed.Service.AVSoapAPI | app.config.template | app.config |
 | DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console | app.config.template | app.config |
 | DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.Console | app.config.template | app.config |
+| DFC.Integration.AVFeed.Function.DeleteOrphanedAVs.Console | app.config.template | app.config |
 
 These files contain keys and other configuration that is particular to your local instance of the application.
 You will need to set these as detailed in the configuration  sections below.
