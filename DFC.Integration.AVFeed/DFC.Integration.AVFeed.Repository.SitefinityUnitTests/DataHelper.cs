@@ -133,7 +133,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
                     Title = nameof(SfApprenticeshipVacancy.Title),
                     VacancyId = nameof(SfApprenticeshipVacancy.VacancyId),
                     PublicationDate = DateTime.UtcNow,
-
+                    SOCCode = new SfSocCode {SOCCode = nameof(SfSocCode.SOCCode) }
                 };
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Data.Interfaces;
@@ -18,16 +19,22 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             this.logger = logger;
         }
 
-        public async Task DeleteExistingAsync(Guid socCodevalue)
+        public async Task DeleteExistingAsync(string SOC)
         {
-            var existingAvCollection = await repository.GetManyAsync(av => av.SOCCode != null && av.SOCCode.Id == socCodevalue);
+            var existingAvCollection = await repository.GetManyAsync(av => av.SOCCode != null && av.SOCCode.SOCCode == SOC);
 
-            logger.Info($"Deleting '{existingAvCollection.Count()}' vacancies from sitefintiy for SocCode id '{socCodevalue}'");
+            logger.Info($"Deleting '{existingAvCollection.Count()}' vacancies from sitefintiy for SOC '{SOC}'");
             foreach (var av in existingAvCollection)
             {
                 await repository.DeleteAsync(av);
-                logger.Info($"Deleted vacancy '{av.UrlName}-{av.Title}' from sitefintiy for SocCode '{av.SOCCode}'");
+                logger.Info($"Deleted vacancy '{av.UrlName}-{av.Title}' from sitefintiy for SocCode '{av.SOCCode.SOCCode}'");
             }
+        }
+
+        public async Task DeleteByIdAsync(Guid Id)
+        {
+            await repository.DeleteByIdAsync(Id);
+            logger.Info($"Deleted apprenticeship vacancy with Sitefinity Id '{Id}");
         }
 
         public async Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails, Guid socCodeId)
@@ -50,6 +57,18 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             logger.Info($"Added related field for vacancy '{apprenticeshipVacancyDetails.Title}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
 
             return addedVacancyId.UrlName;
+        }
+
+        public async Task<IEnumerable<OrphanedVacancySummary>> GetOrphanedApprenticeshipVacanciesAsync()
+        {
+            var op = await repository.GetManyAsync(av => av.SOCCode == null || (av.SOCCode.apprenticeshipstandards.Count() == 0 && av.SOCCode.apprenticeshipframeworks.Count() == 0));
+            return op.Select(v => new OrphanedVacancySummary
+            {
+                Id = v.Id,
+                PublicationDate = v.PublicationDate,
+                Title = v.Title,
+                VacancyId = v.VacancyId
+            });
         }
     }
 }

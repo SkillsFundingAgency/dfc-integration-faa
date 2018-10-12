@@ -7,5 +7,6 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
     public interface IAVSitefinityOdataRepository : IRepository<SfApprenticeshipVacancy>
     {
         Task AddRelatedAsync(string addedVacancyId, Guid socCodeId);
+        Task DeleteByIdAsync(Guid Id);
     }
 }

@@ -44,14 +44,14 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var vacanciesToDelete = DataHelper.GetDummySfApprenticeshipVacancies(numberofVacancies);
             var fakeRepo = A.Fake<IAVSitefinityOdataRepository>();
             var fakeLogger = A.Fake<IApplicationLogger>();
-            var deleteId = new Guid();
+            var dummySOC = nameof(SfSocCode.SOCCode);
             A.CallTo(() => fakeRepo.GetManyAsync(A<Expression<Func<SfApprenticeshipVacancy, bool>>>._)).Returns(vacanciesToDelete);
             A.CallTo(() => fakeRepo.DeleteAsync(A<SfApprenticeshipVacancy>._)).Returns(Task.CompletedTask);
            
             var avRepository = new AVRepository(fakeRepo, fakeLogger);
 
             //Act
-            avRepository.DeleteExistingAsync(deleteId).GetAwaiter().GetResult();
+            avRepository.DeleteExistingAsync(dummySOC).GetAwaiter().GetResult();
 
             //Assert
             A.CallTo(() => fakeRepo.GetManyAsync(A<Expression<Func<SfApprenticeshipVacancy, bool>>>._)).MustHaveHappened();
@@ -79,6 +79,42 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             A.CallTo(() => fakeRepo.AddAsync(A<SfApprenticeshipVacancy>._)).MustHaveHappened();
             A.CallTo(() => fakeRepo.AddRelatedAsync(A<string>._,A<Guid>._)).MustHaveHappened();
 
+        }
+
+        [Fact]
+        public void DeleteByIdAsyncTest()
+        {
+            //Arrange
+            var fakeRepo = A.Fake<IAVSitefinityOdataRepository>();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            var dummyDeleteGuid = new Guid();
+
+            A.CallTo(() => fakeRepo.DeleteByIdAsync(dummyDeleteGuid)).Returns(Task.CompletedTask);
+            var avRepository = new AVRepository(fakeRepo, fakeLogger);
+
+            //Act
+            avRepository.DeleteByIdAsync(dummyDeleteGuid).GetAwaiter().GetResult();
+
+            //Assert
+            A.CallTo(() => fakeRepo.DeleteByIdAsync(dummyDeleteGuid)).MustHaveHappened(Repeated.Exactly.Once);
+        }
+
+
+        [Fact]
+        public void GetOrphanedApprenticeshipVacanciesAsyncTest()
+        {
+            var fakeRepo = A.Fake<IAVSitefinityOdataRepository>();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            var vacanciesToDelete = DataHelper.GetDummySfApprenticeshipVacancies(2);
+
+            A.CallTo(() => fakeRepo.GetManyAsync(A<Expression<Func<SfApprenticeshipVacancy, bool>>>._)).Returns(vacanciesToDelete);
+
+            var avRepository = new AVRepository(fakeRepo, fakeLogger);
+
+            //Act
+            var results = avRepository.GetOrphanedApprenticeshipVacanciesAsync();
+
+            A.CallTo(() => fakeRepo.GetManyAsync(A<Expression<Func<SfApprenticeshipVacancy, bool>>>.That.Matches(m => LinqExpressionsTestHelper.IsExpressionEqual(m, v => v.SOCCode == null || (v.SOCCode.apprenticeshipstandards.Count() == 0 && v.SOCCode.apprenticeshipframeworks.Count() == 0))))).MustHaveHappened();
         }
     }
 }

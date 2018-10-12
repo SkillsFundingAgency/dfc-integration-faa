@@ -26,6 +26,11 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             await OdataContext.DeleteAsync(base.RepoEndpointConfig.GetSingleItemEndpoint(entity.Id.ToString()));
         }
 
+        public async Task DeleteByIdAsync(Guid Id)
+        {
+            await OdataContext.DeleteAsync(base.RepoEndpointConfig.GetSingleItemEndpoint(Id.ToString()));
+        }
+
         public override async Task<IEnumerable<SfApprenticeshipVacancy>> GetManyAsync(Expression<Func<SfApprenticeshipVacancy, bool>> where)
         {
             var allVacancies = await GetAllAsync(false);

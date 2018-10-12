@@ -26,7 +26,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancy
             List<PublishedAV> publishedVacancies = new List<PublishedAV>();
 
             sitefinityTokenClient.SetAccessToken(myQueueItem.AccessToken);
-            await apprenticeshipVacancyRepository.DeleteExistingAsync(myQueueItem.SocMappingId);
+            await apprenticeshipVacancyRepository.DeleteExistingAsync(myQueueItem.SocCode);
             logger.Info($"Deleted all vacancies for soc code {myQueueItem.SocCode}, ready for publishing {myQueueItem.Vacancies.Count()} vacancies.");
 
             foreach (var vacancy in myQueueItem.Vacancies)
