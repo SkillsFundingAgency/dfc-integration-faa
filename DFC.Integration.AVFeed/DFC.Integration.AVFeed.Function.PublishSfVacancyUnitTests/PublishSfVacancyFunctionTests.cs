@@ -41,7 +41,7 @@ namespace DFC.Integration.AVFeed.Function.PublishSfVacancyUnitTests
             publishFunc.ExecuteAsync(queueItem).GetAwaiter().GetResult();
 
             //Assert
-            A.CallTo(() => fakeRepo.DeleteExistingAsync(A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => fakeRepo.DeleteExistingAsync(A<string>._)).MustHaveHappened();
             A.CallTo(() => fakeRepo.PublishAsync(A<ApprenticeshipVacancyDetails>._,A<Guid>._)).MustHaveHappened(Repeated.Exactly.Times(queueItem.Vacancies.Count()));
             A.CallTo(() => fakeTokenClient.SetAccessToken(A<string>._)).MustHaveHappened();
         }

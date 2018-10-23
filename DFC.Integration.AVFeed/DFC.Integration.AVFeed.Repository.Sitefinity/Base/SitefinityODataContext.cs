@@ -43,6 +43,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
             catch (UnauthorizedAccessException)
             {
+                logger.Info($"Access denined, access token expired - will retry with new token - '{requestUri}'.");
                 tokenClient.SetAccessToken(string.Empty);
                 return await GetInternalAsync(requestUri, shouldAudit);
             }
@@ -52,6 +53,12 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         {
             using (var client = await GetHttpClientAsync())
             {
+                var resultMessage = await client.GetAsync(requestUri);
+                if(resultMessage.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException(resultMessage.ReasonPhrase);
+                }
+
                 var result = await client.GetStringAsync(requestUri);
                 logger.Info($"Requested with url - '{requestUri}'.");
                 if (shouldAudit)
@@ -71,6 +78,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
             catch (UnauthorizedAccessException)
             {
+                logger.Info($"Access denined, access token expired - will retry with new token - '{requestUri}'.");
                 tokenClient.SetAccessToken(string.Empty);
                 return await PostInternal(requestUri, data);
             }
@@ -82,6 +90,11 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             {
                 var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, CONTENT_TYPE);
                 var result = await client.PostAsync(requestUri, content);
+                if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException(result.ReasonPhrase);
+                }
+
                 logger.Info($"Posted to url - '{requestUri}', returned '{result.StatusCode}' and headers '{result.Headers}'.");
                 var jsonContent = await result.Content.ReadAsStringAsync();
 
@@ -105,6 +118,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
             catch (UnauthorizedAccessException)
             {
+                logger.Info($"Access denined, access token expired - will retry with new token - '{requestUri}'.");
                 tokenClient.SetAccessToken(string.Empty);
                 return await PutInternalAsync(requestUri, relatedEntityLink);
             }
@@ -116,6 +130,11 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             {
                 var content = new StringContent(relatedEntityLink, Encoding.UTF8, CONTENT_TYPE);
                 var result = await client.PutAsync(requestUri, content);
+                if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException(result.ReasonPhrase);
+                }
+
                 logger.Info($"PUT to url - '{requestUri}', returned '{result.StatusCode}' and headers '{result.Headers}'.");
                 var jsonContent = await result.Content.ReadAsStringAsync();
 
@@ -139,6 +158,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
             catch (UnauthorizedAccessException)
             {
+                logger.Info($"Access denined, access token expired - will retry with new token - '{requestUri}'.");
                 tokenClient.SetAccessToken(string.Empty);
                 await DeleteInternalAsync(requestUri);
             }
@@ -149,6 +169,11 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             using (var client = await GetHttpClientAsync())
             {
                 var result = await client.DeleteAsync(requestUri);
+                if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    throw new UnauthorizedAccessException(result.ReasonPhrase);
+                }
+
                 logger.Info($"DELETE to url - '{requestUri}', returned '{result.StatusCode}' and headers '{result.Headers}'.");
                 var jsonContent = await result.Content.ReadAsStringAsync();
 

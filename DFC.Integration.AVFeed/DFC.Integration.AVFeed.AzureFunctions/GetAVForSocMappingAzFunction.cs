@@ -32,7 +32,7 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
             }
             finally
             {
-                log.Info($"C# Queue trigger function processed: {myQueueItem}");
+                log.Info($"C# Queue trigger function for SOC {myQueueItem.SocCode} processed: {myQueueItem}");
             }
         }
 
@@ -65,10 +65,11 @@ namespace DFC.Integration.AVFeed.Function.GetAVForSoc.AzFunc
                 if (responseException.StatusCode == HttpStatusCode.BadRequest)
                 {
                     await invalidSocMappings.AddAsync(myQueueItem);
-                    log.Warning($"Exception raised while fetching AV API -Url:{responseException.Message} with ErrorCode :{responseException.StatusCode}");
+                    log.Warning($"Exception raised while fetching AV for SOC {myQueueItem.SocCode} API -Url:{responseException.Message} with ErrorCode :{responseException.StatusCode}");
                 }
                 else if (responseException.StatusCode == ((HttpStatusCode)429) && attempt < 3)
                 {
+                    log.Info($"Got API request limit error for SOC {myQueueItem.SocCode} - will wait for 60 seconds");
                     var retryInSeconds = 60;
                     int.TryParse(Regex.Match(responseException.Message, "\\d+")?.Value, out retryInSeconds);
                     await Task.Delay(retryInSeconds * 1000);

@@ -16,7 +16,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
         [FunctionName(nameof(GetSocMappingAzFunction))]
         public async static Task Run
         (
-            [TimerTrigger("0 0 4 * * *")]TimerInfo myTimer, 
+            [TimerTrigger("0 0 4 * * *")]TimerInfo myTimer,
             TraceWriter log,
             [Queue("socmapping")] IAsyncCollector<SocMapping> output,
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
@@ -35,7 +35,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
             const int maxPerMin = 100;
             foreach (var item in resultWithData)
             {
-                if(++counter % maxPerMin == 0)
+                if (++counter % maxPerMin == 0)
                 {
                     //If there are 50 added to the queue, flush the output and then wait for 1min before the next batch.
                     await output.FlushAsync();
@@ -46,7 +46,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
 
                 item.CorrelationId = correlationId;
                 //item.AccessToken = string.Empty;
-                await output.AddAsync(item);               
+                await output.AddAsync(item);
             }
 
             await auditRecord.AddAsync(new AuditRecord<string, IEnumerable<SocMapping>>

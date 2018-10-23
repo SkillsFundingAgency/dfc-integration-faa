@@ -146,6 +146,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.AuditService\DFC.Integration.AVFeed.AuditService.csproj">
+      <Project>{63CAA0FD-CD21-4CD3-92B3-F04E3D76FC33}</Project>
+      <Name>DFC.Integration.AVFeed.AuditService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFC.Integration.AVFeed.Core\DFC.Integration.AVFeed.Core.csproj">
       <Project>{26267D67-B97F-4A6F-99C6-EB23DE05BCBF}</Project>
       <Name>DFC.Integration.AVFeed.Core</Name>

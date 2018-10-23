@@ -60,7 +60,7 @@ namespace DFC.Integration.AVFeed.Service
                     var apprenticeshipVacancySummaryResponse = await GetAVSumaryPageAsync(mapping, ++pageNumber);
 
                     logger.Trace(
-                        $"Got {apprenticeshipVacancySummaryResponse?.TotalReturned} vacancies of {apprenticeshipVacancySummaryResponse?.TotalMatched} on page: {pageNumber} of {apprenticeshipVacancySummaryResponse?.TotalPages}");
+                        $"Got {apprenticeshipVacancySummaryResponse?.TotalReturned} vacancies of {apprenticeshipVacancySummaryResponse?.TotalMatched} on page: {pageNumber} of {apprenticeshipVacancySummaryResponse?.TotalPages} for SOC {mapping.SocCode}");
 
                 if (apprenticeshipVacancySummaryResponse?.Results != null)
                     avSummary.AddRange(apprenticeshipVacancySummaryResponse.Results);

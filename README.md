@@ -34,6 +34,7 @@ Once you have cloned the public repo you need to remove the .template part from 
 | DFC.Integration.AVFeed.Service.AVSoapAPI | app.config.template | app.config |
 | DFC.Integration.AVFeed.Function.GetServiceHealthStatus.Console | app.config.template | app.config |
 | DFC.Integration.AVFeed.Function.GetAVDetailsForProjected.Console | app.config.template | app.config |
+| DFC.Integration.AVFeed.Function.DeleteOrphanedAVs.Console | app.config.template | app.config |
 
 These files contain keys and other configuration that is particular to your local instance of the application.
 You will need to set these as detailed in the configuration  sections below.
@@ -120,5 +121,3 @@ https://das-prd-raa-apim.portal.azure-api.net/
     1.  **AutoMapper**
     
         *Automapper is a simple reusable component which helps you to copy data from object type to other . Please find more info on [How to use AutoMapper](http://automapper.org/)*
-
-
