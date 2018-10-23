@@ -1,4 +1,3 @@
-
 # Digital First Careers - Apprenticeship vacancy import
  
 ## Introduction
