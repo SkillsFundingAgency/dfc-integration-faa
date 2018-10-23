@@ -115,7 +115,6 @@ https://das-prd-raa-apim.portal.azure-api.net/
     
         *Autofac is an IoC container for Microsoft .NET. It manages the dependencies between classes so that applications stay easy to change as they grow in size and complexity. This is achieved by treating regular .NET classes as components.Please find more info on [How to use Autofac](https://autofac.org/)*
 
-
 * ### Entity To DTO Mapping Framework
     1.  **AutoMapper**
     
