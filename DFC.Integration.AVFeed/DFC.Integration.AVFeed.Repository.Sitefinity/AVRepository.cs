@@ -37,26 +37,47 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             logger.Info($"Deleted apprenticeship vacancy with Sitefinity Id '{Id}");
         }
 
-        public async Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails, Guid socCodeId)
+        public async Task<string> PublishAsync(ApprenticeshipVacancyDetails apprenticeshipVacancyDetails,
+            Guid socCodeId)
         {
-            //Add vacancy
-            var addedVacancyId = await repository.AddAsync(new SfApprenticeshipVacancy
+            var vacancyDuplicates = await repository.GetManyAsync(av => av.URL == apprenticeshipVacancyDetails.VacancyUrl.ToString()
+                                                           && av.URL ==
+                                                           apprenticeshipVacancyDetails.VacancyUrl.ToString()
+                                                           && av.Location ==
+                                                           $"{apprenticeshipVacancyDetails.Location.Town} {apprenticeshipVacancyDetails.Location.PostCode}"
+                                                           && av.WageUnitType ==
+                                                           GetWageUnitText(apprenticeshipVacancyDetails.WageUnit)
+                                                           && av.WageAmount == apprenticeshipVacancyDetails.WageText
+                                                           && av.Title == apprenticeshipVacancyDetails.Title
+                                                           && av.VacancyId == apprenticeshipVacancyDetails
+                                                               .VacancyReference.ToString());
+
+            var addedVacancy = vacancyDuplicates.FirstOrDefault();
+
+            if (addedVacancy == null)
             {
-                PublicationDate = DateTime.UtcNow,
-                UrlName = Guid.NewGuid().ToString(),
-                URL = apprenticeshipVacancyDetails.VacancyUrl.ToString(),
-                Location = $"{apprenticeshipVacancyDetails.Location.Town} {apprenticeshipVacancyDetails.Location.PostCode}",
-                WageUnitType = "Wage",
-                WageAmount = apprenticeshipVacancyDetails.WageText,
-                Title = apprenticeshipVacancyDetails.Title,
-                VacancyId = apprenticeshipVacancyDetails.VacancyReference.ToString(),
-            });
-            logger.Info($"Published vacancy '{apprenticeshipVacancyDetails.Title}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
+                //Add vacancy
+                addedVacancy = await repository.AddAsync(new SfApprenticeshipVacancy
+                {
+                    PublicationDate = DateTime.UtcNow,
+                    UrlName = Guid.NewGuid().ToString(),
+                    URL = apprenticeshipVacancyDetails.VacancyUrl.ToString(),
+                    Location =
+                        $"{apprenticeshipVacancyDetails.Location.Town} {apprenticeshipVacancyDetails.Location.PostCode}",
+                    WageUnitType = GetWageUnitText(apprenticeshipVacancyDetails.WageUnit),
+                    WageAmount = apprenticeshipVacancyDetails.WageText,
+                    Title = apprenticeshipVacancyDetails.Title,
+                    VacancyId = apprenticeshipVacancyDetails.VacancyReference.ToString(),
+                });
+                logger.Info(
+                    $"Published vacancy '{apprenticeshipVacancyDetails.Title}' to sitefinity for SocCode id '{socCodeId}' with UrlName '{addedVacancy.UrlName}'");
+            }
 
-            await repository.AddRelatedAsync(addedVacancyId.Id.ToString(), socCodeId);
-            logger.Info($"Added related field for vacancy '{apprenticeshipVacancyDetails.Title}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
+            await repository.AddRelatedAsync(addedVacancy.Id.ToString(), socCodeId);
+            logger.Info(
+                $"Added related field for vacancy '{apprenticeshipVacancyDetails.Title}' to sitefintiy for SocCode id '{socCodeId}' with UrlName '{addedVacancy.UrlName}'");
 
-            return addedVacancyId.UrlName;
+            return addedVacancy.UrlName;
         }
 
         public async Task<IEnumerable<OrphanedVacancySummary>> GetOrphanedApprenticeshipVacanciesAsync()
@@ -69,6 +90,13 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
                 Title = v.Title,
                 VacancyId = v.VacancyId
             });
+        }
+
+        private static string GetWageUnitText(string wageUnit)
+        {
+            return wageUnit.Equals("NotApplicable", StringComparison.InvariantCultureIgnoreCase)
+                ? string.Empty
+                : wageUnit;
         }
     }
 }
