@@ -81,6 +81,31 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
 
         }
 
+        [Theory]
+        [InlineData("Weekly", "Weekly")]
+        [InlineData("Monthly", "Monthly")]
+        [InlineData("Annually", "Annually")]
+        [InlineData("NotApplicable", "")]
+        public void PublishAsyncWageUnitTest(string wageUnitText, string expectedText)
+        {
+            //Arrange
+            var vacancyDetails = DataHelper.GetDummyApprenticeshipVacancyDetails();
+            vacancyDetails.WageUnit = wageUnitText;
+            var vacancyToPublish = DataHelper.GetDummySfApprenticeshipVacancies(1).FirstOrDefault();
+            var fakeRepo = A.Fake<IAVSitefinityOdataRepository>();
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            A.CallTo(() => fakeRepo.AddAsync(A<SfApprenticeshipVacancy>._)).Returns(vacancyToPublish);
+            var avRepository = new AVRepository(fakeRepo, fakeLogger);
+
+            //Act
+            avRepository.PublishAsync(vacancyDetails, new Guid()).GetAwaiter().GetResult();
+
+            //Assert
+            A.CallTo(() => fakeRepo.AddAsync(A<SfApprenticeshipVacancy>.That.Matches(x => x.WageUnitType.Equals(expectedText)))).MustHaveHappened();
+            A.CallTo(() => fakeRepo.AddRelatedAsync(A<string>._, A<Guid>._)).MustHaveHappened();
+
+        }
+
         [Fact]
         public void DeleteByIdAsyncTest()
         {
