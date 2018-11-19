@@ -86,6 +86,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
         [InlineData("Monthly", "Monthly")]
         [InlineData("Annually", "Annually")]
         [InlineData("NotApplicable", "")]
+        [InlineData("Unspecified", "")]
         public void PublishAsyncWageUnitTest(string wageUnitText, string expectedText)
         {
             //Arrange
