@@ -78,11 +78,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
         private static string GetWageUnitText(string wageUnit)
         {
-            if (string.IsNullOrWhiteSpace(wageUnit))
-            {
-                return string.Empty;
-            }
-            switch (wageUnit.ToUpperInvariant())
+            switch (wageUnit?.ToUpperInvariant())
             {
                 case "WEEKLY":
                 case "ANNUALLY":
