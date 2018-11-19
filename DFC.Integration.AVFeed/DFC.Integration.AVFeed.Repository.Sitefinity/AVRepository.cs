@@ -78,9 +78,16 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
         private static string GetWageUnitText(string wageUnit)
         {
-            return string.IsNullOrWhiteSpace(wageUnit) || wageUnit.Equals("NotApplicable", StringComparison.InvariantCultureIgnoreCase)
-                ? string.Empty
-                : wageUnit;
+            switch (wageUnit?.ToUpperInvariant())
+            {
+                case "WEEKLY":
+                case "ANNUALLY":
+                case "MONTHLY":
+                    return wageUnit;
+                    default:
+                        return string.Empty;
+                    
+            }
         }
     }
 }
