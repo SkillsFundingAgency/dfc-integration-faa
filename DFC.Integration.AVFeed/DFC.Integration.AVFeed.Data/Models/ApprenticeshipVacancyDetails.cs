@@ -50,6 +50,7 @@ namespace DFC.Integration.AVFeed.Data.Models
         public string FrameworkCode { get; set; }
         public string VacancyLocationType { get; set; }
         public int ResultPage { get; set; }
+        public string WageUnit { get; set; }
     }
 
 }
