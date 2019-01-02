@@ -10,7 +10,7 @@ namespace DFC.Integration.AVFeed.Function.DeleteOrphanedAVs
     public static class DeleteOrphanedAVsFunction
     {
         [FunctionName("DeleteOrphanedAVsFunction")]
-        public async static Task Run([TimerTrigger("0 30 1 * * *")]TimerInfo myTimer, 
+        public async static Task Run([TimerTrigger("0 01 2 * * *")]TimerInfo myTimer, 
             TraceWriter log,
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
