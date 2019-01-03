@@ -8,5 +8,7 @@
         public static string ApprenticeshipEndpoint => ConfigurationManager.AppSettings.Get("FAA.Endpoint");
         public static string ApprenticeshipEndpointKey=> ConfigurationManager.AppSettings.Get("FAA.PublicKey");
         public static string ExternalApplicationId => ConfigurationManager.AppSettings.Get("FAA.ExternalSystemId");
+        public static int AVFeedSecondsBetweenGetForSOC => int.Parse(ConfigurationManager.AppSettings.Get("AVFeedSecondsBetweenGetForSOC"));
+
     }
 }
