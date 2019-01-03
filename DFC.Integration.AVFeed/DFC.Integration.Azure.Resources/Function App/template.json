@@ -71,6 +71,9 @@
     },
     "FAA.SortBy": {
       "type": "string"
+    },
+    "AVFeedSecondsBetweenGetForSOC": {
+      "type": "string"
     }
   },
   "resources": [

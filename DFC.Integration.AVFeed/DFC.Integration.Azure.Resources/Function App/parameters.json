@@ -73,6 +73,9 @@
     },
     "FAA.SortBy": {
       "value": "Age"
+    },
+    "AVFeedSecondsBetweenGetForSOC": {
+      "value": "2"
     }
   }
 }
