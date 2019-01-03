@@ -39,7 +39,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
                 await output.AddAsync(item);
                 await output.FlushAsync();
                 await Task.Delay(Constants.AVFeedSecondsBetweenGetForSOC * 1000);
-                log.Info($"C# Timer trigger function executing at: {DateTime.Now} with CorrelationId:{correlationId} - Added SOC mapping to the queue total so far added {counter++} of {total} added to the queue and waiting for a minute");
+                log.Info($"C# Timer trigger function executing at: {DateTime.Now} with CorrelationId:{correlationId} - Added SOC mapping to the queue total so far added {counter++} of {total} to the queue and waiting for {Constants.AVFeedSecondsBetweenGetForSOC} seconds");
             }
 
             await auditRecord.AddAsync(new AuditRecord<string, IEnumerable<SocMapping>>
