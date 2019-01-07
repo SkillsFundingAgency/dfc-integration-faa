@@ -65,7 +65,7 @@ namespace DFC.Integration.AVFeed.Service
                 if (apprenticeshipVacancySummaryResponse?.Results != null)
                     avSummary.AddRange(apprenticeshipVacancySummaryResponse.Results);
 
-                //stop when there are no more pages or we have more then multiple supplier
+                    //stop when there are no more pages or we have more then multiple supplier
                     if (apprenticeshipVacancySummaryResponse?.TotalPages <= pageNumber ||
                         avSummary.Select(v => v.TrainingProviderName).Distinct().Count() > 1)
                         break;
