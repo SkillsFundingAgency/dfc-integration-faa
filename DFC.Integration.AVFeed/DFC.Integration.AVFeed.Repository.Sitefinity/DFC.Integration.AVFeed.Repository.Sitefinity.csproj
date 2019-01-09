@@ -71,7 +71,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeleteAvRepository.cs" />
     <Compile Include="AuthCookieService.cs" />
     <Compile Include="AutofacModule.cs" />
     <Compile Include="Base\APIContext.cs" />
