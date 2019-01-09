@@ -44,6 +44,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
                     throw new ApplicationException("Couldn't get auth cookie token. Error: " + response.StatusCode);
             }
 
+            //Testing the post by setting the cookie and it works as expected
             //var cookieContainer = new CookieContainer();
             //cookieContainer.SetCookies(BaseAddress, string.Join(", ", cookieList));
             //var result = await PostAsync(ClearRequestUrl, new StringContent("{\"itemCount\":\"12\"}", Encoding.UTF8, "application/json"));
