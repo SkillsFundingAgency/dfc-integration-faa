@@ -52,7 +52,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             cookieContainer.SetCookies(BaseAddress, string.Join(", ", cookieList));
         }
 
-        public async Task ClearAVsRecycleBin(int itemCount)
+        public async Task ClearAVsRecycleBinAsync(int itemCount)
         {
             await ConfigureCoookies();
 

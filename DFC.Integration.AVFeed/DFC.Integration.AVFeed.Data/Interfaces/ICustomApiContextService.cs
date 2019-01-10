@@ -5,6 +5,6 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface ICustomApiContextService
     {
-        Task ClearAVsRecycleBin(int itemCount);
+        Task ClearAVsRecycleBinAsync(int itemCount);
     }
 }
