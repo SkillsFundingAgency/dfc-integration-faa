@@ -54,6 +54,15 @@
     "Sitefinity.SocApiEndPoint": {
       "type": "string"
     },
+    "Sitefinity.BaseAddress": {
+      "type": "string"
+    },
+    "Sitefinity.ClearAVBinURL": {
+      "type": "string"
+    },
+    "Sitefinity.AuthCookieEndpoint": {
+      "type": "string"
+    },
     "AzureWebJobsSecretStorageType": {
       "type": "string"
     },
@@ -128,56 +137,78 @@
               "value": "[parameters('FAA.SortBy')]"
             },
             {
-              "name": "AVAuditCosmosDB",
-              "value": "[concat('AccountEndpoint=https://',parameters('AVAuditCosmosDB'),'.documents.azure.com:443/;AccountKey=',listKeys(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('AVAuditCosmosDB')), '2015-11-06').primaryMasterKey,';')]"
+              "name": "AVFeedSecondsBetweenGetForSOC",
+              "value": "[parameters('AVFeedSecondsBetweenGetForSOC')]"
             },
             {
-              "name": "Sitefinity.SocMappingEndpoint",
-              "value": "[parameters('Sitefinity.SocMappingEndpoint')]"
+              {
+                "name": "AVAuditCosmosDB",
+                "value": "[concat('AccountEndpoint=https://',parameters('AVAuditCosmosDB'),'.documents.azure.com:443/;AccountKey=',listKeys(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('AVAuditCosmosDB')), '2015-11-06').primaryMasterKey,';')]"
+              },
+              {
+                "name": "Sitefinity.SocMappingEndpoint",
+                "value": "[parameters('Sitefinity.SocMappingEndpoint')]"
+              },
+              {
+                "name": "Sitefinity.ClientId",
+                "value": "[parameters('Sitefinity.ClientId')]"
+              },
+              {
+                "name": "Sitefinity.ClientSecret",
+                "value": "[parameters('Sitefinity.ClientSecret')]"
+              },
+              {
+                "name": "Sitefinity.TokenEndpoint",
+                "value": "[parameters('Sitefinity.TokenEndpoint')]"
+              },
+              {
+                "name": "Sitefinity.Username",
+                "value": "[parameters('Sitefinity.Username')]"
+              },
+              {
+                "name": "Sitefinity.Password",
+                "value": "[parameters('Sitefinity.Password')]"
+              },
+              {
+                "name": "Sitefinity.Scopes",
+                "value": "[parameters('Sitefinity.Scopes')]"
+              },
+              {
+                "name": "Sitefinity.AVApiEndPoint",
+                "value": "[parameters('Sitefinity.AVApiEndPoint')]"
+              },
+              {
+                "name": "Sitefinity.SocApiEndPoint",
+                "value": "[parameters('Sitefinity.SocApiEndPoint')]"
+              },
+              {
+                "name": "Sitefinity.BaseAddress",
+                "value": "[parameters('Sitefinity.BaseAddress')]"
+              },
+              {
+                "name": "Sitefinity.ClearAVBinURL",
+                "value": "[parameters('Sitefinity.ClearAVBinURL')]"
+              },
+              {
+                "name": "Sitefinity.AuthCookieEndpoint",
+                "value": "[parameters('Sitefinity.AuthCookieEndpoint')]"
+              },
+              {
+                "name": "AzureWebJobsSecretStorageType",
+                "value": "[parameters('AzureWebJobsSecretStorageType')]"
+              },
+
+              "alwaysOn",
+              true
             },
-            {
-              "name": "Sitefinity.ClientId",
-              "value": "[parameters('Sitefinity.ClientId')]"
-            },
-            {
-              "name": "Sitefinity.ClientSecret",
-              "value": "[parameters('Sitefinity.ClientSecret')]"
-            },
-            {
-              "name": "Sitefinity.TokenEndpoint",
-              "value": "[parameters('Sitefinity.TokenEndpoint')]"
-            },
-            {
-              "name": "Sitefinity.Username",
-              "value": "[parameters('Sitefinity.Username')]"
-            },
-            {
-              "name": "Sitefinity.Password",
-              "value": "[parameters('Sitefinity.Password')]"
-            },
-            {
-              "name": "Sitefinity.Scopes",
-              "value": "[parameters('Sitefinity.Scopes')]"
-            },
-            {
-              "name": "Sitefinity.AVApiEndPoint",
-              "value": "[parameters('Sitefinity.AVApiEndPoint')]"
-            },
-            {
-              "name": "Sitefinity.SocApiEndPoint",
-              "value": "[parameters('Sitefinity.SocApiEndPoint')]"
-            },
-            {
-              "name": "AzureWebJobsSecretStorageType",
-              "value": "[parameters('AzureWebJobsSecretStorageType')]"
-            }
-          ],
-          "alwaysOn": true
-        },
-        "name": "[parameters('functionName')]",
-        "clientAffinityEnabled": false,
-        "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
-        "hostingEnvironment": "[parameters('hostingEnvironment')]"
+            "name",
+            "[parameters('functionName')]",
+            "clientAffinityEnabled",
+            false,
+            "serverFarmId",
+            "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+            "hostingEnvironment",
+            "[parameters('hostingEnvironment')]"
       },
       "apiVersion": "2016-03-01",
       "location": "[parameters('location')]",

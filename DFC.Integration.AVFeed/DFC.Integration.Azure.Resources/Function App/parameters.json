@@ -56,8 +56,17 @@
     "Sitefinity.SocApiEndPoint": {
       "value": "__appSettingSitefinitySocApiEndPoint__"
     },
+    "Sitefinity.BaseAddress": {
+      "value": "__appSettingSitefinitySitefinityBaseAddress__"
+    },
+    "Sitefinity.ClearAVBinURL": {
+      "value": "__appSettingSitefinitySitefinityClearAVBinURL__"
+    },
+    "Sitefinity.AuthCookieEndpoint": {
+      "value": "__appSettingSitefinitySitefinityAuthCookieEndpoint__"
+    },
     "AzureWebJobsSecretStorageType": {
-      "value": "__appSettingAzureWebJobsSecretStorageType__"
+       "value": "__appSettingAzureWebJobsSecretStorageType__"
     },
     "FAA.URL": {
       "value": "__faaurl__"
