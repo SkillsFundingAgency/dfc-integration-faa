@@ -89,6 +89,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVfeed.Func
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVFeed.Function.ClearRecycleBin.Console", "DFC.Integration.AVFeed.Function.ClearRecycleBin.Console\DFC.Integration.AVFeed.Function.ClearRecycleBin.Console.csproj", "{1765A0CE-F06E-40C4-BA27-987762673858}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFC.Integration.AVfeed.Function.ClearRecycleBinTests", "DFC.Intergration.AVfeed.Function.ClearRecycleBinTests\DFC.Integration.AVfeed.Function.ClearRecycleBinTests.csproj", "{9B08A55E-2DE8-4129-809A-F7E3F89AE729}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -215,6 +217,10 @@ Global
 		{1765A0CE-F06E-40C4-BA27-987762673858}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1765A0CE-F06E-40C4-BA27-987762673858}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1765A0CE-F06E-40C4-BA27-987762673858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B08A55E-2DE8-4129-809A-F7E3F89AE729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B08A55E-2DE8-4129-809A-F7E3F89AE729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B08A55E-2DE8-4129-809A-F7E3F89AE729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B08A55E-2DE8-4129-809A-F7E3F89AE729}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,6 +258,7 @@ Global
 		{56F0AB95-02F3-43BB-B01C-E0297F5DAEE1} = {C46D76C3-1361-498A-A771-4746EB222F56}
 		{F8E2C636-944C-4930-BC4F-D4369A14C109} = {6DEC99B1-8B5C-4EC7-BEF4-6CC8541B1ACE}
 		{1765A0CE-F06E-40C4-BA27-987762673858} = {AB965242-DE31-480A-8951-BD1F33F12974}
+		{9B08A55E-2DE8-4129-809A-F7E3F89AE729} = {C46D76C3-1361-498A-A771-4746EB222F56}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0D17034-364D-415F-8261-8ED9ED37CE86}
