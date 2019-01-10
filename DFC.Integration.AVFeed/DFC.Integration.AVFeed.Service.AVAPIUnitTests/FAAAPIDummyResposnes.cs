@@ -48,5 +48,34 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 
             return JsonConvert.SerializeObject(r);
         }
+
+        public static string GetDummyApprenticeshipVacancySummaryResponseSameProvider(int currentPage, int totalPages)
+        {
+            var numberOnPage = 5;
+            var r = new ApprenticeshipVacancySummaryResponse
+            {
+                CurrentPage = currentPage,
+                TotalMatched = 10,
+                TotalPages = totalPages,
+                TotalReturned = numberOnPage
+            };
+
+            var recordsToReturn = new List<ApprenticeshipVacancySummary>();
+
+            for (var ii = 0; ii < numberOnPage; ii++)
+            {
+                recordsToReturn.Add(new ApprenticeshipVacancySummary
+                {
+                    VacancyReference = ii,
+                    Title = $"Title {ii}",
+                    TrainingProviderName = $"SameProvider"
+                });
+            }
+
+            r.Results = recordsToReturn.ToArray();
+
+            return JsonConvert.SerializeObject(r);
+        }
+
     }
 }
