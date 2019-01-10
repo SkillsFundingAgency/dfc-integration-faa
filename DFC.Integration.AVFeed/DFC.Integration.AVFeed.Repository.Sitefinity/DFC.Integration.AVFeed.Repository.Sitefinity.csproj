@@ -71,7 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthCookieService.cs" />
+    <Compile Include="CustomApiContextService.cs" />
     <Compile Include="AutofacModule.cs" />
     <Compile Include="Base\APIContext.cs" />
     <Compile Include="Base\AVSitefinityRepoEndpointConfig.cs" />

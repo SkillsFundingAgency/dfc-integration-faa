@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace DFC.Integration.AVFeed.Data.Interfaces
 {
-    public interface IAuthCookieService
+    public interface ICustomApiContextService
     {
-        Task<string> GetAuthCookieAsync();
+        Task ClearAVsRecycleBin(int itemCount);
     }
 }
