@@ -73,10 +73,8 @@
   <ItemGroup>
     <Compile Include="CustomApiContextService.cs" />
     <Compile Include="AutofacModule.cs" />
-    <Compile Include="Base\APIContext.cs" />
     <Compile Include="Base\AVSitefinityRepoEndpointConfig.cs" />
     <Compile Include="Base\AVSitefinityRepository.cs" />
-    <Compile Include="Base\IAPIContext.cs" />
     <Compile Include="Base\IAVSitefinityOdataRepository.cs" />
     <Compile Include="Base\IOdataContext.cs" />
     <Compile Include="Base\IRepoEndpointConfig.cs" />
