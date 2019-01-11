@@ -12,7 +12,6 @@ namespace DFC.Integration.AVfeed.Function.ClearRecycleBinTests
         public async void ClearRecycleBinAsyncTest()
         {
             //Setup
-            var fakeCustomSitefinityAPIs = A.Fake<ICustomSitefinityAPIs>();
             var fakeCustomApiContextService = A.Fake<ICustomApiContextService>();
             var fakeTokenClient = A.Fake<ITokenClient>();
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
@@ -20,7 +19,7 @@ namespace DFC.Integration.AVfeed.Function.ClearRecycleBinTests
 
             //A.CallTo(() => fakeCustomApiContextService.ClearAVsRecycleBinAsync()).
          
-            var clearRecycleBin = new ClearRecycleBin(fakeCustomSitefinityAPIs, fakeApplicationLogger, fakeAuditService, fakeCustomApiContextService);
+            var clearRecycleBin = new ClearRecycleBin(fakeApplicationLogger, fakeAuditService, fakeCustomApiContextService);
 
             //Act
             await clearRecycleBin.ClearRecycleBinAsync();
