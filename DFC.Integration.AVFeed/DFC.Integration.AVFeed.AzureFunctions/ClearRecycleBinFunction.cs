@@ -10,7 +10,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
     public static class ClearRecycleBinFunction
     {
         [FunctionName("ClearRecycleBinFunction")]
-        public async static Task Run([TimerTrigger("0 00 4 * * *")]TimerInfo myTimer,
+        public static void Run([TimerTrigger("0 00 4 * * *")]TimerInfo myTimer,
          TraceWriter log,
          [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
@@ -21,7 +21,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
             Function.Common.ConfigureLog.ConfigureNLogWithAppInsightsTarget();
             log.Info($"ClearRecycleBinFunction Timer trigger function executed at: {startDate} with CorrelationId:{correlationId}");
 
-            await Startup.RunAsync(RunMode.Azure, auditRecord, new AuditRecord<object, object>
+            Startup.Run(RunMode.Azure, auditRecord, new AuditRecord<object, object>
             {
                 CorrelationId = correlationId,
                 StartedAt = startDate,

@@ -26,16 +26,16 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
         }
 
 
-        public static async Task RunAsync(RunMode mode)
+        public static void Run(RunMode mode)
         {
-            await RunAsync(mode, null, null);
+            Run(mode, null, null);
         }
 
-        public static async Task RunAsync(RunMode mode, IAsyncCollector<AuditRecord<object, object>> asyncCollector, AuditRecord<object, object> masterRecord)
+        public static void Run(RunMode mode, IAsyncCollector<AuditRecord<object, object>> asyncCollector, AuditRecord<object, object> masterRecord)
         {
             var container = ConfigureContainer(mode, asyncCollector, masterRecord);
             var clearRecycleBin = container.Resolve<IClearRecycleBin>();
-            await clearRecycleBin.ClearRecycleBinAsync();
+            clearRecycleBin.ClearRecycleBinAsync();
         }
       
     }
