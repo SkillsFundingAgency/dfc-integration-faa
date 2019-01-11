@@ -7,7 +7,7 @@
             "CollectionName": "AuditRecords",
             "OfferThroughput": __AVFeedAuditAuditRecordsRu__,
             "StoredProcedures": [],
-            "DefaultTtl": 2592000,
+            "DefaultTtl": 1296000,
             "IndexingPolicy": {
               "indexingMode": "consistent",
               "automatic": true,
@@ -65,7 +65,7 @@
             "CollectionName": "ServiceHealthStatus",
             "OfferThroughput": __AVFeedAuditServiceHealthStatusRu__,
             "StoredProcedures": [],
-            "DefaultTtl": 2592000,
+            "DefaultTtl": 1296000,
             "IndexingPolicy": {
               "indexingMode": "consistent",
               "automatic": true,
@@ -102,7 +102,7 @@
             "CollectionName": "AuditRecords",
             "OfferThroughput": __CourseSearchAuditRecordsRu__,
             "StoredProcedures": [],
-            "DefaultTtl": 2592000,
+            "DefaultTtl": 1296000,
             "IndexingPolicy": {
               "indexingMode": "consistent",
               "automatic": true,
