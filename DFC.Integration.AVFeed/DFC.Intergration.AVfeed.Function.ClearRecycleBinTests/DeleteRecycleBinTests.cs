@@ -16,8 +16,6 @@ namespace DFC.Integration.AVfeed.Function.ClearRecycleBinTests
             var fakeTokenClient = A.Fake<ITokenClient>();
             var fakeApplicationLogger = A.Fake<IApplicationLogger>();
             var fakeAuditService = A.Fake<IAuditService>();
-
-            //A.CallTo(() => fakeCustomApiContextService.ClearAVsRecycleBinAsync()).
          
             var clearRecycleBin = new ClearRecycleBin(fakeApplicationLogger, fakeAuditService, fakeCustomApiContextService);
 
