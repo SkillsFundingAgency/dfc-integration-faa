@@ -37,14 +37,14 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
             DefaultRequestHeaders.Add(AuthorizationHeaderName, $"{BearerHeaderName} {accessToken}");
 
-            applicationLogger.Info($"Start - Auth Cookie endpoint {AuthCookieEndpoint} called.");
+            applicationLogger.Trace($"Start - Auth Cookie endpoint {AuthCookieEndpoint} called.");
 
             var response = await GetAsync(new Uri(AuthCookieEndpoint));
             response.Headers.TryGetValues(CookieHeaderName, out var cookies);
             var cookieList = cookies as IList<string> ?? cookies.ToList();
             if (!cookieList.Any())
             {
-                applicationLogger.Info(
+                applicationLogger.Trace(
                     $"Auth Cookie client {AuthCookieEndpoint} called failed with error {response.StatusCode}.");
                 throw new ApplicationException("Couldn't get auth cookie token. Error: " + response.StatusCode);
             }
@@ -52,14 +52,11 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             cookieContainer.SetCookies(BaseAddress, string.Join(", ", cookieList));
         }
 
-        public async Task ClearAVsRecycleBinAsync(int itemCount)
+        public async Task ClearSomeAVsRecycleBinRecordsAsync(int itemCount)
         {
             await ConfigureCoookies();
-
             applicationLogger.Info($"Start - ClearAVsRecycleBin {ClearRequestUrl} called with {itemCount} items");
-
             var result = await PostAsync(ClearRequestUrl, new StringContent("{\"itemCount\":\""+ itemCount+"\"}", Encoding.UTF8, "application/json"));
-
             applicationLogger.Info($"End - ClearAVsRecycleBin {ClearRequestUrl} called with {itemCount} items: Result was {result.StatusCode}");
         }
     }

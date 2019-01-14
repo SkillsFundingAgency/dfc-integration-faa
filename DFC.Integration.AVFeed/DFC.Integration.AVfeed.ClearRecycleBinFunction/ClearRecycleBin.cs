@@ -29,7 +29,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
             for (int ii = 0; ii < RecycleBinClearRequestLoops; ii++)
             {
                 logger.Info($"About to request delete of {RecycleBinClearBatchSize} vacancies from the recycle bin");
-                customApiContextService.ClearAVsRecycleBinAsync(RecycleBinClearBatchSize);
+                customApiContextService.ClearSomeAVsRecycleBinRecordsAsync(RecycleBinClearBatchSize);
                 auditService.AuditAsync($"Deleted upto {RecycleBinClearBatchSize} vacancies from the recycle bin");
             }
             logger.Info("Completed deleting vacancies from the recycle bin");

@@ -26,7 +26,7 @@ namespace DFC.Integration.AVfeed.Function.ClearRecycleBinTests
             clearRecycleBin.ClearRecycleBinAVs();
 
             //Asserts
-            A.CallTo(() => fakeCustomApiContextService.ClearAVsRecycleBinAsync(RecycleBinClearBatchSize)).MustHaveHappened(RecycleBinClearRequestLoops, Times.Exactly);
+            A.CallTo(() => fakeCustomApiContextService.ClearSomeAVsRecycleBinRecordsAsync(RecycleBinClearBatchSize)).MustHaveHappened(RecycleBinClearRequestLoops, Times.Exactly);
             A.CallTo(() => fakeAuditService.AuditAsync(A<string>._, A<string>._)).MustHaveHappened(RecycleBinClearRequestLoops, Times.Exactly);
 
         }
