@@ -32,7 +32,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
             {
                 logger.Trace($"About to request delete of {RecycleBinClearBatchSize} vacancies from the recycle bin");
                 continueDeleting =  await customApiContextService.DeleteAVsRecycleBinRecordsAsync(RecycleBinClearBatchSize);
-                await auditService.AuditAsync($"Deleted {RecycleBinClearBatchSize} vacancies from the recycle bin return status {continueDeleting}.");
+                logger.Trace($"Deleted {RecycleBinClearBatchSize} vacancies from the recycle bin return status {continueDeleting}.");
             }
             logger.Trace("Completed deleting all vacancies from the recycle bin");
         }
