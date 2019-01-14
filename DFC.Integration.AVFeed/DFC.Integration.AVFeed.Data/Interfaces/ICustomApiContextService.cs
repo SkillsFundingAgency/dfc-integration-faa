@@ -6,6 +6,6 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface ICustomApiContextService
     {
-        Task<HttpStatusCode> DeleteAVsRecycleBinRecordsAsync(int itemCount);
+        Task<HttpStatusCode> DeleteAVsRecycleBinRecordsAsync(int numberToDelete);
     }
 }

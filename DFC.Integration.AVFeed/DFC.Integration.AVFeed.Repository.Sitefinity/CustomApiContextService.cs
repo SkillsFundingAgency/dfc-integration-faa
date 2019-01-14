@@ -55,16 +55,16 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             CookiesConfigured = true;
         }
 
-        public async Task<HttpStatusCode> DeleteAVsRecycleBinRecordsAsync(int itemCount)
+        public async Task<HttpStatusCode> DeleteAVsRecycleBinRecordsAsync(int numberToDelete)
         {
             if (!CookiesConfigured)
             {
                 await ConfigureCoookies();
             }
 
-            applicationLogger.Info($"Start - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {itemCount} items");
-            var result = await PostAsync(customApiConfig.GetClearRequestUrl(), new StringContent("{\"itemCount\":\""+ itemCount+"\"}", Encoding.UTF8, "application/json"));
-            applicationLogger.Info($"End - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {itemCount} items: Result was {result.StatusCode}");
+            applicationLogger.Info($"Start - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {numberToDelete} items");
+            var result = await PostAsync(customApiConfig.GetClearRequestUrl(), new StringContent("{\"itemCount\":\""+ numberToDelete+"\"}", Encoding.UTF8, "application/json"));
+            applicationLogger.Info($"End - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {numberToDelete} items: Result was {result.StatusCode}");
             return result.StatusCode;
         }
     }
