@@ -14,7 +14,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin.Console
             Console.WriteLine("=================THE BEGINNING==============");
             try
             {
-                Startup.Run(RunMode.Console);
+                Startup.RunAsync(RunMode.Console).GetAwaiter().GetResult();
             }
             catch (Exception ex)
             {

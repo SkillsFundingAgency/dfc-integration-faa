@@ -4,6 +4,6 @@ namespace DFC.Integration.AVFeed.Data.Interfaces
 {
     public interface IClearRecycleBin
     {
-        void ClearRecycleBinAVs();
+        Task ClearRecycleBinAsync();
     }
 }
