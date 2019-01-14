@@ -65,8 +65,11 @@
     "Sitefinity.AuthCookieEndpoint": {
       "value": "__appSettingSitefinitySitefinityAuthCookieEndpoint__"
     },
+    "Sitefinity.RecycleBinClearBatchSize": {
+      "value": "200"
+    },
     "AzureWebJobsSecretStorageType": {
-       "value": "__appSettingAzureWebJobsSecretStorageType__"
+      "value": "__appSettingAzureWebJobsSecretStorageType__"
     },
     "FAA.URL": {
       "value": "__faaurl__"

@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using DFC.Integration.AVFeed.Data.Interfaces;
+using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
 
 namespace DFC.Integration.AVFeed.Repository.Sitefinity
 {
@@ -15,19 +16,20 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         private const string CookieHeaderName = "Set-Cookie";
         private const string AuthorizationHeaderName = "Authorization";
         private const string BearerHeaderName = "Bearer";
-        private static readonly Uri ClearRequestUrl = new Uri(ConfigurationManager.AppSettings.Get("Sitefinity.ClearAVBinURL"));
-        private static string BaseAddressUrl => ConfigurationManager.AppSettings.Get("Sitefinity.BaseAddress");
-        private static string AuthCookieEndpoint => ConfigurationManager.AppSettings.Get("Sitefinity.AuthCookieEndpoint");
-
+       
         private readonly CookieContainer cookieContainer;
         private readonly IApplicationLogger applicationLogger;
         private readonly ITokenClient tokenClient;
+        private readonly ICustomApiConfig customApiConfig;
 
-        public CustomApiContextService(IApplicationLogger applicationLogger, ITokenClient tokenClient)
+        private bool CookiesConfigured = false;
+
+        public CustomApiContextService(IApplicationLogger applicationLogger, ITokenClient tokenClient, ICustomApiConfig customApiConfig)
         {
             this.applicationLogger = applicationLogger;
             this.tokenClient = tokenClient;
-            BaseAddress = new Uri(BaseAddressUrl);
+            this.customApiConfig = customApiConfig;
+            BaseAddress = customApiConfig.GetBaseAddressUrl();
             cookieContainer = new CookieContainer();
         }
 
@@ -37,27 +39,33 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
             DefaultRequestHeaders.Add(AuthorizationHeaderName, $"{BearerHeaderName} {accessToken}");
 
-            applicationLogger.Trace($"Start - Auth Cookie endpoint {AuthCookieEndpoint} called.");
+            applicationLogger.Trace($"Start - Auth Cookie endpoint {customApiConfig.GetAuthCookieEndpoint().OriginalString} called.");
 
-            var response = await GetAsync(new Uri(AuthCookieEndpoint));
+            var response = await GetAsync(customApiConfig.GetAuthCookieEndpoint());
             response.Headers.TryGetValues(CookieHeaderName, out var cookies);
             var cookieList = cookies as IList<string> ?? cookies.ToList();
             if (!cookieList.Any())
             {
                 applicationLogger.Trace(
-                    $"Auth Cookie client {AuthCookieEndpoint} called failed with error {response.StatusCode}.");
+                    $"Auth Cookie client {customApiConfig.GetAuthCookieEndpoint().OriginalString} called failed with error {response.StatusCode}.");
                 throw new ApplicationException("Couldn't get auth cookie token. Error: " + response.StatusCode);
             }
             
             cookieContainer.SetCookies(BaseAddress, string.Join(", ", cookieList));
+            CookiesConfigured = true;
         }
 
-        public async Task ClearSomeAVsRecycleBinRecordsAsync(int itemCount)
+        public async Task<HttpStatusCode> DeleteAVsRecycleBinRecordsAsync(int itemCount)
         {
-            await ConfigureCoookies();
-            applicationLogger.Info($"Start - ClearAVsRecycleBin {ClearRequestUrl} called with {itemCount} items");
-            var result = await PostAsync(ClearRequestUrl, new StringContent("{\"itemCount\":\""+ itemCount+"\"}", Encoding.UTF8, "application/json"));
-            applicationLogger.Info($"End - ClearAVsRecycleBin {ClearRequestUrl} called with {itemCount} items: Result was {result.StatusCode}");
+            if (!CookiesConfigured)
+            {
+                await ConfigureCoookies();
+            }
+
+            applicationLogger.Info($"Start - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {itemCount} items");
+            var result = await PostAsync(customApiConfig.GetClearRequestUrl(), new StringContent("{\"itemCount\":\""+ itemCount+"\"}", Encoding.UTF8, "application/json"));
+            applicationLogger.Info($"End - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {itemCount} items: Result was {result.StatusCode}");
+            return result.StatusCode;
         }
     }
 }

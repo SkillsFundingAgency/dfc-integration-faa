@@ -91,6 +91,10 @@
       <Project>{dcc9ece1-41f0-4844-b7ac-7537e55982c9}</Project>
       <Name>DFC.Integration.AVFeed.Function.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFC.Integration.AVFeed.Repository.Sitefinity\DFC.Integration.AVFeed.Repository.Sitefinity.csproj">
+      <Project>{D4925E0B-ED6B-4CAA-9F4F-66DE9D2F68AB}</Project>
+      <Name>DFC.Integration.AVFeed.Repository.Sitefinity</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />

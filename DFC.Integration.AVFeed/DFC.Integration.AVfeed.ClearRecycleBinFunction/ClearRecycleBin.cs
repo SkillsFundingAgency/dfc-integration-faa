@@ -1,5 +1,8 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Data.Models;
+using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
+using System.Configuration;
+using System.Net;
 using System.Threading.Tasks;
 
 
@@ -10,25 +13,28 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
         private readonly ICustomApiContextService customApiContextService;
         private readonly IApplicationLogger logger;
         private readonly IAuditService auditService;
-        private readonly int numberToClear = 20;
+        private readonly ICustomApiConfig customApiConfig;
 
-        public ClearRecycleBin(IApplicationLogger logger, IAuditService auditService, ICustomApiContextService customApiContextService)
+        public ClearRecycleBin(IApplicationLogger logger, IAuditService auditService, ICustomApiContextService customApiContextService, ICustomApiConfig customApiConfig)
         {
             this.logger = logger;
             this.auditService = auditService;
             this.customApiContextService = customApiContextService;
+            this.customApiConfig = customApiConfig;
         }
 
         public async Task ClearRecycleBinAsync()
         {
-            logger.Info($"About to clear recycle bin with a batch size of {RecycleBinClearBatchSize} over {RecycleBinClearRequestLoops} requests ");
-            for (int ii = 0; ii < RecycleBinClearRequestLoops; ii++)
+            var RecycleBinClearBatchSize = customApiConfig.GetRecycleBinClearBatchSize();
+            logger.Info($"About to clear all vacancies from the recycle bin with a batch size of {RecycleBinClearBatchSize}");
+            var continueDeleting = HttpStatusCode.Continue;
+            while (continueDeleting == HttpStatusCode.Continue)
             {
                 logger.Info($"About to request delete of {RecycleBinClearBatchSize} vacancies from the recycle bin");
-                customApiContextService.ClearSomeAVsRecycleBinRecordsAsync(RecycleBinClearBatchSize);
-                auditService.AuditAsync($"Deleted upto {RecycleBinClearBatchSize} vacancies from the recycle bin");
+                continueDeleting =  await customApiContextService.DeleteAVsRecycleBinRecordsAsync(RecycleBinClearBatchSize);
+                await auditService.AuditAsync($"Deleted {RecycleBinClearBatchSize} vacancies from the recycle bin return status {continueDeleting}.");
             }
-            logger.Info("Completed deleting vacancies from the recycle bin");
+            logger.Info("Completed deleting all vacancies from the recycle bin");
         }
     }
 }

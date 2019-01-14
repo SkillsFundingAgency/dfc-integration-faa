@@ -63,6 +63,9 @@
     "Sitefinity.AuthCookieEndpoint": {
       "type": "string"
     },
+    "Sitefinity.RecycleBinClearBatchSize": {
+      "type": "string"
+    },
     "AzureWebJobsSecretStorageType": {
       "type": "string"
     },
@@ -191,6 +194,10 @@
             {
               "name": "Sitefinity.AuthCookieEndpoint",
               "value": "[parameters('Sitefinity.AuthCookieEndpoint')]"
+            },
+            {
+              "name": "Sitefinity.RecycleBinClearBatchSize",
+              "value": "[parameters('Sitefinity.RecycleBinClearBatchSize')]"
             },
             {
               "name": "AzureWebJobsSecretStorageType",
