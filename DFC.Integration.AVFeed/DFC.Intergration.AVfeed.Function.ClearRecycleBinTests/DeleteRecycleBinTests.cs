@@ -24,7 +24,7 @@ namespace DFC.Integration.AVfeed.Function.ClearRecycleBinTests
           
             A.CallTo(() => fakeCustomApiConfig.GetRecycleBinClearBatchSize()).Returns(recycleBinClearBatchSize);
 
-            A.CallTo(() => fakeCustomApiContextService.DeleteAVsRecycleBinRecordsAsync(A<int>._)).Returns(HttpStatusCode.Continue).NumberOfTimes(numberRequestRequiredToClear).Then.Returns(HttpStatusCode.OK);
+            A.CallTo(() => fakeCustomApiContextService.DeleteAVsRecycleBinRecordsAsync(A<int>._)).Returns(HttpStatusCode.PartialContent).NumberOfTimes(numberRequestRequiredToClear).Then.Returns(HttpStatusCode.OK);
 
             var clearRecycleBin = new ClearRecycleBin(fakeApplicationLogger, fakeAuditService, fakeCustomApiContextService, fakeCustomApiConfig);
 

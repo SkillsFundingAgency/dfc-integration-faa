@@ -27,8 +27,8 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
         {
             var RecycleBinClearBatchSize = customApiConfig.GetRecycleBinClearBatchSize();
             logger.Trace($"About to clear all vacancies from the recycle bin with a batch size of {RecycleBinClearBatchSize}");
-            var continueDeleting = HttpStatusCode.Continue;
-            while (continueDeleting == HttpStatusCode.Continue)
+            var continueDeleting = HttpStatusCode.PartialContent;
+            while (continueDeleting == HttpStatusCode.PartialContent)
             {
                 logger.Trace($"About to request delete of {RecycleBinClearBatchSize} vacancies from the recycle bin");
                 continueDeleting =  await customApiContextService.DeleteAVsRecycleBinRecordsAsync(RecycleBinClearBatchSize);
