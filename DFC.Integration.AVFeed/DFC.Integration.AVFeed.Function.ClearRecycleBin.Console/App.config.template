@@ -13,6 +13,7 @@
     <add key="Sitefinity.BaseAddress" value="__appSettingSitefinitySitefinityBaseAddress__" />
     <add key="Sitefinity.ClearAVBinURL" value="__appSettingSitefinitySitefinityClearAVBinURL__" />
     <add key="Sitefinity.AuthCookieEndpoint" value="__appSettingSitefinitySitefinityAuthCookieEndpoint__" />
+    <add key="Sitefinity.RecycleBinClearBatchSize" value="200" />
   </appSettings>
   <runtime>
   </runtime>
