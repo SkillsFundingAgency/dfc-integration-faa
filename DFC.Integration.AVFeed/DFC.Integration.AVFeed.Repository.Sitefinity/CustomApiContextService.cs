@@ -66,10 +66,11 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
 
             applicationLogger.Trace($"Start - ClearAVsRecycleBin {ClearRequestUrl.OriginalString} called with {numberToDelete} items");
-            var result = await PostAsync(ClearRequestUrl, new StringContent("{\"itemCount\":\""+ numberToDelete+"\"}", Encoding.UTF8, "application/json"));
+            var deleteUri = $"{ClearRequestUrl}?count={numberToDelete}";
+            var result = await DeleteAsync(deleteUri);
             applicationLogger.Trace($"End - ClearAVsRecycleBin {ClearRequestUrl.OriginalString} called with {numberToDelete} items: Result was {result.StatusCode}");
 
-            if (result.StatusCode != HttpStatusCode.OK || result.StatusCode != HttpStatusCode.Continue)
+            if (result.StatusCode != HttpStatusCode.OK || result.StatusCode != HttpStatusCode.PartialContent)
             {
                 applicationLogger.Error($"Got unexpected response code {result.StatusCode} - {result.ReasonPhrase} from ClearAVsRecycleBin API request", null);
             }
