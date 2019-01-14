@@ -9,7 +9,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
 {
     public class CustomApiConfig : ICustomApiConfig
     {
-        public Uri GetAuthCookieEndpoint() => new Uri(ConfigurationManager.AppSettings.Get("Sitefinity.AuthCookieEndpoint"));
+        public Uri GetAuthCookieEndpointUrl() => new Uri(ConfigurationManager.AppSettings.Get("Sitefinity.AuthCookieEndpoint"));
     
         public Uri  GetBaseAddressUrl() => new Uri(ConfigurationManager.AppSettings.Get("Sitefinity.BaseAddress"));
        

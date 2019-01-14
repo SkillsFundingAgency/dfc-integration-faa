@@ -36,18 +36,19 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         private async Task ConfigureCoookies()
         {
             var accessToken = await tokenClient.GetAccessTokenAsync();
+            var authCookieEndpointUrl = customApiConfig.GetAuthCookieEndpointUrl();
 
             DefaultRequestHeaders.Add(AuthorizationHeaderName, $"{BearerHeaderName} {accessToken}");
 
-            applicationLogger.Trace($"Start - Auth Cookie endpoint {customApiConfig.GetAuthCookieEndpoint().OriginalString} called.");
+            applicationLogger.Trace($"Start - Auth Cookie endpoint {authCookieEndpointUrl.OriginalString} called.");
 
-            var response = await GetAsync(customApiConfig.GetAuthCookieEndpoint());
+            var response = await GetAsync(authCookieEndpointUrl);
             response.Headers.TryGetValues(CookieHeaderName, out var cookies);
             var cookieList = cookies as IList<string> ?? cookies.ToList();
             if (!cookieList.Any())
             {
                 applicationLogger.Trace(
-                    $"Auth Cookie client {customApiConfig.GetAuthCookieEndpoint().OriginalString} called failed with error {response.StatusCode}.");
+                    $"Auth Cookie client {authCookieEndpointUrl.OriginalString} called failed with error {response.StatusCode}.");
                 throw new ApplicationException("Couldn't get auth cookie token. Error: " + response.StatusCode);
             }
             
@@ -57,14 +58,22 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
 
         public async Task<HttpStatusCode> DeleteAVsRecycleBinRecordsAsync(int numberToDelete)
         {
+            var ClearRequestUrl = customApiConfig.GetClearRequestUrl();
+
             if (!CookiesConfigured)
             {
                 await ConfigureCoookies();
             }
 
-            applicationLogger.Info($"Start - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {numberToDelete} items");
-            var result = await PostAsync(customApiConfig.GetClearRequestUrl(), new StringContent("{\"itemCount\":\""+ numberToDelete+"\"}", Encoding.UTF8, "application/json"));
-            applicationLogger.Info($"End - ClearAVsRecycleBin {customApiConfig.GetClearRequestUrl().OriginalString} called with {numberToDelete} items: Result was {result.StatusCode}");
+            applicationLogger.Trace($"Start - ClearAVsRecycleBin {ClearRequestUrl.OriginalString} called with {numberToDelete} items");
+            var result = await PostAsync(ClearRequestUrl, new StringContent("{\"itemCount\":\""+ numberToDelete+"\"}", Encoding.UTF8, "application/json"));
+            applicationLogger.Trace($"End - ClearAVsRecycleBin {ClearRequestUrl.OriginalString} called with {numberToDelete} items: Result was {result.StatusCode}");
+
+            if (result.StatusCode != HttpStatusCode.OK || result.StatusCode != HttpStatusCode.Continue)
+            {
+                applicationLogger.Error($"Got unexpected response code {result.StatusCode} - {result.ReasonPhrase} from ClearAVsRecycleBin API request", null);
+            }
+
             return result.StatusCode;
         }
     }
