@@ -54,6 +54,18 @@
     "Sitefinity.SocApiEndPoint": {
       "type": "string"
     },
+    "Sitefinity.BaseAddress": {
+      "type": "string"
+    },
+    "Sitefinity.ClearAVBinURL": {
+      "type": "string"
+    },
+    "Sitefinity.AuthCookieEndpoint": {
+      "type": "string"
+    },
+    "Sitefinity.RecycleBinClearBatchSize": {
+      "type": "string"
+    },
     "AzureWebJobsSecretStorageType": {
       "type": "string"
     },
@@ -128,6 +140,10 @@
               "value": "[parameters('FAA.SortBy')]"
             },
             {
+              "name": "AVFeedSecondsBetweenGetForSOC",
+              "value": "[parameters('AVFeedSecondsBetweenGetForSOC')]"
+            },
+            {
               "name": "AVAuditCosmosDB",
               "value": "[concat('AccountEndpoint=https://',parameters('AVAuditCosmosDB'),'.documents.azure.com:443/;AccountKey=',listKeys(resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('AVAuditCosmosDB')), '2015-11-06').primaryMasterKey,';')]"
             },
@@ -166,6 +182,22 @@
             {
               "name": "Sitefinity.SocApiEndPoint",
               "value": "[parameters('Sitefinity.SocApiEndPoint')]"
+            },
+            {
+              "name": "Sitefinity.BaseAddress",
+              "value": "[parameters('Sitefinity.BaseAddress')]"
+            },
+            {
+              "name": "Sitefinity.ClearAVBinURL",
+              "value": "[parameters('Sitefinity.ClearAVBinURL')]"
+            },
+            {
+              "name": "Sitefinity.AuthCookieEndpoint",
+              "value": "[parameters('Sitefinity.AuthCookieEndpoint')]"
+            },
+            {
+              "name": "Sitefinity.RecycleBinClearBatchSize",
+              "value": "[parameters('Sitefinity.RecycleBinClearBatchSize')]"
             },
             {
               "name": "AzureWebJobsSecretStorageType",
