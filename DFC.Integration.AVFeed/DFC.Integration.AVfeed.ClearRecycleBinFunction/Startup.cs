@@ -35,7 +35,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
         {
             var container = ConfigureContainer(mode, asyncCollector, masterRecord);
             var clearRecycleBin = container.Resolve<IClearRecycleBin>();
-            clearRecycleBin.ClearRecycleBinAsync();
+            clearRecycleBin.ClearRecycleBinAVs();
         }
       
     }

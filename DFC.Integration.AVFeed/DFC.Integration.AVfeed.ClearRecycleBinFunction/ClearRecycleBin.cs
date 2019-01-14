@@ -23,7 +23,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
             this.customApiContextService = customApiContextService;
         }
 
-        public void ClearRecycleBinAsync()
+        public void ClearRecycleBinAVs()
         {
             logger.Info($"About to clear recycle bin with a batch size of {RecycleBinClearBatchSize} over {RecycleBinClearRequestLoops} requests ");
             for (int ii = 0; ii < RecycleBinClearRequestLoops; ii++)

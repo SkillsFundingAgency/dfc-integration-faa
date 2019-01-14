@@ -23,7 +23,7 @@ namespace DFC.Integration.AVfeed.Function.ClearRecycleBinTests
             var clearRecycleBin = new ClearRecycleBin(fakeApplicationLogger, fakeAuditService, fakeCustomApiContextService);
 
             //Act
-            clearRecycleBin.ClearRecycleBinAsync();
+            clearRecycleBin.ClearRecycleBinAVs();
 
             //Asserts
             A.CallTo(() => fakeCustomApiContextService.ClearAVsRecycleBinAsync(RecycleBinClearBatchSize)).MustHaveHappened(RecycleBinClearRequestLoops, Times.Exactly);
