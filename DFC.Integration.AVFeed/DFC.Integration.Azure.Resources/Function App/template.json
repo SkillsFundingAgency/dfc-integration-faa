@@ -54,9 +54,6 @@
     "Sitefinity.SocApiEndPoint": {
       "type": "string"
     },
-    "Sitefinity.BaseAddress": {
-      "type": "string"
-    },
     "Sitefinity.ClearAVBinURL": {
       "type": "string"
     },
@@ -181,16 +178,8 @@
               "value": "[parameters('Sitefinity.SocApiEndPoint')]"
             },
             {
-              "name": "Sitefinity.BaseAddress",
-              "value": "[parameters('Sitefinity.BaseAddress')]"
-            },
-            {
               "name": "Sitefinity.ClearAVBinURL",
               "value": "[parameters('Sitefinity.ClearAVBinURL')]"
-            },
-            {
-              "name": "Sitefinity.AuthCookieEndpoint",
-              "value": "[parameters('Sitefinity.AuthCookieEndpoint')]"
             },
             {
               "name": "Sitefinity.RecycleBinClearBatchSize",
