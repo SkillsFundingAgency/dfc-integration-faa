@@ -62,10 +62,7 @@
     "Sitefinity.ClearAVBinURL": {
       "value": "__appSettingSitefinitySitefinityClearAVBinURL__"
     },
-    "Sitefinity.AuthCookieEndpoint": {
-      "value": "__appSettingSitefinitySitefinityAuthCookieEndpoint__"
-    },
-    "Sitefinity.RecycleBinClearBatchSize": {
+     "Sitefinity.RecycleBinClearBatchSize": {
       "value": "200"
     },
     "AzureWebJobsSecretStorageType": {

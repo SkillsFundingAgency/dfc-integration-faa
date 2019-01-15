@@ -60,9 +60,6 @@
     "Sitefinity.ClearAVBinURL": {
       "type": "string"
     },
-    "Sitefinity.AuthCookieEndpoint": {
-      "type": "string"
-    },
     "Sitefinity.RecycleBinClearBatchSize": {
       "type": "string"
     },

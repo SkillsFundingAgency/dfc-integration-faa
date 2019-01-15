@@ -45,8 +45,8 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             {
                 var clearRequestUrl = customApiConfig.GetClearRequestUrl();
                 var deleteUri = $"{clearRequestUrl}?count={numberToDelete}";
-                applicationLogger.Trace($"Start - ClearAVsRecycleBin {clearRequestUrl.OriginalString} called with {numberToDelete} items, will be using uri - {deleteUri} to call delete functon.");
 
+                applicationLogger.Trace($"Start - ClearAVsRecycleBin {clearRequestUrl.OriginalString} called with {numberToDelete} items, will be using uri - {deleteUri} to call delete functon.");
                 var result = await httpClient.DeleteAsync(deleteUri);
                 applicationLogger.Trace($"End - ClearAVsRecycleBin {clearRequestUrl.OriginalString} called with {numberToDelete} items: Result was {result.StatusCode}");
 
