@@ -10,7 +10,5 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity.Base
     {
         int GetRecycleBinClearBatchSize();
         Uri GetClearRequestUrl();
-        Uri GetBaseAddressUrl();
-        Uri GetAuthCookieEndpointUrl();
     }
 }
