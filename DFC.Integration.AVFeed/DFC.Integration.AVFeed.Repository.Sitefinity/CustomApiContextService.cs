@@ -1,5 +1,7 @@
 ﻿using DFC.Integration.AVFeed.Data.Interfaces;
 using DFC.Integration.AVFeed.Repository.Sitefinity.Base;
+using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -49,15 +51,18 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
                 applicationLogger.Trace($"Start - ClearAVsRecycleBin {clearRequestUrl.OriginalString} called with {numberToDelete} items, will be using uri - {deleteUri} to call delete functon.");
                 var result = await httpClient.DeleteAsync(deleteUri);
                 applicationLogger.Trace($"End - ClearAVsRecycleBin {clearRequestUrl.OriginalString} called with {numberToDelete} items: Result was {result.StatusCode}");
+                HttpStatusCode returnCode = result.StatusCode;
 
                 if (result.StatusCode != HttpStatusCode.OK && result.StatusCode != HttpStatusCode.PartialContent)
                 {
                     var content = await result.Content?.ReadAsStringAsync();
-                    var errorMessage = $"Got unexpected response code {result.StatusCode} - {result.ReasonPhrase}";
+                    returnCode = content.ToLower().Contains(nameof(System.UnauthorizedAccessException)) ? HttpStatusCode.Unauthorized : result.StatusCode;
+
+                    var errorMessage = $"Got unexpected response code {returnCode} - {result.ReasonPhrase}";
                     applicationLogger.Error($"{errorMessage} - {content} from ClearAVsRecycleBin API request", new HttpRequestException(errorMessage));
                 }
 
-                return result.StatusCode;
+                return returnCode;
             }
         }
     }
