@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\ICustomApiContextService.cs" />
+    <Compile Include="Interfaces\IClearRecycleBin.cs" />
     <Compile Include="Interfaces\IDeleteOrphanedAVs.cs" />
     <Compile Include="Interfaces\IGetAvDetailsByIdsFunc.cs" />
     <Compile Include="Interfaces\IGetServiceHealthStatus.cs" />

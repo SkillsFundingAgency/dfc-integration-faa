@@ -125,6 +125,33 @@ namespace DFC.Integration.AVFeed.Service.AVAPIUnitTests
 
         }
 
+
+        [Fact]
+        public async System.Threading.Tasks.Task GetAVsForMultipleProvidersAsyncPageCallTest()
+        {
+            var fakeLogger = A.Fake<IApplicationLogger>();
+            var fakeAPIService = A.Fake<IApprenticeshipVacancyApi>();
+            var pageNumber = 1;
+            var totalPages = 2;
+      
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponseSameProvider(pageNumber, totalPages)).Once().
+                Then.Returns(FAAAPIDummyResposnes.GetDummyApprenticeshipVacancySummaryResponseSameProvider((pageNumber + 1), totalPages));
+
+            var aVapiService = new AVAPIService(fakeAPIService, fakeLogger);
+       
+            var mapping = new SocMapping
+            {
+                SocCode = "DummySOc",
+                SocMappingId = new Guid(),
+                Standards = new string[] { "dummy standard" },
+                Frameworks = new string[] { "dummy framework" }
+            };
+
+            var aVSumaryList = await aVapiService.GetAVsForMultipleProvidersAsync(mapping);
+            A.CallTo(() => fakeAPIService.GetAsync(A<string>._, RequestType.search)).MustHaveHappened(totalPages, Times.Exactly);
+      
+        }
+
         [Theory]
         [InlineData("3211","321","434")]
         [InlineData("3211", null, null)]

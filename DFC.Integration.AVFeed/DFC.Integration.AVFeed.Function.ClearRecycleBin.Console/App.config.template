@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <startup> 
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.2" />
+  </startup>
+  <appSettings>
+    <add key="Sitefinity.ClientId" value="__sitefinityClientId__" />
+    <add key="Sitefinity.ClientSecret" value="__sitefinityClientSecret__" />
+    <add key="Sitefinity.TokenEndpoint" value="__sitefinityTokenEndpoint__" />
+    <add key="Sitefinity.Username" value="__sitefinityUsername__" />
+    <add key="Sitefinity.Password" value="__sitefinityPassword__" />
+    <add key="Sitefinity.Scopes" value="__sitefinityScopes__" />
+    <add key="Sitefinity.BaseAddress" value="__appSettingSitefinitySitefinityBaseAddress__" />
+    <add key="Sitefinity.ClearAVBinURL" value="__appSettingSitefinitySitefinityClearAVBinURL__" />
+    <add key="Sitefinity.AuthCookieEndpoint" value="__appSettingSitefinitySitefinityAuthCookieEndpoint__" />
+    <add key="Sitefinity.RecycleBinClearBatchSize" value="200" />
+  </appSettings>
+  <runtime>
+  </runtime>
+</configuration>

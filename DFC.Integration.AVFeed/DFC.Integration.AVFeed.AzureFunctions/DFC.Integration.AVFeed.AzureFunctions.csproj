@@ -17,6 +17,7 @@
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFC.Integration.AVfeed.ClearRecycleBinFunction\DFC.Integration.AVfeed.Function.ClearRecycleBin.csproj" />
     <ProjectReference Include="..\DFC.Integration.AVFeed.Core\DFC.Integration.AVFeed.Core.csproj" />
     <ProjectReference Include="..\DFC.Integration.AVFeed.Data\DFC.Integration.AVFeed.Data.csproj" />
     <ProjectReference Include="..\DFC.Integration.AVFeed.Function.Common\DFC.Integration.AVFeed.Function.Common.csproj" />
