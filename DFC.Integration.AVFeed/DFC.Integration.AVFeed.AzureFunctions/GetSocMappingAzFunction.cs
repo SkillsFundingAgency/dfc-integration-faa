@@ -16,7 +16,7 @@ namespace DFC.Integration.AVFeed.AzureFunctions
         [FunctionName(nameof(GetSocMappingAzFunction))]
         public async static Task Run
         (
-            [TimerTrigger("0 31 2 * * *")]TimerInfo myTimer,
+            [TimerTrigger("0 31 3 * * *")]TimerInfo myTimer,
             TraceWriter log,
             [Queue("socmapping")] IAsyncCollector<SocMapping> output,
             [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
