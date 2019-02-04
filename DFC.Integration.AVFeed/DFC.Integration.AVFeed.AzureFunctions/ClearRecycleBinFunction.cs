@@ -10,7 +10,7 @@ namespace DFC.Integration.AVFeed.Function.ClearRecycleBin
     public static class ClearRecycleBinFunction
     {
         [FunctionName("ClearRecycleBinFunction")]
-        public async static Task Run([TimerTrigger("0 00 4 * * *")]TimerInfo myTimer,
+        public async static Task Run([TimerTrigger("0 00 5 * * *")]TimerInfo myTimer,
          TraceWriter log,
          [DocumentDB("AVFeedAudit", "AuditRecords", ConnectionStringSetting = "AVAuditCosmosDB")]
             IAsyncCollector<AuditRecord<object, object>> auditRecord)
