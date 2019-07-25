@@ -1,6 +1,6 @@
 ﻿{
-	"DatabaseName": "AVFeedAudit",
-	"Collections": [
+  "DatabaseName": "AVFeedAudit",
+  "Collections": [
     {
       "CollectionName": "AuditRecords",
       "OfferThroughput": __AVFeedAuditAuditRecordsRu__,
@@ -89,5 +89,5 @@
         "excludedPaths": []
       }
     }
-	]
+  ]
 }
