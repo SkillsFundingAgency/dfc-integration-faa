@@ -120,7 +120,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
         }
 
         [Fact]
-        public void PutAsyncTest()
+        public void PutChangedToPostAsyncTest()
         {
             //Arrange
             var fakeLogger = A.Fake<IApplicationLogger>();
@@ -129,7 +129,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             var dummyUri = new Uri("http://www.test.com");
             var mockHttp = new MockHttpMessageHandler();
             var mockResponse = new HttpResponseMessage(HttpStatusCode.NoContent){Content = new StringContent(string.Empty)};
-            mockHttp.When(HttpMethod.Put, dummyUri.AbsoluteUri)
+            mockHttp.When(HttpMethod.Post, dummyUri.AbsoluteUri)
                 .Respond(req => mockResponse);// Respond with JSON
 
             var fakeTokenService = A.Fake<ITokenClient>();
