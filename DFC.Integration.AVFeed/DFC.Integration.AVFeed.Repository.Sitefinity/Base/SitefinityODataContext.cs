@@ -114,31 +114,33 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         {
             try
             {
-                return await PutInternalAsync(requestUri, relatedEntityLink);
+                return await PutChangedToPostInternalAsync(requestUri, relatedEntityLink);
             }
             catch (UnauthorizedAccessException)
             {
                 logger.Info($"Access denined, access token expired - will retry with new token - '{requestUri}'.");
                 tokenClient.SetAccessToken(string.Empty);
-                return await PutInternalAsync(requestUri, relatedEntityLink);
+                return await PutChangedToPostInternalAsync(requestUri, relatedEntityLink);
             }
         }
 
-        private async Task<string> PutInternalAsync(Uri requestUri, string relatedEntityLink)
+        private async Task<string> PutChangedToPostInternalAsync(Uri requestUri, string relatedEntityLink)
         {
             using (var client = await GetHttpClientAsync())
             {
                 var content = new StringContent(relatedEntityLink, Encoding.UTF8, CONTENT_TYPE);
-                var result = await client.PutAsync(requestUri, content);
+                
+                //Changed to post as in the later version of sitefinity PUT is used to manipulate data in TEMP state, this locks the sitefinity item.
+                var result = await client.PostAsync(requestUri, content);
                 if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException(result.ReasonPhrase);
                 }
 
-                logger.Info($"PUT to url - '{requestUri}', returned '{result.StatusCode}' and headers '{result.Headers}'.");
+                logger.Info($"POST to url - '{requestUri}', returned '{result.StatusCode}' and headers '{result.Headers}'.");
                 var jsonContent = await result.Content.ReadAsStringAsync();
 
-                await auditService.AuditAsync($"PUT to url - {requestUri} | Returned - {jsonContent}");
+                await auditService.AuditAsync($"POST to url - {requestUri} | Returned - {jsonContent}");
 
                 if (!result.IsSuccessStatusCode)
                 {
