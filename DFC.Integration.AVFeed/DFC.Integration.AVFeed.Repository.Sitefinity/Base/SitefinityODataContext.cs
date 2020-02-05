@@ -120,7 +120,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             {
                 logger.Info($"Access denined, access token expired - will retry with new token - '{requestUri}'.");
                 tokenClient.SetAccessToken(string.Empty);
-                return await PutInternalAsync(requestUri, relatedEntityLink);
+                return await PutChangedToPostInternalAsync(requestUri, relatedEntityLink);
             }
         }
 
