@@ -114,7 +114,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         {
             try
             {
-                return await PutChagedToPostInternalAsync(requestUri, relatedEntityLink);
+                return await PutChangedToPostInternalAsync(requestUri, relatedEntityLink);
             }
             catch (UnauthorizedAccessException)
             {
@@ -124,7 +124,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             }
         }
 
-        private async Task<string> PutChagedToPostInternalAsync(Uri requestUri, string relatedEntityLink)
+        private async Task<string> PutChangedToPostInternalAsync(Uri requestUri, string relatedEntityLink)
         {
             using (var client = await GetHttpClientAsync())
             {
