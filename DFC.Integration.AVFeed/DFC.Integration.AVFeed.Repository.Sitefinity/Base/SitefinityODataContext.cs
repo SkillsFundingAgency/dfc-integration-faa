@@ -114,7 +114,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         {
             try
             {
-                return await PutChangedToPostInternalAsync(requestUri, relatedEntityLink);
+               return await PutChangedToPostInternalAsync(requestUri, relatedEntityLink);
             }
             catch (UnauthorizedAccessException)
             {
@@ -132,6 +132,8 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
                 
                 //Changed to post as in the later version of sitefinity PUT is used to manipulate data in TEMP state, this locks the sitefinity item.
                 var result = await client.PostAsync(requestUri, content);
+
+              
                 if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized)
                 {
                     throw new UnauthorizedAccessException(result.ReasonPhrase);
@@ -182,5 +184,6 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
                 await auditService.AuditAsync($"DELETE to url - {requestUri} | Returned - {jsonContent}");
             }
         }
+
     }
 }

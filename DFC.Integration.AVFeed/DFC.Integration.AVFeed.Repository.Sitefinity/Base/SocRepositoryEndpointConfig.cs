@@ -15,5 +15,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         public Uri GetReferenceEndpoint(string id, string relatedField) => throw new NotImplementedException();
 
         public string GetSingleItemEndpoint(string id) => $"{_baseRequestEndpoint}({id})?provider={PROVIDER}";
+
+        public Uri GetPublishEndpoint(string id) => new Uri($"{_baseRequestEndpoint}({id})/operation?sf_provider={PROVIDER}");
     }
 }

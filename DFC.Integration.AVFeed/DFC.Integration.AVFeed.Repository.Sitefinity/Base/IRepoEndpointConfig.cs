@@ -8,5 +8,6 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         string GetSingleItemEndpoint(string id);
         Uri GetReferenceEndpoint(string id, string relatedField);
         Uri GetPostEndpoint();
+        Uri GetPublishEndpoint(string id);
     }
 }
