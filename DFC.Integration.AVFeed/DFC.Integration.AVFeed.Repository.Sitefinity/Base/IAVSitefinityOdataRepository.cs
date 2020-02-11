@@ -8,5 +8,6 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
     {
         Task AddRelatedAsync(string addedVacancyId, Guid socCodeId);
         Task DeleteByIdAsync(Guid Id);
+        Task UnlockAndPublishAsync(string addedVacancyId);
     }
 }

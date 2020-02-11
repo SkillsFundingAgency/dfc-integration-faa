@@ -60,6 +60,12 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
             logger.Info(
                 $"Added related field for vacancy '{apprenticeshipVacancyDetails.Title}' to sitefinity for SocCode id '{socCodeId}' with UrlName '{addedVacancyId.UrlName}'");
 
+            await repository.UnlockAndPublishAsync(addedVacancyId.Id.ToString());
+
+            logger.Info(
+            $"Published vacancy item '{apprenticeshipVacancyDetails.Title}' to sitefinity with UrlName '{addedVacancyId.UrlName}'");
+
+
             return addedVacancyId.UrlName;
 
         }
@@ -84,9 +90,9 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
                 case "ANNUALLY":
                 case "MONTHLY":
                     return wageUnit;
-                    default:
-                        return string.Empty;
-                    
+                default:
+                    return string.Empty;
+
             }
         }
     }
