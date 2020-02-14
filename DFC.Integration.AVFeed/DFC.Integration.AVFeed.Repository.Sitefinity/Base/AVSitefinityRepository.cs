@@ -14,6 +14,11 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         {
             this.socEndpointConfig = socEndpointConfig;
         }
+        public async Task UnlockAndPublishAsync(string addedVacancyId)
+        {
+            var body = $"{{\"action\": \"Publish\", \"actionParameters\": {{}} }}";
+            await OdataContext.PutAsync(base.RepoEndpointConfig.GetPublishEndpoint(addedVacancyId), body);
+        }
 
         public async Task AddRelatedAsync(string addedVacancyId, Guid socCodeId)
         {
