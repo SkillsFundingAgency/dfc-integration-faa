@@ -1,11 +1,11 @@
 # Digital First Careers - Apprenticeship vacancy import
  
 ## Introduction
-The “Find a Career” digital product (https://github.com/SkillsFundingAgency/dfc-integration-faa) showcases available apprenticeship vacancies for a given job profile (such as nurse).  The component in this repository implements the import process which loads apprenticeship vacancies against the appropriate job profile.  The import process has the following logical steps.
+The “Explore careers” digital product (https://github.com/SkillsFundingAgency/dfc-integration-faa) showcases available apprenticeship vacancies for a given job profile (such as nurse).  The component in this repository implements the import process which loads apprenticeship vacancies against the appropriate job profile.  The import process has the following logical steps.
 1.	Identify job profiles applicable for apprenticeships
 2.	Search for appropriate vacancies using the “Find an Apprenticeship” API.
 3.	Executes logic to determine which two vacancies to showcase against a job profile
-4.	Pushes the showcased vacancies into the “Find a Career” digital product.
+4.	Pushes the showcased vacancies into the “Explore careers” digital product.
 
 The import process is built in c# and the .NET framework, and runs within the Azure Functions (Microsoft’s Severless product offering).  Azure storage queues are used to message between functions within the processing pipeline.
 
@@ -68,9 +68,9 @@ To monitor locally you need Azure storage Explorer which can be downloaded from 
 |------------------------------------------:|----------------------:|------------------------------:|
 | DFC.Integration.AVFeed.AzureFunctions     | AzureWebJobsStorage   | DefaultEndpointsProtocol=https;AccountName=< your account name>;AccountKey=< get it from azure function SAS token>;EndpointSuffix=core.windows.net                   |
 
-#### Find a Career API
+#### Explore careers API
 
-The “Find a career” product provides the digital front end for citizens to self-serve information and advice on careers. The product enables users to explore options for career goals and make a confident and informed choice of one that suits them.
+The “Explore careers” product provides the digital front end for citizens to self-serve information and advice on careers. The product enables users to explore options for career goals and make a confident and informed choice of one that suits them.
 
 The product uses the Sitefinity CMS solution at is core, and uses the add-on model to extend the core Sitefinity functionality to meet the needs of citizens.
 
