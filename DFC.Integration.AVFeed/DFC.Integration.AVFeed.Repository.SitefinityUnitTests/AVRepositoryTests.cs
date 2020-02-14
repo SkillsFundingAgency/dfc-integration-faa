@@ -78,6 +78,7 @@ namespace DFC.Integration.AVFeed.Repository.SitefinityUnitTests
             //Assert
             A.CallTo(() => fakeRepo.AddAsync(A<SfApprenticeshipVacancy>._)).MustHaveHappened();
             A.CallTo(() => fakeRepo.AddRelatedAsync(A<string>._,A<Guid>._)).MustHaveHappened();
+            A.CallTo(() => fakeRepo.UnlockAndPublishAsync(A<string>._)).MustHaveHappened();
 
         }
 

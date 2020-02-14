@@ -15,5 +15,7 @@ namespace DFC.Integration.AVFeed.Repository.Sitefinity
         public Uri GetReferenceEndpoint(string id, string relatedField) => new Uri($"{_baseRequestEndpoint}({id})/{relatedField}/$ref?sf_provider={PROVIDER}");
 
         public Uri GetPostEndpoint() => new Uri($"{_baseRequestEndpoint}?sf_provider={PROVIDER}");
+
+        public Uri GetPublishEndpoint(string id) => new Uri($"{_baseRequestEndpoint}({id})/operation?sf_provider={PROVIDER}");
     }
 }
