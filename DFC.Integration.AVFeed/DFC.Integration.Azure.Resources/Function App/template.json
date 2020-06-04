@@ -91,6 +91,7 @@
         "[resourceId('microsoft.insights/components/', parameters('functionName'))]"
       ],
       "properties": {
+        "httpsOnly": true,
         "siteConfig": {
           "appSettings": [
             {
