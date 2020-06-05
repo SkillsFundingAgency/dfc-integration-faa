@@ -191,7 +191,8 @@
               "value": "[parameters('AzureWebJobsSecretStorageType')]"
             }
           ],
-          "alwaysOn": true
+          "alwaysOn": true,
+          "minTlsVersion": "1.2"
         },
         "name": "[parameters('functionName')]",
         "clientAffinityEnabled": false,
