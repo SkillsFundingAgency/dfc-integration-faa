@@ -91,6 +91,7 @@
         "[resourceId('microsoft.insights/components/', parameters('functionName'))]"
       ],
       "properties": {
+        "httpsOnly": true,
         "siteConfig": {
           "appSettings": [
             {
@@ -190,7 +191,8 @@
               "value": "[parameters('AzureWebJobsSecretStorageType')]"
             }
           ],
-          "alwaysOn": true
+          "alwaysOn": true,
+          "minTlsVersion": "1.2"
         },
         "name": "[parameters('functionName')]",
         "clientAffinityEnabled": false,
