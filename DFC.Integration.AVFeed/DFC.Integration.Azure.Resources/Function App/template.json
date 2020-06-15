@@ -86,6 +86,9 @@
     {
       "name": "[parameters('functionName')]",
       "type": "Microsoft.Web/sites",
+       "Identity": {
+           "type": "SystemAssigned"
+      },
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageName'))]",
         "[resourceId('microsoft.insights/components/', parameters('functionName'))]"
