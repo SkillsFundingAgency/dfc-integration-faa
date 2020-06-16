@@ -19,6 +19,9 @@
       },
       "pairedLocationName": {
         "value": "__cosmoDBPairedLocationName__"
+      },
+      "ipRangeFilter": {
+        "value": "__ipRangeFilter__"
       }
     }
 }

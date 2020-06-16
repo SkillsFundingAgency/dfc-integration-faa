@@ -19,6 +19,9 @@
         },
         "pairedLocationName": {
             "type": "String"
+        },
+        "ipRangeFilter": {
+            "type": "String"
         }
     },
     "resources": [
@@ -33,6 +36,7 @@
             },
             "properties": {
                 "databaseAccountOfferType": "Standard",
+                "ipRangeFilter": "[parameters('ipRangeFilter')]",
                 "locations": [
                     {
                         "id": "[concat(parameters('cosmoDBName'), '-', parameters('cosmoDBlocation'))]",
