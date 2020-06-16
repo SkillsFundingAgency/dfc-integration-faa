@@ -33,6 +33,7 @@
             },
             "properties": {
                 "databaseAccountOfferType": "Standard",
+                "ipRangeFilter": "52.178.128.29",
                 "locations": [
                     {
                         "id": "[concat(parameters('cosmoDBName'), '-', parameters('cosmoDBlocation'))]",
