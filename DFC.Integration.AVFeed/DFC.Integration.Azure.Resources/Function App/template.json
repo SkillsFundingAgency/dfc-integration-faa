@@ -195,6 +195,7 @@
             }
           ],
           "alwaysOn": true,
+          "ftpsState": "FtpsOnly",
           "minTlsVersion": "1.2"
         },
         "name": "[parameters('functionName')]",
