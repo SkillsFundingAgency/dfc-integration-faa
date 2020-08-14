@@ -47,10 +47,10 @@ namespace DFC.Integration.AVFeed.Function.GetServiceHealthStatus
 
         public async Task<ServiceStatus> GetApprenticeshipFeedHealthStatusAsync()
         {
-            var checkFrameWork = "512"; //Plumbing and Heating
+            var checkFrameWork = ""; 
             var checkStandard = "225";  //Plumbing and Domestic Heating Technician(Level 3)
             var serviceStatus = new ServiceStatus { ApplicationName = "Apprenticeship Feed", Status = ServiceState.Red, Notes = string.Empty };
-            var checkSocMapping = new SocMapping() { SocCode = "5314", Frameworks = new string[] {checkFrameWork}, Standards = new string[] {checkStandard} };
+            var checkSocMapping = new SocMapping() { SocCode = "5314", Frameworks = new string[] {}, Standards = new string[] {checkStandard} };
             serviceStatus.CheckParametersUsed = $"SocCode = {checkSocMapping.SocCode} - FrameWork = {checkFrameWork} - Standard = {checkStandard}";
             try
             {
